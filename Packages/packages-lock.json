@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.hwaet.projectcloner": {
+      "version": "https://github.com/hwaet/UnityProjectCloner.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "03574fbe08f90d9482056b06f99c4072aa6b3920"
+    },
     "com.unity.2d.animation": {
       "version": "8.0.2",
       "depth": 1,

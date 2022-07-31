@@ -31,7 +31,7 @@ namespace ServerSide
         private void Awake()
         {
             Instance = this;
-            port = 22023;
+            port = 6112;
             maxClient = 10;
         }
 

@@ -1,7 +1,9 @@
 using RiptideNetworking;
 using RiptideNetworking.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
@@ -25,6 +27,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     public Client Client { get; private set; }
+    public string Name { get; set; }
 
     private void Awake() { Instance = this; }
 
@@ -33,6 +36,7 @@ public class NetworkManager : MonoBehaviour
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, true);
 
         Client = new Client();
+        Client.Connected += DidConnect;
         Debug.Log("Created new RiptideClient!");
     }
 
@@ -46,10 +50,17 @@ public class NetworkManager : MonoBehaviour
         Client.Disconnect();
     }
 
-    public void Connect(string fullIp)
+    public void Connect()
     {
-        Debug.Log($"Attempt to join {fullIp}");
-        Client.Connect(fullIp);
+        Client.Connect($"192.168.1.180:6112");
+        Debug.Log($"Attempt to join default server");
+    }
+
+    public void DidConnect(object sender, EventArgs e)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.JoinLobby);
+        message.Add(Name);
+        Client.Send(message);
     }
 
 }
