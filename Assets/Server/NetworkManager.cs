@@ -8,6 +8,8 @@ namespace ServerSide
 {
     public class NetworkManager : MonoBehaviour
     {
+        public static List<ServerPlayer> players = new List<ServerPlayer>();
+
         private static NetworkManager instance;
         public static NetworkManager Instance
         {
