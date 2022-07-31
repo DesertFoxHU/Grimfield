@@ -33,6 +33,7 @@ public class NetworkManager : MonoBehaviour
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, true);
 
         Client = new Client();
+        Debug.Log("Created new RiptideClient!");
     }
 
     private void FixedUpdate()
@@ -45,10 +46,10 @@ public class NetworkManager : MonoBehaviour
         Client.Disconnect();
     }
 
-    /*public void Connect()
+    public void Connect(string fullIp)
     {
-        Client.Connect();
-    }*/
-
+        Debug.Log($"Attempt to join {fullIp}");
+        Client.Connect(fullIp);
+    }
 
 }
