@@ -10,6 +10,12 @@ namespace ServerSide
     {
         public static List<ServerPlayer> players = new List<ServerPlayer>();
 
+        public static ServerPlayer Find(int clientID)
+        {
+            return players.Find(a => a.PlayerId == clientID);
+        }
+
+
         private static NetworkManager instance;
         public static NetworkManager Instance
         {
@@ -28,13 +34,13 @@ namespace ServerSide
 
         public Server Server { get; private set; }
         private ushort port;
-        private ushort maxClient;
+        public ushort MaxClient { get; private set; } = 10;
+        public ServerState State;
 
         private void Awake()
         {
             Instance = this;
             port = 6112;
-            maxClient = 10;
         }
 
         private void Start()
@@ -51,13 +57,19 @@ namespace ServerSide
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
 
-            Server.Start(port, maxClient);
+            Server.Start(port, MaxClient);
+            State = ServerState.Lobby;
             Debug.Log($"Server started on {port}");
         }
 
         private void FixedUpdate()
         {
             Server.Tick();
+        }
+
+        private void Update()
+        {
+            
         }
 
         private void OnApplicationQuit()

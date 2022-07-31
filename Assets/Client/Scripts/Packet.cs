@@ -12,4 +12,5 @@ public enum ServerToClientPacket : ushort
 public enum ClientToServerPacket : ushort
 {
     JoinLobby = 1,
+    ChangeReadyStatus,
 }

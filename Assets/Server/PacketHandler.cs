@@ -27,5 +27,18 @@ namespace ServerSide
             Message lobbyMsg = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadLobby);
             FindObjectOfType<NetworkManager>().Server.Send(lobbyMsg, clientID);
         }
+
+        [MessageHandler((ushort)ClientToServerPacket.ChangeReadyStatus)]
+        private static void ChangeReadyStatus(ushort clientID, Message message)
+        {
+            ServerPlayer player = NetworkManager.Find(clientID);
+            if(player == null)
+            {
+                Debug.LogError($"Unathorized ready status change from: {clientID}");
+                return;
+            }
+
+            player.IsReady = message.GetBool();
+        }
     }
 }

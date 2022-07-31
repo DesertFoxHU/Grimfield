@@ -8,6 +8,7 @@ namespace ServerSide
     {
         public ushort PlayerId { get; private set; }
         public string Name { get; private set; }
+        public bool IsReady = false;
 
         public ServerPlayer(ushort playerId, string name)
         {
