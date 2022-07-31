@@ -29,7 +29,11 @@ public class NetworkManager : MonoBehaviour
     public Client Client { get; private set; }
     public string Name { get; set; }
 
-    private void Awake() { Instance = this; }
+    private void Awake() 
+    { 
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
 
     private void Start()
     {
@@ -37,7 +41,13 @@ public class NetworkManager : MonoBehaviour
 
         Client = new Client();
         Client.Connected += DidConnect;
+        Client.ConnectionFailed += FailedConnect;
         Debug.Log("Created new RiptideClient!");
+    }
+
+    private void FailedConnect(object sender, EventArgs e)
+    {
+        FindObjectOfType<MessageDisplayer>().SetMessage("Connection Failed");
     }
 
     private void FixedUpdate()

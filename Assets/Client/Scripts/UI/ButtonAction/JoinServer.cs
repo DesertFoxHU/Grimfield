@@ -17,8 +17,16 @@ public class JoinServer : MonoBehaviour
 
     public void OnClick()
     {
-        if (ipAddressField.text == "" || ipAddressField.text == null) return;
-        if (nameField.text == "" || nameField.text == null) return;
+        if (ipAddressField.text == "" || ipAddressField.text == null)
+        {
+            FindObjectOfType<MessageDisplayer>().SetMessage("IpAddress field cannot be empty");
+            return;
+        }
+        if (nameField.text == "" || nameField.text == null)
+        {
+            FindObjectOfType<MessageDisplayer>().SetMessage("Name field cannot be empty");
+            return;
+        }
 
         FindObjectOfType<NetworkManager>().Name = nameField.text;
         //FindObjectOfType<NetworkManager>().Connect(ipAddressField.text);
