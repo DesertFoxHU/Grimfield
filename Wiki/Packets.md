@@ -4,9 +4,18 @@ Every packet has it's own unique ID (ushort)
 ## Serverside - Server to Client
 
 ### SendAlert<br>
-| ID |    Type   | Note |
-|----|-----------|-------|
-| 1  |  String   |  The message you want to display for the client |
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>1</td>
+    <td>string</td>
+    <td>The message you want to display for the client</td>
+  </tr>
+</table>
 <br>
 
 ### LoadLobby<br>
@@ -29,23 +38,110 @@ The lobby will be totally empty, which can be updated via UpdateLobby packet<br>
 ### UpdateLobby<br>
 Updates the lobby information<br>
 If the client is not in the lobby the packet will simply be disposed<br>
-| ID |    Type   | Note |
-|----|-----------|-------|
-| 3  |  int      | Player's count and also the list size below |
-||  int      | The server's max capacity |
-|| List of string (Custom Format): "clientID\|playername\|bool" | The value of bool is if the player is ready |
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>3</td>
+    <td>int</td>
+    <td>Players count and also the list size below</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>The server's max capacity</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>String list (Custom format): "clientID|playerName|bool"</td>
+    <td>The value of bool determines if the player is ready</td>
+  </tr>
+</table>
+<br>
+
+### LoadGameScene<br>
+Forces the client to load the Main Game Scene<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>4</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+</table>
+<br>
+
+### ChunkInfo<br>
+Updates the chunk and the corresponding tiles<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>5</td>
+    <td>int</td>
+    <td>Players count and also the list size below</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>ChunkX the chunk's X coordinate</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>ChunkY the chunk's Y coordinate</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>The size of the tiles list in this packet</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>String list (Custom Format): "x|y|TileType"</td>
+    <td>TileType is an enum and x and y is a real position (not chunk pos)</td>
+  </tr>
+</table>
 <br>
 
 ## Clientside - Client to Server
 
 ### JoinLobby<br>
-| ID |    Type   | Note |
-|----|-----------|-------|
-| 1  |  String   | The user's name |
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>1</td>
+    <td>string</td>
+    <td>The user's name</td>
+  </tr>
+</table>
 <br>
 
 ### ChangeReadyStatus<br>
-| ID |    Type   | Note |
-|----|-----------|-------|
-| 2  |  bool   | Is player ready? |
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>2</td>
+    <td>bool</td>
+    <td>Is player ready?</td>
+  </tr>
+</table>
 <br>
