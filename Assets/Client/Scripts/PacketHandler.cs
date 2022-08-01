@@ -17,7 +17,7 @@ public class PacketHandler : MonoBehaviour
     private static void LobbyLoad(Message message)
     {
         SceneManager.LoadScene("LobbyScene", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(1);
+        SceneManager.UnloadSceneAsync(2);
     }
 
     [MessageHandler((ushort)ServerToClientPacket.UpdateLobby)]
@@ -38,5 +38,13 @@ public class PacketHandler : MonoBehaviour
 
         LobbyPlayerList playerList = FindObjectOfType<LobbyPlayerList>();
         if (playerList != null) playerList.UpdateList(raw);
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.LoadGameScene)]
+    private static void MainGameLoad(Message message)
+    {
+        SceneManager.LoadScene("MainGame", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(2);
+        SceneManager.UnloadSceneAsync(3);
     }
 }

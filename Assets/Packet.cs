@@ -7,6 +7,7 @@ public enum ServerToClientPacket : ushort
     SendAlert = 1,
     LoadLobby,
     UpdateLobby,
+    LoadGameScene,
 }
 
 public enum ClientToServerPacket : ushort

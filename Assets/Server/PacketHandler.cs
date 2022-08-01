@@ -39,6 +39,21 @@ namespace ServerSide
             }
 
             player.IsReady = message.GetBool();
+
+            bool isEveryoneRead = true;
+            foreach(ServerPlayer serverPlayer in NetworkManager.players)
+            {
+                if (!serverPlayer.IsReady)
+                {
+                    isEveryoneRead = false;
+                    break;
+                }
+            }
+
+            if (isEveryoneRead)
+            {
+                FindObjectOfType<GameController>().StartMatchGame();
+            }
         }
     }
 }
