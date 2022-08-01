@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 406175591}
   m_Layer: 5
   m_Name: PlayersTxt
-  m_TagString: Untagged
+  m_TagString: LobbyPlayersText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 1252847407}
   - component: {fileID: 1252847409}
   - component: {fileID: 1252847408}
+  - component: {fileID: 1252847410}
   m_Layer: 5
   m_Name: PlayerList
   m_TagString: Untagged
@@ -971,3 +972,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252847406}
   m_CullTransparentMesh: 1
+--- !u!114 &1252847410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252847406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d0233d36c76ab4b9a65a0065ed25cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 713128452986607387, guid: 1d0d8e80bc92488428ddbda08b870d4f, type: 3}
+  ReadySprite: {fileID: 21300000, guid: 2c786055a6967f047be8244ce7b0631f, type: 3}
+  NotReadySprite: {fileID: 21300000, guid: 1c5cb744a80d89d4787a81e371363174, type: 3}

@@ -19,4 +19,24 @@ public class PacketHandler : MonoBehaviour
         SceneManager.LoadScene("LobbyScene", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(1);
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.UpdateLobby)]
+    private static void LobbyUpdate(Message message)
+    {
+        int count = message.GetInt();
+        ushort maxPlayer = message.GetUShort();
+
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("LobbyPlayersText")){
+            go.GetComponent<TMPro.TextMeshProUGUI>().text = $"Players: {count}/{maxPlayer}";
+        }
+
+        List<string> raw = new List<string>();
+        for(int i = 0; i < count; i++)
+        {
+            raw.Add(message.GetString());
+        }
+
+        LobbyPlayerList playerList = FindObjectOfType<LobbyPlayerList>();
+        if (playerList != null) playerList.UpdateList(raw);
+    }
 }

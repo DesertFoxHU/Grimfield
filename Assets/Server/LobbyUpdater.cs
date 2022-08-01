@@ -27,7 +27,7 @@ namespace ServerSide
             message.Add(NetworkManager.Instance.MaxClient);
             foreach (ServerPlayer player in NetworkManager.players)
             {
-                message.Add(player.Name + "|" + player.IsReady);
+                message.Add(player.PlayerId + "|" + player.Name + "|" + player.IsReady);
             }
             NetworkManager.Instance.Server.SendToAll(message);
         }
