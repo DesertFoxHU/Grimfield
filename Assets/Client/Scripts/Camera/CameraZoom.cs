@@ -34,7 +34,7 @@ public class CameraZoom : MonoBehaviour
         {
             this.GetComponentInParent<Camera>().orthographicSize = before;
         }
-        //CursorVisual.ShowCursor();
+        CursorVisual.ShowCursor();
     }
 
     private bool IsCameraOut()
@@ -49,20 +49,20 @@ public class CameraZoom : MonoBehaviour
         Vector3 min = new Vector3(0f, 0f, 0f);
 
         bool changed = false;
-        if (topRight.x >= max.x) //X koordinátán túl ment
+        if (topRight.x >= max.x)
         {
             changed = true;
         }
-        if (botLeft.x <= min.x) //X koordináta alá ment
+        if (botLeft.x <= min.x)
         {
             changed = true;
         }
 
-        if (topRight.y >= max.y) //Y koordinátán túl ment
+        if (topRight.y >= max.y)
         {
             changed = true;
         }
-        if (botLeft.y <= min.y) //Y koordináta alá ment
+        if (botLeft.y <= min.y)
         {
             changed = true;
         }

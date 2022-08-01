@@ -33,7 +33,7 @@ public class CameraMoving : MonoBehaviour
             return;
         }
 
-        //CursorVisual.ShowCursor();
+        CursorVisual.ShowCursor();
         this.GetComponentInParent<Camera>().transform.position = v;
     }
 
@@ -49,23 +49,23 @@ public class CameraMoving : MonoBehaviour
         Vector3 min = new Vector3(0f, 0f, 0f);
 
         bool changed = false;
-        if(topRight.x >= max.x) //X koordinátán túl ment
+        if(topRight.x >= max.x)
         {
             vector.x -= step;
             changed = true;
         }
-        if(botLeft.x <= min.x) //X koordináta alá ment
+        if(botLeft.x <= min.x)
         {
             vector.x += step;
             changed = true;
         }
 
-        if (topRight.y >= max.y) //Y koordinátán túl ment
+        if (topRight.y >= max.y)
         {
             vector.y -= step;
             changed = true;
         }
-        if (botLeft.y <= min.y) //Y koordináta alá ment
+        if (botLeft.y <= min.y)
         {
             vector.y += step;
             changed = true;
