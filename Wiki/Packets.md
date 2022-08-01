@@ -23,8 +23,8 @@ If the client is not in the lobby the packet will simply be disposed<br>
 | ID |    Type   | Note |
 |----|-----------|-------|
 | 3  |  int      | Player's count and also the list size below |
-|    |  int      | The server's max capacity |
-|   | List of Custom Format: "playername\|bool" | The value of bool is if the player is ready |
+||  int      | The server's max capacity |
+|| List of string (Custom Format): "clientID\|playername\|bool" | The value of bool is if the player is ready |
 <br>
 
 ## Clientside - Client to Server
