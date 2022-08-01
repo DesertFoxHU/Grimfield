@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkManager : MonoBehaviour
+public class ChunkManager
 {
     public int MapSizeX { get; private set; }
     public int MapSizeY { get; private set; }

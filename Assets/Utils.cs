@@ -26,4 +26,9 @@ public static class Utils
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;
     }
+
+    public static bool Roll(double chance)
+    {
+        return Random.Range(0f, 100f) <= chance;
+    }
 }

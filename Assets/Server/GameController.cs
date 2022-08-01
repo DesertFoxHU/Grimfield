@@ -8,7 +8,10 @@ namespace ServerSide
 {
     public class GameController : MonoBehaviour
     {
-        public ChunkManager chunkManager;
+        [HideInInspector] public ChunkManager chunkManager;
+        public int Seed = -1;
+        public int SizeX;
+        public int SizeY;
 
         public void StartMatchGame()
         {
@@ -18,6 +21,10 @@ namespace ServerSide
             Message startGamePacket = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadGameScene);
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
 
+            if(Seed >= 0)
+            {
+                Random.InitState(Seed);
+            }
             StartCoroutine(SendMapToAll());
         }
 
@@ -28,29 +35,31 @@ namespace ServerSide
             TileUtils utils = new(map);
             TileRegistry registry = FindObjectOfType<TileRegistry>();
 
-            chunkManager = new ChunkManager(30, 30);
-            for(int x = 0; x <= 30; x++)
+            chunkManager = new ChunkManager(SizeX, SizeY);
+            for(int x = 0; x <= SizeX; x++)
             {
-                for (int y = 0; y <= 30; y++)
+                for (int y = 0; y <= SizeY; y++)
                 {
-                    if(Random.Range(0f, 100f) <= 10f)
+                    float perlin = Mathf.PerlinNoise(x /10f, y /10f);
+                    if (Seed >= 0) perlin = Mathf.PerlinNoise((x + Seed) /10f, (y + Seed) /10f);
+                    if(perlin <= 0.20f)
                     {
                         utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Mountain));
                         chunkManager.SetTile(x, y, TileType.Mountain);
                         continue;
                     }
 
-                    if (Random.Range(0f, 100f) <= 5f)
-                    {
-                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.GoldOre));
-                        chunkManager.SetTile(x, y, TileType.GoldOre);
-                        continue;
-                    }
-
-                    if (Random.Range(0f, 100f) <= 15f)
+                    if (perlin <= 0.35f)
                     {
                         utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
                         chunkManager.SetTile(x, y, TileType.Forest);
+                        continue;
+                    }
+
+                    if (Utils.Roll(3f))
+                    {
+                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.GoldOre));
+                        chunkManager.SetTile(x, y, TileType.GoldOre);
                         continue;
                     }
 
