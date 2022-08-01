@@ -13,13 +13,15 @@ Every packet has it's own unique ID (ushort)
 Forces the client to load a lobby scene.<br>
 The lobby will be totally empty, which can be updated via UpdateLobby packet<br>
 <table>
-  <tr>
+  <tr align="center">
     <th>ID</th>
     <th>Type</th>
     <th>Note</th>
   </tr>
-  <tr>
+  <tr align="center">
     <td>2</td>
+    <td>-</td>
+    <td>-</td>
   </tr>
 </table>
 <br>
