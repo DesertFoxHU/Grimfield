@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class TileRegistry : MonoBehaviour
 {
+    public static TileRegistry instance;
+
+    private void Start()
+    {
+        instance = this;
+    }
+
     [Serializable]
     public struct SpriteElement
     {
