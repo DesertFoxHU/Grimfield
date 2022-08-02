@@ -2327,8 +2327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Seed: -1
-  SizeX: 60
-  SizeY: 60
+  SizeX: 58
+  SizeY: 58
 --- !u!1 &2146736772
 GameObject:
   m_ObjectHideFlags: 0
