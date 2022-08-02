@@ -21,16 +21,15 @@ namespace ServerSide
             Message startGamePacket = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadGameScene);
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
 
-            if(Seed >= 0)
-            {
-                Random.InitState(Seed);
-            }
             StartCoroutine(SendMapToAll());
         }
 
         [ContextMenu("GenerateMap")]
         private void GeneretaMap()
         {
+            if (Seed == -1) Seed = (int)System.DateTime.Now.Ticks;
+            Random.InitState(Seed);
+
             Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
             TileUtils utils = new(map);
             TileRegistry registry = FindObjectOfType<TileRegistry>();
@@ -40,8 +39,7 @@ namespace ServerSide
             {
                 for (int y = 0; y <= SizeY; y++)
                 {
-                    float perlin = Mathf.PerlinNoise(x /10f, y /10f);
-                    if (Seed >= 0) perlin = Mathf.PerlinNoise((x + Seed) /10f, (y + Seed) /10f);
+                    float perlin = Mathf.PerlinNoise((x + Seed/100f) /10f, (y + Seed/100f) /10f);
                     if(perlin <= 0.20f)
                     {
                         utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Mountain));
@@ -49,17 +47,17 @@ namespace ServerSide
                         continue;
                     }
 
-                    if (perlin <= 0.35f)
-                    {
-                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
-                        chunkManager.SetTile(x, y, TileType.Forest);
-                        continue;
-                    }
-
-                    if (Utils.Roll(3f))
+                    if (perlin <= 0.25f && Utils.Roll(7f))
                     {
                         utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.GoldOre));
                         chunkManager.SetTile(x, y, TileType.GoldOre);
+                        continue;
+                    }
+
+                    if (perlin <= 0.45f)
+                    {
+                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
+                        chunkManager.SetTile(x, y, TileType.Forest);
                         continue;
                     }
 

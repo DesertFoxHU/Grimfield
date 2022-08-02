@@ -48,6 +48,10 @@ public class CameraMoving : MonoBehaviour
         Vector3 max = new Vector3(bounds.size.x, bounds.size.y-1, 0f);
         Vector3 min = new Vector3(0f, 0f, 0f);
 
+        //Allow leaving the zone a bit for the camera
+        max.Set(max.x + 3f, max.y + 3f, 0f);
+        min.Set(min.x - 3f, min.y - 3f, 0f);
+
         bool changed = false;
         if(topRight.x >= max.x)
         {
