@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<BuildMenuElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Village</Title>
+  <Description>This makes free citizens</Description>
+  <Category>Village</Category>
+  <IncreasePerBuy>
+    <ResourceHolder>
+      <type>Citizen</type>
+      <Value>5</Value>
+    </ResourceHolder>
+    <ResourceHolder>
+      <type>Wood</type>
+      <Value>10</Value>
+    </ResourceHolder>
+    <ResourceHolder>
+      <type>Stone</type>
+      <Value>5</Value>
+    </ResourceHolder>
+  </IncreasePerBuy>
+</BuildMenuElement>
