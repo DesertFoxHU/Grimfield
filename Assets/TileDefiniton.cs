@@ -7,4 +7,11 @@ public class TileDefiniton : ScriptableObject
 {
     public TileType type;
     public Sprite[] sprites;
+
+    public Sprite GetRandomSprite()
+    {
+        if (sprites.Length == 0) return null;
+        else if (sprites.Length == 1) return sprites[0];
+        else return sprites[Random.Range(0, sprites.Length)];
+    }
 }

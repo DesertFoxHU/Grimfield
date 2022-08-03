@@ -16,3 +16,4 @@ MonoBehaviour:
   spritesLevel:
   - {fileID: -90022706, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}
   - {fileID: -634119958, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}
+  placeable: 00000000

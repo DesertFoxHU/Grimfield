@@ -1,12 +1,21 @@
 using RiptideNetworking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace ServerSide
 {
     public class PacketHandler : MonoBehaviour
     {
+        public static Tilemap map;
+
+        public void Start()
+        {
+            PacketHandler.map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>()
+        }
+
         [MessageHandler((ushort)ClientToServerPacket.JoinLobby)]
         private static void JoinLobby(ushort clientID, Message message)
         {
@@ -54,6 +63,32 @@ namespace ServerSide
             {
                 FindObjectOfType<GameController>().StartMatchGame();
             }
+        }
+
+        [MessageHandler((ushort)ClientToServerPacket.RequestBuild)]
+        private static void RequestToBuild(ushort clientID, Message message)
+        {
+            Vector3 v3Pos = message.GetVector3();
+            Vector3Int pos = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(v3Pos);
+            BuildingType type = (BuildingType) Enum.Parse(typeof(BuildingType), message.GetString());
+
+            TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            if (definition == null) return;
+
+            BuildingDefinition buildingDefinition = DefinitionRegistry.Instance.Find(type);
+            if (!buildingDefinition.placeable.Contains(definition.type))
+            {
+                NetworkManager.Instance.Server.Send(
+                    Message.Create(MessageSendMode.unreliable, ServerToClientPacket.SendAlert).Add("You can't place this building here"),
+                    clientID);
+                return;
+            }
+
+            ServerPlayer player = NetworkManager.Find(clientID);
+            AbstractBuilding building = (AbstractBuilding) Activator.CreateInstance(AbstractBuilding.GetClass(type), pos);
+
+            player.Buildings.Add(building);
+            player.IncrementBuildingBought(type);
         }
     }
 }

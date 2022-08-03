@@ -1,3 +1,4 @@
+using RiptideNetworking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,18 @@ public class Blueprinting : MonoBehaviour
 {
     public GameObject blueprint;
     [HideInInspector] public BuildingDefinition current = null;
+    private Tilemap map;
+    private SpriteRenderer spriteRenderer;
+
+    public void Start()
+    {
+        map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+        spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+    }
 
     public bool IsBlueprinting() { return current != null; }
 
-    public void Cancel() { current = null; }
+    public void Cancel() { current = null; Hide(); }
 
     public void Show()
     {
@@ -24,11 +33,60 @@ public class Blueprinting : MonoBehaviour
 
     public void SetPosition(Vector3 vector3)
     {
-
+        Vector3Int pos = map.ToVector3Int(vector3);
+        if (!map.HasTile(pos)) Hide();
+        else
+        {
+            Show();
+            Vector3 newVector = map.ToVector3(pos);
+            blueprint.transform.localPosition = new Vector3(newVector.x + 0.5f, newVector.y + 0.5f, -1f);
+        }
     }
 
     public void ChangeBlueprint(BuildingDefinition definition)
     {
         this.current = definition;
+        Show();
+    }
+
+    public void Update()
+    {
+        if (IsBlueprinting())
+        {
+            if (Utils.IsPointerOverUIElement()) Hide();
+            else Show();
+
+            if (Input.GetMouseButtonDown(1)) 
+            {
+                Cancel();
+                return;
+            }
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
+
+            SetPosition(worldPoint);
+
+            bool canBuild = true;
+
+            Vector3Int pos = map.ToVector3Int(worldPoint);
+            TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            if (definition == null) return;
+
+            if (!current.placeable.Contains(definition.type))
+            {
+                spriteRenderer.color = Color.red;
+                canBuild = false;
+            }
+            else spriteRenderer.color = Color.white;
+
+            if (canBuild && Input.GetMouseButtonDown(1))
+            {
+                Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.RequestBuild);
+                message.Add(worldPoint);
+                message.Add("" + current.type);
+                NetworkManager.Instance.Client.Send(message);
+            }
+        }
     }
 }

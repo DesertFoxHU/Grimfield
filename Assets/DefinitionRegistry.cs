@@ -23,4 +23,16 @@ public class DefinitionRegistry : MonoBehaviour
     {
         return Tiles.Find(a => a.type == type);
     }
+
+    public TileDefiniton Find(string spriteName)
+    {
+        foreach (TileDefiniton tf in Tiles)
+        {
+            foreach(Sprite sprite in tf.sprites)
+            {
+                if (sprite.name == spriteName) return tf;
+            }
+        }
+        return null;
+    }
 }

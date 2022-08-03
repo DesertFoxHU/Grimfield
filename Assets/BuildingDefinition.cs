@@ -7,6 +7,7 @@ public class BuildingDefinition : ScriptableObject
 {
     public BuildingType type;
     public Sprite[] spritesLevel;
+    public List<TileType> placeable;
 
     public Sprite GetSpriteByLevel(int level)
     {

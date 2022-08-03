@@ -25,6 +25,6 @@ public class BuildMenuSegment : MonoBehaviour
 
     public void StartBlueprintMode()
     {
-
+        FindObjectOfType<Blueprinting>().ChangeBlueprint(DefinitionRegistry.Instance.Find(LastLoaded.BuildingType));
     }
 }
