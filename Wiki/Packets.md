@@ -1,6 +1,13 @@
 ### Notes
 Every packet has it's own unique ID (ushort)
 
+### Addational Variable Naming
+
+`ClientID`: Unique ID for every user.
+`SpriteIndex`: Refers to the sprite's index in a list. Usually used for Sync purposes.
+`BuildingType`: Enum
+`TileType`: Enum
+
 ## Serverside - Server to Client
 
 ### SendAlert<br>
@@ -108,7 +115,7 @@ Updates the chunk and the corresponding tiles<br>
   </tr>
   <tr align="center">
     <td></td>
-    <td>String list (Custom Format): "x|y|TileType"</td>
+    <td>String list (Custom Format): "x|y|TileType|SpriteIndex"</td>
     <td>TileType is an enum and x and y is a real position (not chunk pos)</td>
   </tr>
 </table>
@@ -142,6 +149,29 @@ Updates the chunk and the corresponding tiles<br>
     <td>2</td>
     <td>bool</td>
     <td>Is player ready?</td>
+  </tr>
+</table>
+<br>
+
+### RequestBuild<br>
+As the name suggest, this request the server to build a building<br>
+The server will check other things, like: is the building placeable there, etc.<br>
+But the client checks if placeable there too before sending it
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>3</td>
+    <td>Vector3</td>
+    <td>The building's position</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>BuildingType</td>
+    <td>Enum</td>
   </tr>
 </table>
 <br>
