@@ -9,6 +9,9 @@ namespace ServerSide
         public ushort PlayerId { get; private set; }
         public string Name { get; private set; }
         public bool IsReady = false;
+        public bool IsMainSceneLoaded = false;
+
+        public ResourceInventory Resources { get; private set; }
 
         public List<AbstractBuilding> Buildings { get; private set; } = new List<AbstractBuilding>();
         //How many times a building bought by the player

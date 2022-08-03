@@ -65,6 +65,14 @@ namespace ServerSide
             }
         }
 
+        [MessageHandler((ushort)ClientToServerPacket.MainGameLoaded)]
+        private static void OnMainGameLoaded(ushort clientID, Message message)
+        {
+            ServerPlayer player = NetworkManager.Find(clientID);
+            player.IsMainSceneLoaded = true;
+            FindObjectOfType<GameController>().SendMapTo(clientID);
+        }
+
         [MessageHandler((ushort)ClientToServerPacket.RequestBuild)]
         private static void RequestToBuild(ushort clientID, Message message)
         {

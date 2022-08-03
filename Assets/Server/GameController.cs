@@ -20,8 +20,6 @@ namespace ServerSide
 
             Message startGamePacket = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadGameScene);
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
-
-            StartCoroutine(SendMapToAll());
         }
 
         [ContextMenu("GenerateMap")]
@@ -40,27 +38,23 @@ namespace ServerSide
                     float perlin = Mathf.PerlinNoise((x + Seed/100f) /10f, (y + Seed/100f) /10f);
                     if(perlin <= 0.20f)
                     {
-                        map.SetTileSprite(new Vector3Int(x, y, 0), DefinitionRegistry.Instance.Find(TileType.Mountain).GetRandomSprite());
-                        chunkManager.SetTile(x, y, TileType.Mountain);
+                        GenerateTile(map, x, y, TileType.Mountain);
                         continue;
                     }
 
                     if (perlin <= 0.25f && Utils.Roll(7f))
                     {
-                        map.SetTileSprite(new Vector3Int(x, y, 0), DefinitionRegistry.Instance.Find(TileType.GoldOre).GetRandomSprite());
-                        chunkManager.SetTile(x, y, TileType.GoldOre);
+                        GenerateTile(map, x, y, TileType.GoldOre);
                         continue;
                     }
 
                     if (perlin <= 0.35f)
                     {
-                        map.SetTileSprite(new Vector3Int(x, y, 0), DefinitionRegistry.Instance.Find(TileType.Forest).GetRandomSprite());
-                        chunkManager.SetTile(x, y, TileType.Forest);
+                        GenerateTile(map, x, y, TileType.Forest);
                         continue;
                     }
 
-                    map.SetTileSprite(new Vector3Int(x, y, 0), DefinitionRegistry.Instance.Find(TileType.Grass).GetRandomSprite());
-                    chunkManager.SetTile(x, y, TileType.Grass);
+                    GenerateTile(map, x, y, TileType.Grass);
                 }
             }
 
@@ -68,10 +62,25 @@ namespace ServerSide
             Debug.Log("Map is generated!");
         }
 
-        private IEnumerator SendMapToAll()
+        private void GenerateTile(Tilemap map, int x, int y, TileType type)
         {
-            yield return 0.5f;
+            TileDefiniton definition = DefinitionRegistry.Instance.Find(type);
+            int spriteIndex = definition.GetRandomSpriteIndex();
+            map.SetTileSprite(new Vector3Int(x, y, 0), definition.GetRandomSprite());
+            chunkManager.SetTile(x, y, type, spriteIndex);
+        }
+
+        public void SendMapToAll()
+        {
             chunkManager.chunks.ForEach(chunk => NetworkManager.Instance.Server.SendToAll(chunk.AsPacket(MessageSendMode.reliable, (ushort)ServerToClientPacket.ChunkInfo)));
+        }
+
+        public void SendMapTo(ushort clientID)
+        {
+            chunkManager.chunks.ForEach(chunk => 
+            NetworkManager.Instance.Server.Send(chunk.AsPacket(
+                MessageSendMode.reliable, 
+                (ushort)ServerToClientPacket.ChunkInfo), clientID));
         }
     }
 }

@@ -8,6 +8,23 @@ using UnityEngine.Tilemaps;
 
 public class PacketHandler : MonoBehaviour
 {
+    private static Tilemap map;
+    
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode loadMode)
+    {
+        if(scene.name == "MainGame")
+        {
+            map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+            if(map == null)
+            {
+                Debug.LogError("Couldn't grab reference of GameMap TileMap!");
+            }
+
+            Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.MainGameLoaded);
+            NetworkManager.Instance.Client.Send(message);
+        }
+    }
+
     [MessageHandler((ushort)ServerToClientPacket.SendAlert)]
     private static void OnAlertRecieve(Message message)
     {
@@ -18,6 +35,7 @@ public class PacketHandler : MonoBehaviour
     [MessageHandler((ushort)ServerToClientPacket.LoadLobby)]
     private static void LobbyLoad(Message message)
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("LobbyScene", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(2);
     }
@@ -56,10 +74,10 @@ public class PacketHandler : MonoBehaviour
         int chunkY = message.GetInt();
         int listCount = message.GetInt();
 
-        Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
-        for(int i = 0; i < listCount; i++)
+        for (int i = 0; i < listCount; i++)
         {
             string raw = message.GetString();
+            Debug.Log("Recieved chunk info: " + raw);
             string[] split = raw.Split('|');
             Vector3Int pos = new Vector3Int(int.Parse(split[0]), int.Parse(split[1]), 0);
             TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
@@ -67,5 +85,6 @@ public class PacketHandler : MonoBehaviour
 
             map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[spriteIndex]);
         }
+        map.RefreshAllTiles();
     }
 }

@@ -82,10 +82,11 @@ public class Blueprinting : MonoBehaviour
 
             if (canBuild && Input.GetMouseButtonDown(1))
             {
-                Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.RequestBuild);
+                Message message = Message.Create(MessageSendMode.unreliable, ClientToServerPacket.RequestBuild);
                 message.Add(worldPoint);
                 message.Add("" + current.type);
                 NetworkManager.Instance.Client.Send(message);
+                Cancel();
             }
         }
     }

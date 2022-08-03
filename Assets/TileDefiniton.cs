@@ -14,4 +14,11 @@ public class TileDefiniton : ScriptableObject
         else if (sprites.Length == 1) return sprites[0];
         else return sprites[Random.Range(0, sprites.Length)];
     }
+
+    public int GetRandomSpriteIndex()
+    {
+        if (sprites.Length == 0) return 0;
+        else if (sprites.Length == 1) return 0;
+        else return Random.Range(0, sprites.Length);
+    }
 }

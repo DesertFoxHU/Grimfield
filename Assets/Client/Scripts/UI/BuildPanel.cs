@@ -23,10 +23,10 @@ public class BuildPanel : MonoBehaviour
 
     public void Start()
     {
-        foreach(BuildMenuElement element in BuildMenuElementRegistry.elements)
+        foreach (BuildMenuElement element in BuildMenuElementRegistry.elements)
         {
             int count = GetCategorysObject(element.Category).transform.childCount;
-            float Y = 0 + (-170*count);
+            float Y = 0 + (-170 * count);
 
             GameObject newSegment = Instantiate(segmentPrefab, new Vector3(0f, Y, 0f), Quaternion.identity);
             newSegment.transform.SetParent(GetCategorysObject(element.Category).transform, false);

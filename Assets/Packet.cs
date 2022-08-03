@@ -16,4 +16,5 @@ public enum ClientToServerPacket : ushort
     JoinLobby = 1,
     ChangeReadyStatus,
     RequestBuild,
+    MainGameLoaded,
 }

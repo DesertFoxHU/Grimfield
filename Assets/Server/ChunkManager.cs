@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ChunkManager
 {
@@ -22,15 +23,13 @@ public class ChunkManager
                 chunks.Add(new Chunk(x, y));
     }
 
-    public void SetTile(int x, int y, TileType type)
+    public void SetTile(int x, int y, TileType type, int spriteIndex)
     {
         Chunk chunk = GetChunkByPosition(x, y);
         Vector3Int v3 = new Vector3Int(x, y, 0);
-        if (!chunk.Tiles.ContainsKey(v3))
-        {
-            chunk.Tiles.Add(v3, type);
-        }
-        else chunk.Tiles[v3] = type;
+        Chunk.TileData data = chunk.GetOrCreate(v3);
+        data.Type = type;
+        data.SpriteIndex = spriteIndex;
     }
 
     public Chunk GetChunkByPosition(int PosX, int PosY)

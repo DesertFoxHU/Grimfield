@@ -10,6 +10,11 @@ public class Chunk
         public Vector3Int Pos;
         public TileType Type;
         public int SpriteIndex; //The sprite index in TileDefinition's sprites
+
+        public TileData(Vector3Int pos)
+        {
+            Pos = pos;
+        }
     }
 
     public readonly int ChunkX;
@@ -20,6 +25,17 @@ public class Chunk
     {
         ChunkX = chunkX;
         ChunkY = chunkY;
+    }
+
+    public TileData GetOrCreate(Vector3Int Pos)
+    {
+        TileData data = Tiles.Find(a => a.Pos == Pos);
+        if (data == null)
+        {
+            data = new TileData(Pos);
+            Tiles.Add(data);
+        }
+        return data;
     }
 
     public Message AsPacket(MessageSendMode mode, ushort packetId)
