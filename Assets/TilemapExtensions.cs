@@ -1,57 +1,34 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[Obsolete("Use the added extensions to Tilemap instead. See: TilemapExtensions.cs", true)]
-public class TileUtils
+public static class TilemapExtensions
 {
-    private readonly Tilemap map;
-    private readonly Grid grid;
-
-    public TileUtils(Tilemap map)
+    public static Vector3Int ToVector3Int(this Tilemap map, Vector3 pos)
     {
-        this.map = map;
-        this.grid = map.layoutGrid;
+        return map.layoutGrid.WorldToCell(pos);
     }
 
-    public TileUtils(GameObject mapObject)
+    public static Vector3 ToVector3(this Tilemap map, Vector3Int pos)
     {
-        this.map = mapObject.GetComponent<Tilemap>();
-        this.grid = map.layoutGrid;
+        return map.layoutGrid.CellToWorld(pos);
     }
 
-    public Vector3Int ToVector3Int(Vector3 pos)
-    {
-        return grid.WorldToCell(pos);
-    }
-
-    public Vector3 ToVector3(Vector3Int pos)
-    {
-        return grid.CellToWorld(pos);
-    }
-
-    public void SetTileSprite(Vector3Int pos, Sprite sprite)
+    public static void SetTileSprite(this Tilemap map, Vector3Int pos, Sprite sprite)
     {
         Tile tile = ScriptableObject.CreateInstance<Tile>();
         tile.sprite = sprite;
         map.SetTile(pos, tile);
-        //map.RefreshTile(pos);
     }
 
-    /// <summary>
-    /// If the position doesn't have any tile it will return a null
-    /// </summary>
-    /// <param name="pos"></param>
-    /// <returns>null if map doesn't have this tile</returns>
-    public string GetTileName(Vector3Int pos)
+    public static string GetTileName(this Tilemap map, Vector3Int pos)
     {
         if (!map.HasTile(pos)) return null;
         return map.GetTile(pos).name;
     }
 
-    public List<Vector3Int> GetNeighbour(Vector3Int pos)
+    public static List<Vector3Int> GetNeighbour(this Tilemap map, Vector3Int pos)
     {
         List<Vector3Int> neigh = new List<Vector3Int>();
 
@@ -68,7 +45,7 @@ public class TileUtils
         return neigh;
     }
 
-    public List<Vector3Int> GetTileRange(Vector3Int start, int range)
+    public static List<Vector3Int> GetTileRange(this Tilemap map, Vector3Int start, int range)
     {
         List<Vector3Int> list = new List<Vector3Int>();
         for (int x = start.x - range; x <= start.x + range; x++)

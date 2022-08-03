@@ -31,7 +31,6 @@ namespace ServerSide
             Random.InitState(Seed);
 
             Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
-            TileUtils utils = new(map);
             TileRegistry registry = FindObjectOfType<TileRegistry>();
 
             chunkManager = new ChunkManager(SizeX, SizeY);
@@ -42,26 +41,26 @@ namespace ServerSide
                     float perlin = Mathf.PerlinNoise((x + Seed/100f) /10f, (y + Seed/100f) /10f);
                     if(perlin <= 0.20f)
                     {
-                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Mountain));
+                        map.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Mountain));
                         chunkManager.SetTile(x, y, TileType.Mountain);
                         continue;
                     }
 
                     if (perlin <= 0.25f && Utils.Roll(7f))
                     {
-                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.GoldOre));
+                        map.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.GoldOre));
                         chunkManager.SetTile(x, y, TileType.GoldOre);
                         continue;
                     }
 
                     if (perlin <= 0.35f)
                     {
-                        utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
+                        map.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
                         chunkManager.SetTile(x, y, TileType.Forest);
                         continue;
                     }
 
-                    utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Grass));
+                    map.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Grass));
                     chunkManager.SetTile(x, y, TileType.Grass);
                 }
             }

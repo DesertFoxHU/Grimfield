@@ -57,7 +57,6 @@ public class PacketHandler : MonoBehaviour
         int listCount = message.GetInt();
 
         Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
-        TileUtils utils = new TileUtils(map);
         for(int i = 0; i < listCount; i++)
         {
             string raw = message.GetString();
@@ -65,7 +64,7 @@ public class PacketHandler : MonoBehaviour
             Vector3Int pos = new Vector3Int(int.Parse(split[0]), int.Parse(split[1]), 0);
             TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
 
-            utils.SetTileSprite(pos, TileRegistry.instance.GetSpriteByType(tileType));
+            map.SetTileSprite(pos, TileRegistry.instance.GetSpriteByType(tileType));
         }
     }
 }

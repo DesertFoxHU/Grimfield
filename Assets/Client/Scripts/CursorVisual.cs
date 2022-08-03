@@ -11,7 +11,6 @@ public class CursorVisual : MonoBehaviour
 
     public static GameObject go;
     private static Tilemap map;
-    private static TileUtils tileUtils;
 
     void Start()
     {
@@ -22,7 +21,6 @@ public class CursorVisual : MonoBehaviour
         sr.sprite = anim1;
 
         map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
-        tileUtils = new TileUtils(map);
     }
 
     private float elapsed;
@@ -53,14 +51,14 @@ public class CursorVisual : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
-        Vector3Int pos = tileUtils.ToVector3Int(worldPoint);
+        Vector3Int pos = map.ToVector3Int(worldPoint);
 
         if (!map.HasTile(pos))
         {
             go.SetActive(false);
         }
 
-        worldPoint = tileUtils.ToVector3(pos);
+        worldPoint = map.ToVector3(pos);
         worldPoint.Set(worldPoint.x + 0.5f, worldPoint.y + 0.5f, -0.1f);
         go.SetActive(true);
         go.transform.position = worldPoint;
