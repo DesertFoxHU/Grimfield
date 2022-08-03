@@ -13,7 +13,7 @@ namespace ServerSide
 
         public void Start()
         {
-            PacketHandler.map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>()
+            PacketHandler.map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
         }
 
         [MessageHandler((ushort)ClientToServerPacket.JoinLobby)]

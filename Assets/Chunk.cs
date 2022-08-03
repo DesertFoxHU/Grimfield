@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class Chunk
 {
+    public class TileData
+    {
+        public Vector3Int Pos;
+        public TileType Type;
+        public int SpriteIndex; //The sprite index in TileDefinition's sprites
+    }
+
     public readonly int ChunkX;
     public readonly int ChunkY;
-    public Dictionary<Vector3Int, TileType> Tiles = new Dictionary<Vector3Int, TileType>();
+    public List<TileData> Tiles = new List<TileData>();
 
     public Chunk(int chunkX, int chunkY)
     {
@@ -20,12 +27,12 @@ public class Chunk
         Message message = Message.Create(mode, packetId);
         message.Add(ChunkX);
         message.Add(ChunkY);
-        message.Add(Tiles.Keys.Count);
-        foreach(Vector3Int v3 in Tiles.Keys)
+        message.Add(Tiles.Count);
+        foreach(TileData data in Tiles)
         {
-            TileType val = Tiles[v3];
-            message.Add(v3.x + "|" + v3.y + "|" + val);
+            message.Add(data.Pos.x + "|" + data.Pos.y + "|" + data.Type + "|" + data.SpriteIndex);
         }
         return message;
     }
+
 }

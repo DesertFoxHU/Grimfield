@@ -63,8 +63,9 @@ public class PacketHandler : MonoBehaviour
             string[] split = raw.Split('|');
             Vector3Int pos = new Vector3Int(int.Parse(split[0]), int.Parse(split[1]), 0);
             TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
+            int spriteIndex = int.Parse(split[3]);
 
-            map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[0]);
+            map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[spriteIndex]);
         }
     }
 }
