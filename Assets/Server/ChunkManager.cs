@@ -17,8 +17,8 @@ public class ChunkManager
         int ChunkX = Mathf.CeilToInt((float)MapSizeX / 4f);
         int ChunkY = Mathf.CeilToInt((float)MapSizeY / 4f);
 
-        for (int x = 0; x < ChunkX; x++)
-            for (int y = 0; y < ChunkY; y++)
+        for (int x = 0; x <= ChunkX; x++)
+            for (int y = 0; y <= ChunkY; y++)
                 chunks.Add(new Chunk(x, y));
     }
 
@@ -27,6 +27,7 @@ public class ChunkManager
         //Can cause errors due being non-floating number
         Chunk chunk = GetChunkByPosition(x, y);
         Vector3Int v3 = new Vector3Int(x, y, 0);
+        Debug.Log($"Searching for chunk: ({x/4},{y/4}) reference: {chunk}");
         if (!chunk.Tiles.ContainsKey(v3))
         {
             chunk.Tiles.Add(v3, type);

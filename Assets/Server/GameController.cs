@@ -54,7 +54,7 @@ namespace ServerSide
                         continue;
                     }
 
-                    if (perlin <= 0.45f)
+                    if (perlin <= 0.35f)
                     {
                         utils.SetTileSprite(new Vector3Int(x, y, 0), registry.GetSpriteByType(TileType.Forest));
                         chunkManager.SetTile(x, y, TileType.Forest);
