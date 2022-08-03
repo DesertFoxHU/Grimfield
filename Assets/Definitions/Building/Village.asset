@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081b3536b687136499d0abb6be7969f9, type: 3}
+  m_Name: Village
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingDefiniton
+  type: 0
+  spritesLevel:
+  - {fileID: -90022706, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}
+  - {fileID: -634119958, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}

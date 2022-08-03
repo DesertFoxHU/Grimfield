@@ -24,10 +24,8 @@ public class ChunkManager
 
     public void SetTile(int x, int y, TileType type)
     {
-        //Can cause errors due being non-floating number
         Chunk chunk = GetChunkByPosition(x, y);
         Vector3Int v3 = new Vector3Int(x, y, 0);
-        Debug.Log($"Searching for chunk: ({x/4},{y/4}) reference: {chunk}");
         if (!chunk.Tiles.ContainsKey(v3))
         {
             chunk.Tiles.Add(v3, type);

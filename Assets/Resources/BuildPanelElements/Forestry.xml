@@ -3,6 +3,7 @@
   <Title>Forestry</Title>
   <Description>Produces small amount of wood</Description>
   <Category>Factory</Category>
+  <BuildingType>Forestry</BuildingType>
   <ResourceCost>
     <ResourceHolder>
       <type>Citizen</type>

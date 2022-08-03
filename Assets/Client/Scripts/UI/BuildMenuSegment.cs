@@ -20,5 +20,11 @@ public class BuildMenuSegment : MonoBehaviour
         LastLoaded = element;
         Title.text = LastLoaded.Title;
         Description.text = LastLoaded.Description;
+        Icon.sprite = DefinitionRegistry.Instance.Find(element.BuildingType).GetSpriteByLevel(1);
+    }
+
+    public void StartBlueprintMode()
+    {
+
     }
 }

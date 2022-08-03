@@ -3,6 +3,7 @@
   <Title>Village</Title>
   <Description>This makes free citizens</Description>
   <Category>Village</Category>
+  <BuildingType>Village</BuildingType>
   <IncreasePerBuy>
     <ResourceHolder>
       <type>Citizen</type>

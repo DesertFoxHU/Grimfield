@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 517942556}
   - component: {fileID: 517942557}
   - component: {fileID: 517942558}
+  - component: {fileID: 517942559}
   m_Layer: 0
   m_Name: Registry
   m_TagString: Untagged
@@ -192,3 +193,19 @@ MonoBehaviour:
   ParseOnStart:
   - {fileID: 4900000, guid: 697cf4eaf98d2e84097ae7c436de9e45, type: 3}
   - {fileID: 4900000, guid: 81792961952302a489ec3358aa87d2ce, type: 3}
+--- !u!114 &517942559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517942555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc4ca16e64c3354daa6b7e62b288c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tiles:
+  - {fileID: 11400000, guid: 7d8ee7c339328bc47bc4938d5b953959, type: 2}
+  Buildings:
+  - {fileID: 11400000, guid: 51d58e35de5d60841bedc7b57d326f29, type: 2}
