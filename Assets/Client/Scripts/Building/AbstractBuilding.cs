@@ -6,6 +6,7 @@ using UnityEngine;
 
 public abstract class AbstractBuilding
 {
+    public readonly Guid ID = Guid.NewGuid();
     public Vector3Int Position { get; private set; }
     public int Level { get; private set; }
 

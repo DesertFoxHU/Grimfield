@@ -97,6 +97,7 @@ namespace ServerSide
 
             player.Buildings.Add(building);
             player.IncrementBuildingBought(type);
+            ServerSender.SendNewBuilding(player, building);
         }
     }
 }

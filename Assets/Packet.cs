@@ -9,6 +9,7 @@ public enum ServerToClientPacket : ushort
     UpdateLobby,
     LoadGameScene,
     ChunkInfo,
+    NewBuildingAdded,
 }
 
 public enum ClientToServerPacket : ushort

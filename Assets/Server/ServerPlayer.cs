@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,6 @@ namespace ServerSide
         public string Name { get; private set; }
         public bool IsReady = false;
         public bool IsMainSceneLoaded = false;
-
-        public ResourceInventory Resources { get; private set; }
 
         public List<AbstractBuilding> Buildings { get; private set; } = new List<AbstractBuilding>();
         //How many times a building bought by the player
@@ -31,6 +30,11 @@ namespace ServerSide
                 BuildingBought[type] += 1;
             }
             else BuildingBought.Add(type, 1);
+        }
+
+        public AbstractBuilding GetBuildingByID(Guid ID)
+        {
+            return Buildings.Find(x => x.ID == ID);
         }
     }
 }

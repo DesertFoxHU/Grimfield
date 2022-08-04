@@ -15,7 +15,6 @@ namespace ServerSide
             return players.Find(a => a.PlayerId == clientID);
         }
 
-
         private static NetworkManager instance;
         public static NetworkManager Instance
         {
