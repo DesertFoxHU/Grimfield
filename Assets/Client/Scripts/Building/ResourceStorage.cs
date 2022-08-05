@@ -6,24 +6,8 @@ public class ResourceStorage
 {
     public AbstractBuilding owner;
     public ResourceType Type { get; private set; }
-    private double SafeAmount = 0;
-    public Dictionary<int, double> MaxAmountAtLevel { get; set; } = new Dictionary<int, double>();
-
-    public double Amount
-    {
-        get => SafeAmount;
-        set 
-        {
-            if (MaxAmountAtLevel[owner.Level - 1] > value)
-            {
-                SafeAmount = MaxAmountAtLevel[owner.Level - 1];
-            }
-            else
-            {
-                SafeAmount = value;
-            }
-        }
-    }
+    public double Amount { get; private set; }
+    public Dictionary<int, double> MaxAmountAtLevel { get; set; }
 
     public ResourceStorage(AbstractBuilding owner, ResourceType type, Dictionary<int, double> maxAmountAtLevel)
     {
@@ -36,7 +20,22 @@ public class ResourceStorage
     {
         this.owner = owner;
         Type = type;
-        SafeAmount = amount;
+        Amount = amount;
         MaxAmountAtLevel = maxAmountAtLevel;
+    }
+
+    public void AddSafe(double amount)
+    {
+        Debug.Log($"[ResourceStorage] Fogyi: {Amount} + {amount} > {MaxAmountAtLevel[owner.Level]}");
+        if(Amount + amount > MaxAmountAtLevel[owner.Level])
+        {
+            Amount = MaxAmountAtLevel[owner.Level];
+            Debug.Log($"[ResourceStorage] B1 {Amount}");
+        }
+        else
+        {
+            Amount += amount;
+            Debug.Log($"[ResourceStorage] B2 {Amount}");
+        }
     }
 }

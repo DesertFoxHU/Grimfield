@@ -120,6 +120,7 @@ public class PacketHandler : MonoBehaviour
         {
             ResourceType type = (ResourceType)System.Enum.Parse(typeof(ResourceType), message.GetString());
             double amount = message.GetDouble();
+            Debug.Log("Reading packet... " + i + " " + type + " " + amount);
             res.UpdateType(type, amount, 0);
         }
     }

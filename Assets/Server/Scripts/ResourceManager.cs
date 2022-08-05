@@ -19,7 +19,6 @@ namespace ServerSide
                 foreach(ServerPlayer player in NetworkManager.players)
                 {
                     ServerSender.UpdatePlayerResource(player, player.GetAvaibleResources());
-                    Debug.Log($"Sent for {player.PlayerId}!");
                 }
             }
         }

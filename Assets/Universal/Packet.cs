@@ -19,4 +19,5 @@ public enum ClientToServerPacket : ushort
     ChangeReadyStatus,
     RequestBuild,
     MainGameLoaded,
+    NextTurn,
 }

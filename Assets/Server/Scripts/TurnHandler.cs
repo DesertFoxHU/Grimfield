@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace ServerSide
+{
+    public class TurnHandler
+    {
+        public List<ServerPlayer> turnOrder;
+        public int currentIndex = 0;
+        /// <summary>
+        /// One cycle means every player had a turn once
+        /// </summary>
+        public int turnCycleCount = 0;
+
+        public TurnHandler()
+        {
+            turnOrder = new List<ServerPlayer>(NetworkManager.players);
+            turnOrder.Shuffle();
+        }
+
+        /// <summary>
+        /// The current turn's owner is ended their turn
+        /// </summary>
+        public void TurnEnded()
+        {
+            currentIndex++;
+            if (currentIndex > turnOrder.Count - 1)
+            {
+                currentIndex = 0;
+                OnNewTurnCycle();
+            }
+        }
+
+        /// <summary>
+        /// Called when every player had thier turn
+        /// </summary>
+        public void OnNewTurnCycle()
+        {
+            turnCycleCount++;
+            Debug.Log($"A turn cycle has ended, count: {turnCycleCount}");
+            foreach (ServerPlayer player in turnOrder)
+            {
+                foreach(AbstractBuilding building in player.Buildings)
+                {
+                    building.OnTurnCycleEnded();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The ClientID's the current turn player
+        /// </summary>
+        /// <returns></returns>
+        public ushort GetCurrentTurnOwnerID()
+        {
+            return turnOrder[currentIndex].PlayerId;
+        }
+    }
+}

@@ -23,9 +23,9 @@ public abstract class AbstractBuilding
     }
 
     /// <summary>
-    /// Called every start of owner's turn
+    /// Called when every player had thier turn
     /// </summary>
-    public virtual void OnTurn() { }
+    public virtual void OnTurnCycleEnded() { }
 
     public abstract BuildingType BuildingType { get; }
 }

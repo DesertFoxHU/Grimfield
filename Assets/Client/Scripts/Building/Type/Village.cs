@@ -20,7 +20,7 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
         { 5, 2 }
     };
 
-    public List<ResourceStorage> Storage => new List<ResourceStorage>() 
+    public List<ResourceStorage> Storage => new() 
     { 
         new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>() 
         {
@@ -28,9 +28,10 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
         })
     };
 
-    public override void OnTurn()
+    public override void OnTurnCycleEnded()
     {
-        IProducer producer = this;
-        producer.ProduceAtTurn(this);
+        Debug.Log($"Storage[0] has amount of {Storage[0].Amount} and adding {ProduceLevel[this.Level]}");
+        Storage[0].AddSafe(ProduceLevel[this.Level]);
+        Debug.Log($"New Storage[0] value: {Storage[0].Amount}");
     }
 }

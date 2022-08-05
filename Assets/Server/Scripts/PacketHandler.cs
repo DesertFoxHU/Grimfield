@@ -7,13 +7,16 @@ using UnityEngine.Tilemaps;
 
 namespace ServerSide
 {
+    [RequireComponent(typeof(GameController))]
     public class PacketHandler : MonoBehaviour
     {
         public static Tilemap map;
+        private static GameController gameController;
 
         public void Start()
         {
             PacketHandler.map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+            gameController = this.GetComponent<GameController>();
         }
 
         [MessageHandler((ushort)ClientToServerPacket.JoinLobby)]
@@ -103,6 +106,32 @@ namespace ServerSide
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
             Debug.Log($"Added new building with GUID {building.ID}");
+        }
+
+        [MessageHandler((ushort)ClientToServerPacket.NextTurn)]
+        private static void NextTurn(ushort clientID, Message message)
+        {
+            if(gameController == null)
+            {
+                Debug.LogError("GameController is not initialized!");
+                return;
+            }
+
+            if(gameController.turnHandler == null)
+            {
+                Debug.LogWarning("TurnHandler is not initialized!");
+                return;
+            }
+
+            if(gameController.turnHandler.GetCurrentTurnOwnerID() != clientID)
+            {
+                NetworkManager.Instance.Server.Send(
+                    Message.Create(MessageSendMode.unreliable, ServerToClientPacket.SendAlert).Add("Stop trolling! Its not your turn yet!"),
+                    clientID);
+                return;
+            }
+
+            gameController.turnHandler.TurnEnded();
         }
     }
 }

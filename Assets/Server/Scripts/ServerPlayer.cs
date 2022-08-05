@@ -28,14 +28,14 @@ namespace ServerSide
             List<ResourceHolder> resources = new List<ResourceHolder>();
             foreach (AbstractBuilding building in Buildings)
             {
-                if(building is IResourceStorage)
+                if(building is IResourceStorage storage)
                 {
-                    IResourceStorage storage = (IResourceStorage)building;
                     foreach (ResourceStorage res in storage.Storage)
                     {
-                        if (res.Amount <= 0) continue;
                         ResourceHolder holder = resources.GetOrCreate(res.Type);
+                        Debug.Log($"Summerize: Type: {res.Type} old: {holder.Value}, but amount in storage {res.Amount}");
                         holder.Value += res.Amount;
+                        Debug.Log($"New: {holder.Value}");
                     }
                 }
             }
