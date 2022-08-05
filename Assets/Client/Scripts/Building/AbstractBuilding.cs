@@ -22,5 +22,10 @@ public abstract class AbstractBuilding
         else return null;
     }
 
+    /// <summary>
+    /// Called every start of owner's turn
+    /// </summary>
+    public virtual void OnTurn() { }
+
     public abstract BuildingType BuildingType { get; }
 }

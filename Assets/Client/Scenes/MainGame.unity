@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 833061793}
   - component: {fileID: 833061792}
   m_Layer: 5
-  m_Name: RockResource
+  m_Name: StoneResource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3758,6 +3758,7 @@ GameObject:
   - component: {fileID: 2063101325}
   - component: {fileID: 2063101327}
   - component: {fileID: 2063101326}
+  - component: {fileID: 2063101328}
   m_Layer: 5
   m_Name: Footbar
   m_TagString: Untagged
@@ -3828,6 +3829,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063101324}
   m_CullTransparentMesh: 1
+--- !u!114 &2063101328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063101324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95cc6e20bcb532049b69d8df9f6a0dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texts:
+  - type: 0
+    textField: {fileID: 808944309}
+  - type: 1
+    textField: {fileID: 1577690686}
+  - type: 2
+    textField: {fileID: 1252306361}
+  - type: 3
+    textField: {fileID: 1268806921}
+  - type: 4
+    textField: {fileID: 1733410161}
 --- !u!1 &2146980815
 GameObject:
   m_ObjectHideFlags: 0

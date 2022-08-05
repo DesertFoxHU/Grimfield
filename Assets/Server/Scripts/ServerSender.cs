@@ -24,5 +24,15 @@ namespace ServerSide
 
             NetworkManager.Instance.Server.SendToAll(message);
         }
+
+        public static void UpdatePlayerResource(ServerPlayer player, List<ResourceHolder> summerized)
+        {
+            Message message = Message.Create(MessageSendMode.unreliable, ServerToClientPacket.PlayerResourceUpdate);
+            message.Add(summerized.Count);
+            foreach (ResourceHolder holder in summerized)
+                message.Add(holder.type.ToString()).Add(holder.Value);
+
+            NetworkManager.Instance.Server.Send(message, player.PlayerId);
+        }
     }
 }

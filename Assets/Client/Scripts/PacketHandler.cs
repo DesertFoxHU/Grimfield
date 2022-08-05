@@ -104,4 +104,23 @@ public class PacketHandler : MonoBehaviour
 
         render.sprite = DefinitionRegistry.Instance.Find(type).GetSpriteByLevel(level);
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.PlayerResourceUpdate)]
+    private static void UpdateResources(Message message)
+    {
+        ResourceText res = FindObjectOfType<ResourceText>();
+        if (res == null)
+        {
+            Debug.LogWarning("Can't get reference for ResourceText!");
+            return;
+        }
+
+        int readIn = message.GetInt();
+        for(int i = 0; i < readIn; i++)
+        {
+            ResourceType type = (ResourceType)System.Enum.Parse(typeof(ResourceType), message.GetString());
+            double amount = message.GetDouble();
+            res.UpdateType(type, amount, 0);
+        }
+    }
 }

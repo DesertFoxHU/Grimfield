@@ -2255,6 +2255,7 @@ GameObject:
   - component: {fileID: 1613661353}
   - component: {fileID: 1613661354}
   - component: {fileID: 1613661355}
+  - component: {fileID: 1613661356}
   m_Layer: 0
   m_Name: ServerObject
   m_TagString: Untagged
@@ -2329,6 +2330,18 @@ MonoBehaviour:
   Seed: -1
   SizeX: 60
   SizeY: 60
+--- !u!114 &1613661356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613661350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9155e223f637a174d913f412b26b9f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2146736772
 GameObject:
   m_ObjectHideFlags: 0

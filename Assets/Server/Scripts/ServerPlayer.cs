@@ -23,6 +23,25 @@ namespace ServerSide
             NetworkManager.players.Add(this);
         }
 
+        public List<ResourceHolder> GetAvaibleResources()
+        {
+            List<ResourceHolder> resources = new List<ResourceHolder>();
+            foreach (AbstractBuilding building in Buildings)
+            {
+                if(building is IResourceStorage)
+                {
+                    IResourceStorage storage = (IResourceStorage)building;
+                    foreach (ResourceStorage res in storage.Storage)
+                    {
+                        if (res.Amount <= 0) continue;
+                        ResourceHolder holder = resources.GetOrCreate(res.Type);
+                        holder.Value += res.Amount;
+                    }
+                }
+            }
+            return resources;
+        }
+
         public void IncrementBuildingBought(BuildingType type)
         {
             if (BuildingBought.ContainsKey(type))

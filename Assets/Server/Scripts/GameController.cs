@@ -12,9 +12,14 @@ namespace ServerSide
         public int Seed = -1;
         public int SizeX;
         public int SizeY;
+        public List<ServerPlayer> turnOrders;
+        public int currentTurnIndex = 0;
 
         public void StartMatchGame()
         {
+            turnOrders = new List<ServerPlayer>(NetworkManager.players);
+            turnOrders.Shuffle();
+
             NetworkManager.Instance.State = ServerState.Playing;
             GeneretaMap();
 

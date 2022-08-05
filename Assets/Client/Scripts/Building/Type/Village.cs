@@ -22,9 +22,15 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
 
     public List<ResourceStorage> Storage => new List<ResourceStorage>() 
     { 
-        new ResourceStorage(ResourceType.Citizen, new Dictionary<int, double>() 
+        new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>() 
         {
             { 1, 4d }
         })
     };
+
+    public override void OnTurn()
+    {
+        IProducer producer = this;
+        producer.ProduceAtTurn(this);
+    }
 }

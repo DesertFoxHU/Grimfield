@@ -9,15 +9,34 @@ using UnityEngine;
 public class ResourceHolder
 {
     public ResourceType type;
-    public double Value;
+    public double Value = 0;
 
     public ResourceHolder()
     {
+    }
+
+    public ResourceHolder(ResourceType type)
+    {
+        this.type = type;
     }
 
     public ResourceHolder(ResourceType type, double value)
     {
         this.type = type;
         Value = value;
+    }
+}
+
+public static class ResourceHolderExtensions
+{
+    public static ResourceHolder GetOrCreate(this List<ResourceHolder> list, ResourceType type)
+    {
+        ResourceHolder holder = list.Find(x => x.type == type);
+        if (holder == null)
+        {
+            holder = new ResourceHolder(type, 0);
+            list.Add(holder);
+        }
+        return holder;
     }
 }
