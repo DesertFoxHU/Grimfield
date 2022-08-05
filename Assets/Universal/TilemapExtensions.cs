@@ -19,6 +19,7 @@ public static class TilemapExtensions
     {
         Tile tile = ScriptableObject.CreateInstance<Tile>();
         tile.sprite = sprite;
+        tile.name = sprite.name;
         map.SetTile(pos, tile);
     }
 

@@ -81,7 +81,11 @@ namespace ServerSide
             BuildingType type = (BuildingType) Enum.Parse(typeof(BuildingType), message.GetString());
 
             TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
-            if (definition == null) return;
+            if (definition == null)
+            {
+                Debug.LogError("Definition for this position wasn't loaded!");
+                return;
+            }
 
             BuildingDefinition buildingDefinition = DefinitionRegistry.Instance.Find(type);
             if (!buildingDefinition.placeable.Contains(definition.type))
@@ -98,6 +102,7 @@ namespace ServerSide
             player.Buildings.Add(building);
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
+            Debug.Log($"Added new building with GUID {building.ID}");
         }
     }
 }

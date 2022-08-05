@@ -71,7 +71,11 @@ public class Blueprinting : MonoBehaviour
 
             Vector3Int pos = map.ToVector3Int(worldPoint);
             TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
-            if (definition == null) return;
+            if (definition == null)
+            {
+                Debug.LogError($"Definition is null for: {map.GetTileName(pos)}, mapReference: {map}");
+                return;
+            }
 
             if (!current.placeable.Contains(definition.type))
             {
@@ -80,7 +84,7 @@ public class Blueprinting : MonoBehaviour
             }
             else spriteRenderer.color = Color.white;
 
-            if (canBuild && Input.GetMouseButtonDown(1))
+            if (canBuild && Input.GetMouseButtonDown(0))
             {
                 Message message = Message.Create(MessageSendMode.unreliable, ClientToServerPacket.RequestBuild);
                 message.Add(worldPoint);

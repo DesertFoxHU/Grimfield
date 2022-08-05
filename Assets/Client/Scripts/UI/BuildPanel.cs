@@ -23,6 +23,11 @@ public class BuildPanel : MonoBehaviour
 
     public void Start()
     {
+        StartCoroutine(FirstLoad());
+    }
+
+    private IEnumerator LoadElements()
+    {
         foreach (BuildMenuElement element in BuildMenuElementRegistry.elements)
         {
             int count = GetCategorysObject(element.Category).transform.childCount;
@@ -32,6 +37,12 @@ public class BuildPanel : MonoBehaviour
             newSegment.transform.SetParent(GetCategorysObject(element.Category).transform, false);
             newSegment.GetComponent<BuildMenuSegment>().Load(element);
         }
+        yield return null;
+    }
+
+    private IEnumerator FirstLoad()
+    {
+        yield return StartCoroutine(LoadElements());
         LoadCategory(Category.Village);
     }
 

@@ -77,7 +77,6 @@ public class PacketHandler : MonoBehaviour
         for (int i = 0; i < listCount; i++)
         {
             string raw = message.GetString();
-            Debug.Log("Recieved chunk info: " + raw);
             string[] split = raw.Split('|');
             Vector3Int pos = new Vector3Int(int.Parse(split[0]), int.Parse(split[1]), 0);
             TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
@@ -86,5 +85,23 @@ public class PacketHandler : MonoBehaviour
             map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[spriteIndex]);
         }
         map.RefreshAllTiles();
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.NewBuildingAdded)]
+    private static void NewBuildingSpawn(Message message)
+    {
+        ushort clientID = message.GetUShort();
+        Guid ID = message.GetGuid();
+        BuildingType type = (BuildingType)Enum.Parse(typeof(BuildingType), message.GetString());
+        Vector3Int pos = message.GetVector3Int();
+        int level = message.GetInt();
+
+        GameObject go = new GameObject();
+        go.name = "Building_" + clientID + "_" + ID.ToString();
+        go.transform.position = new Vector3(pos.x + .5f, pos.y + .5f, -1f);
+        go.transform.SetParent(map.transform);
+        SpriteRenderer render = go.AddComponent<SpriteRenderer>();
+
+        render.sprite = DefinitionRegistry.Instance.Find(type).GetSpriteByLevel(level);
     }
 }
