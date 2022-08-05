@@ -3,10 +3,10 @@ Every packet has it's own unique ID (ushort)
 
 ### Addational Variable Naming
 
-`ClientID`: Unique ID for every user.
-`SpriteIndex`: Refers to the sprite's index in a list. Usually used for Sync purposes.
-`BuildingType`: Enum
-`TileType`: Enum
+`ClientID`: Unique ID for every user.<br>
+`SpriteIndex`: Refers to the sprite's index in a list. Usually used for Sync purposes.<br>
+`BuildingType`: Enum<br>
+`TileType`: Enum<br>
 
 ## Serverside - Server to Client
 
@@ -121,6 +121,42 @@ Updates the chunk and the corresponding tiles<br>
 </table>
 <br>
 
+### NewBuilingAdded<br>
+Places a new building on the map<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>6</td>
+    <td>ushort</td>
+    <td>ClientID</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>Guid</td>
+    <td>UniqueID for every building</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>BuildingType</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>Vector3Int</td>
+    <td>The new building's position</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>Building's level</td>
+  </tr>
+</table>
+<br>
+
 ## Clientside - Client to Server
 
 ### JoinLobby<br>
@@ -172,6 +208,23 @@ But the client checks if placeable there too before sending it
     <td></td>
     <td>BuildingType</td>
     <td>Enum</td>
+  </tr>
+</table>
+<br>
+
+### MainGameLoaded<br>
+Sent by the server when they loaded the main scene<br>
+After this the server will start sending the ChunkInfo packets<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>4</td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 <br>
