@@ -26,14 +26,25 @@ namespace ServerSide
 
             if(name == null)
             {
-                FindObjectOfType<NetworkManager>().Server.Send(
+                NetworkManager.Instance.Server.Send(
                     Message.Create(MessageSendMode.reliable,
                     ServerToClientPacket.SendAlert).AddString("Server: Your name is empty"),
                     clientID);
+                NetworkManager.Instance.Server.DisconnectClient(clientID);
                 return;
             }
 
-            Debug.Log($"Somebody joined the lobby as {name}");
+            if (name.Length > 16)
+            {
+                NetworkManager.Instance.Server.Send(
+                    Message.Create(MessageSendMode.reliable,
+                    ServerToClientPacket.SendAlert).AddString("Server: Your name cannot be longer than 16 characters!"),
+                    clientID);
+                NetworkManager.Instance.Server.DisconnectClient(clientID);
+                return;
+            }
+
+            Debug.Log($"{name} joined to the lobby!");
             new ServerPlayer(clientID, name);
 
             Message lobbyMsg = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadLobby);

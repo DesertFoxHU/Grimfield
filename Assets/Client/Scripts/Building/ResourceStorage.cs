@@ -26,16 +26,13 @@ public class ResourceStorage
 
     public void AddSafe(double amount)
     {
-        Debug.Log($"[ResourceStorage] Fogyi: {Amount} + {amount} > {MaxAmountAtLevel[owner.Level]}");
         if(Amount + amount > MaxAmountAtLevel[owner.Level])
         {
             Amount = MaxAmountAtLevel[owner.Level];
-            Debug.Log($"[ResourceStorage] B1 {Amount}");
         }
         else
         {
             Amount += amount;
-            Debug.Log($"[ResourceStorage] B2 {Amount}");
         }
     }
 }

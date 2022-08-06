@@ -30,6 +30,7 @@ namespace ServerSide
                 currentIndex = 0;
                 OnNewTurnCycle();
             }
+            ServerSender.TurnChange(turnOrder[currentIndex], turnCycleCount);
         }
 
         /// <summary>
@@ -38,7 +39,6 @@ namespace ServerSide
         public void OnNewTurnCycle()
         {
             turnCycleCount++;
-            Debug.Log($"A turn cycle has ended, count: {turnCycleCount}");
             foreach (ServerPlayer player in turnOrder)
             {
                 foreach(AbstractBuilding building in player.Buildings)

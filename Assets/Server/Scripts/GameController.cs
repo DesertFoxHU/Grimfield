@@ -19,6 +19,7 @@ namespace ServerSide
             turnHandler = new TurnHandler();
 
             NetworkManager.Instance.State = ServerState.Playing;
+            ServerSender.SyncPlayers();
             GeneretaMap();
 
             Message startGamePacket = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadGameScene);

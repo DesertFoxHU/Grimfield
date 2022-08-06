@@ -28,6 +28,12 @@ public class JoinServer : MonoBehaviour
             return;
         }
 
+        if(nameField.text.Length > 16)
+        {
+            FindObjectOfType<MessageDisplayer>().SetMessage("Name cannot be longer than 16 characters!");
+            return;
+        }
+
         FindObjectOfType<NetworkManager>().Name = nameField.text;
         //FindObjectOfType<NetworkManager>().Connect(ipAddressField.text);
         FindObjectOfType<NetworkManager>().Connect();
