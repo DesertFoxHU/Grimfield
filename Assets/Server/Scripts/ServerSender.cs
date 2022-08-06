@@ -34,5 +34,30 @@ namespace ServerSide
 
             NetworkManager.Instance.Server.Send(message, player.PlayerId);
         }
+
+        public static void SyncPlayers()
+        {
+            foreach(ServerPlayer player in NetworkManager.players)
+            {
+                //The first half of the message is this player's ServerPlayer info
+                Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SyncPlayers);
+                message.Add(NetworkManager.players.Count);
+                message.Add(player.PlayerId);
+                message.Add(player.Name);
+                message.Add(NetworkManager.players.Count - 1); //-1 because we already added the owner's ServerPlayer
+                foreach (ServerPlayer otherPlayer in NetworkManager.players)
+                    if (otherPlayer.PlayerId != player.PlayerId) message.Add(otherPlayer.PlayerId).Add(otherPlayer.Name);
+
+                NetworkManager.Instance.Server.Send(message, player.PlayerId);
+            }
+        }
+
+        public static void TurnChange(ServerPlayer currentPlayer, int turnCycle)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.TurnChange);
+            message.Add(currentPlayer.PlayerId);
+            message.Add(turnCycle);
+            NetworkManager.Instance.Server.SendToAll(message);
+        }
     }
 }

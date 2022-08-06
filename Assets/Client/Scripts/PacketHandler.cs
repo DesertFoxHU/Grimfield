@@ -2,6 +2,7 @@ using RiptideNetworking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -70,6 +71,7 @@ public class PacketHandler : MonoBehaviour
     [MessageHandler((ushort)ServerToClientPacket.ChunkInfo)]
     private static void ChunkUpdate(Message message)
     {
+        //ChunkLoader.LoadChunk(map, message);
         int chunkX = message.GetInt();
         int chunkY = message.GetInt();
         int listCount = message.GetInt();
@@ -120,8 +122,37 @@ public class PacketHandler : MonoBehaviour
         {
             ResourceType type = (ResourceType)System.Enum.Parse(typeof(ResourceType), message.GetString());
             double amount = message.GetDouble();
-            Debug.Log("Reading packet... " + i + " " + type + " " + amount);
             res.UpdateType(type, amount, 0);
+        }
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.SyncPlayers)]
+    private static void SyncPlayers(Message message)
+    {
+        int playerCount = message.GetInt();
+        NetworkManager.Instance.ClientPlayer = new ClientPlayer(message.GetUShort(), message.GetString());
+        NetworkManager.Instance.Players = new List<ClientPlayer>();
+        for (int i = 0; i < message.GetInt(); i++)
+        {
+            NetworkManager.Instance.Players.Add(new ClientPlayer(message.GetUShort(), message.GetString()));
+        }
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.TurnChange)]
+    private static void OnTurnChange(Message message)
+    {
+        ushort CurrentID = message.GetUShort();
+        int turnCycle = message.GetInt();
+        if(CurrentID == NetworkManager.Instance.ClientPlayer.ClientID)
+        {
+            NetworkManager.Instance.IsYourTurn = true;
+        }
+        else NetworkManager.Instance.IsYourTurn = true;
+
+        ClientPlayer currentPlayer = NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == CurrentID);
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("TurnInfo"))
+        {
+            go.GetComponent<TextMeshProUGUI>().text = $"Turn({turnCycle}): {currentPlayer.Name}";
         }
     }
 }

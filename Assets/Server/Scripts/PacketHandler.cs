@@ -73,7 +73,19 @@ namespace ServerSide
         {
             ServerPlayer player = NetworkManager.Find(clientID);
             player.IsMainSceneLoaded = true;
-            FindObjectOfType<GameController>().SendMapTo(clientID);
+            gameController.SendMapTo(clientID);
+
+            bool everyoneReady = true;
+            foreach (ServerPlayer sPlayer in NetworkManager.players)
+            {
+                if (!sPlayer.IsMainSceneLoaded)
+                {
+                    everyoneReady = false;
+                    break;
+                }
+            }
+
+            if(everyoneReady) ServerSender.TurnChange(gameController.turnHandler.turnOrder[gameController.turnHandler.currentIndex], gameController.turnHandler.turnCycleCount);
         }
 
         [MessageHandler((ushort)ClientToServerPacket.RequestBuild)]

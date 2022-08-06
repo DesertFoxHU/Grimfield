@@ -5,7 +5,16 @@ using UnityEngine;
 
 public class Village : AbstractBuilding, IProducer, IResourceStorage
 {
-    public Village(Vector3Int position) : base(position) { }
+    public Village(Vector3Int position) : base(position) 
+    {
+        BuildingStorage = new List<ResourceStorage>
+        {
+            new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
+            {
+                { 1, 4d }
+            })
+        };
+    }
 
     public override BuildingType BuildingType => BuildingType.Village;
 
@@ -13,25 +22,19 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
 
     public Dictionary<int, double> ProduceLevel => new Dictionary<int, double>()
     {
-        { 1, 0.25 },
-        { 2, 0.5 },
-        { 3, 1 },
-        { 4, 1.5 },
-        { 5, 2 }
+        { 1, 0.5 },
+        { 2, 1 },
+        { 3, 1.5 },
+        { 4, 2 },
+        { 5, 2.5 }
     };
 
-    public List<ResourceStorage> Storage => new() 
-    { 
-        new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>() 
-        {
-            { 1, 4d }
-        })
-    };
+    public List<ResourceStorage> Storage => BuildingStorage;
+
+    public List<ResourceStorage> BuildingStorage;
 
     public override void OnTurnCycleEnded()
     {
-        Debug.Log($"Storage[0] has amount of {Storage[0].Amount} and adding {ProduceLevel[this.Level]}");
         Storage[0].AddSafe(ProduceLevel[this.Level]);
-        Debug.Log($"New Storage[0] value: {Storage[0].Amount}");
     }
 }

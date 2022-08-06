@@ -10,7 +10,9 @@ public enum ServerToClientPacket : ushort
     LoadGameScene,
     ChunkInfo,
     NewBuildingAdded,
-    PlayerResourceUpdate
+    PlayerResourceUpdate,
+    SyncPlayers,
+    TurnChange,
 }
 
 public enum ClientToServerPacket : ushort
@@ -21,3 +23,4 @@ public enum ClientToServerPacket : ushort
     MainGameLoaded,
     NextTurn,
 }
+

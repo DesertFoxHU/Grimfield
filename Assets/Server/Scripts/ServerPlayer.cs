@@ -33,9 +33,7 @@ namespace ServerSide
                     foreach (ResourceStorage res in storage.Storage)
                     {
                         ResourceHolder holder = resources.GetOrCreate(res.Type);
-                        Debug.Log($"Summerize: Type: {res.Type} old: {holder.Value}, but amount in storage {res.Amount}");
                         holder.Value += res.Amount;
-                        Debug.Log($"New: {holder.Value}");
                     }
                 }
             }

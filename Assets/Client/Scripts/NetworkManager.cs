@@ -28,6 +28,17 @@ public class NetworkManager : MonoBehaviour
 
     public Client Client { get; private set; }
     public string Name { get; set; }
+    public ClientPlayer ClientPlayer { get; set; }
+    public List<ClientPlayer> Players { get; set; }
+    public bool IsYourTurn { get; set; } = false;
+
+    public List<ClientPlayer> GetAllPlayer()
+    {
+        List<ClientPlayer> players = new List<ClientPlayer>(Players);
+        players.Add(ClientPlayer);
+        return players;
+    }
+
 
     private void Awake() 
     { 
