@@ -40,6 +40,27 @@ namespace ServerSide
             return resources;
         }
 
+        public Dictionary<ResourceType, double> GetResourceGeneratePerTurn()
+        {
+            Dictionary<ResourceType, double> generate = new Dictionary<ResourceType, double>();
+            foreach (AbstractBuilding building in Buildings)
+            {
+                if (building is IProducer producer)
+                {
+                    ResourceType type = producer.Type;
+                    if (generate.ContainsKey(type))
+                    {
+                        generate[type] += producer.ProduceLevel[building.Level];
+                    }
+                    else
+                    {
+                        generate.Add(type, producer.ProduceLevel[building.Level]);
+                    }
+                }
+            }
+            return generate;
+        }
+
         public void IncrementBuildingBought(BuildingType type)
         {
             if (BuildingBought.ContainsKey(type))

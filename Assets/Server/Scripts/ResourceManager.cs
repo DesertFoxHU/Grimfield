@@ -18,7 +18,7 @@ namespace ServerSide
                 timer = 0.5f;
                 foreach(ServerPlayer player in NetworkManager.players)
                 {
-                    ServerSender.UpdatePlayerResource(player, player.GetAvaibleResources());
+                    ServerSender.UpdatePlayerResource(player, player.GetAvaibleResources(), player.GetResourceGeneratePerTurn());
                 }
             }
         }

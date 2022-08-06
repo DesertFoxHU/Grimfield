@@ -25,12 +25,12 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(message);
         }
 
-        public static void UpdatePlayerResource(ServerPlayer player, List<ResourceHolder> summerized)
+        public static void UpdatePlayerResource(ServerPlayer player, List<ResourceHolder> summerized, Dictionary<ResourceType, double> perTurn)
         {
             Message message = Message.Create(MessageSendMode.unreliable, ServerToClientPacket.PlayerResourceUpdate);
             message.Add(summerized.Count);
             foreach (ResourceHolder holder in summerized)
-                message.Add(holder.type.ToString()).Add(holder.Value);
+                message.Add(holder.type.ToString()).Add(holder.Value).Add(perTurn[holder.type]);
 
             NetworkManager.Instance.Server.Send(message, player.PlayerId);
         }
