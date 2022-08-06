@@ -5,6 +5,7 @@ using UnityEngine;
 public enum ResourceType
 {
     Citizen,
+    Food,
     Wood,
     Stone,
     Gold,
