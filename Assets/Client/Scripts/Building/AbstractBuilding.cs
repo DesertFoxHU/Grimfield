@@ -19,6 +19,7 @@ public abstract class AbstractBuilding
     public static Type GetClass(BuildingType type)
     {
         if (type == BuildingType.Village) return typeof(Village);
+        else if (type == BuildingType.Forestry) return typeof(Forestry);
         else return null;
     }
 
