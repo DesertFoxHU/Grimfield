@@ -47,6 +47,10 @@ public class JoinServer : MonoBehaviour
         string ipAddress = ipAddressField.text;
         if (ipAddress.Contains(':'))
         {
+            /*ushort port;
+            ushort.TryParse(ipAddress.Split(':')[1], out port);
+            NetworkManager.Instance.port = port;*/
+            Debug.Log($"{ipAddress} port: {ipAddress.Split(':')[1]}");
             NetworkManager.Instance.port = ushort.Parse(ipAddress.Split(':')[1]);
             NetworkManager.Instance.ip = ipAddress.Split(':')[0];
         }

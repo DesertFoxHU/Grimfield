@@ -15,6 +15,13 @@ namespace ServerSide
             return players.Find(a => a.PlayerId == clientID);
         }
 
+        public static List<AbstractBuilding> GetAllBuilding()
+        {
+            List<AbstractBuilding> ab = new List<AbstractBuilding>();
+            players.ForEach(x => ab.AddRange(x.Buildings));
+            return ab;
+        }
+
         private static NetworkManager instance;
         public static NetworkManager Instance
         {

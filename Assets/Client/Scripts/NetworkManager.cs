@@ -76,8 +76,8 @@ public class NetworkManager : MonoBehaviour
 
     public void Connect()
     {
-        //Client.Connect($"{ip}:{port}");
-        Client.Connect($"192.168.1.180:6112");
+        Client.Connect($"{ip}:{port}");
+        //Client.Connect($"192.168.1.180:6112");
         Debug.Log($"Attempt to join default server");
     }
 

@@ -16,4 +16,9 @@ public class BuildMenuElementRegistry : MonoBehaviour
         }
         Debug.Log($"Loaded {elements.Count} elements!");
     }
+
+    public BuildMenuElement Find(BuildingType type)
+    {
+        return elements.Find(x => x.BuildingType == type);
+    }
 }

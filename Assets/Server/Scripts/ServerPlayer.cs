@@ -74,5 +74,60 @@ namespace ServerSide
         {
             return Buildings.Find(x => x.ID == ID);
         }
+
+        /// <summary>
+        /// This always check if the player has enough resource to pay it
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns>False if couldn't pay</returns>
+        public bool PayResources(Dictionary<ResourceType, double> cost)
+        {
+            #region Has enough 
+            List<ResourceHolder> resources = GetAvaibleResources();
+            foreach (ResourceType resType in cost.Keys)
+            {
+                ResourceHolder holder = resources.Get(resType);
+                if (holder == null || holder.Value < cost[resType])
+                {
+                    return false;
+                }
+            }
+            #endregion
+
+            foreach (ResourceType resType in cost.Keys)
+            {
+                double needToPay = cost[resType];
+                foreach (AbstractBuilding building in Buildings)
+                {
+                    if (needToPay <= 0) break;
+
+                    if(building is IResourceStorage storage)
+                    {
+                        ResourceStorage actualStorage = storage.Storage.Get(resType);
+                        if (actualStorage == null || actualStorage.Amount <= 0) continue;
+
+                        //If we have less stored than we need
+                        //we take all of it from the building
+                        if(needToPay >= actualStorage.Amount)
+                        {
+                            needToPay -= actualStorage.Amount;
+                            actualStorage.Amount = 0;
+                        }
+                        else //We need to play less than we have
+                        {
+                            actualStorage.Amount -= needToPay;
+                            needToPay = 0;
+                        }
+                    }
+                }
+
+                //None of the buildings could pay for it :(
+                if(needToPay > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

@@ -128,7 +128,25 @@ namespace ServerSide
                 return;
             }
 
+            bool occupied = !NetworkManager.GetAllBuilding().TrueForAll(x => x.Position != pos);
+            if (occupied)
+            {
+                ServerSender.SendAlert(clientID, "This tile is already occupied!");
+                return;
+            }
+
             ServerPlayer player = NetworkManager.Find(clientID);
+
+            BuildMenuElement element = FindObjectOfType<BuildMenuElementRegistry>().Find(type);
+            Dictionary<ResourceType, double> cost = element.GetBuildingCost(player.BuildingBought[type]);
+            List<ResourceHolder> resources = player.GetAvaibleResources();
+
+            if (!player.PayResources(cost))
+            {
+                ServerSender.SendAlert(clientID, "You don't have enough resources!");
+                return;
+            }
+
             AbstractBuilding building = (AbstractBuilding) Activator.CreateInstance(AbstractBuilding.GetClass(type), pos);
 
             player.Buildings.Add(building);

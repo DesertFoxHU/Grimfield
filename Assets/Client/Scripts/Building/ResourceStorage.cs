@@ -6,7 +6,7 @@ public class ResourceStorage
 {
     public AbstractBuilding owner;
     public ResourceType Type { get; private set; }
-    public double Amount { get; private set; }
+    public double Amount { get; set; }
     public Dictionary<int, double> MaxAmountAtLevel { get; set; }
 
     public ResourceStorage(AbstractBuilding owner, ResourceType type, Dictionary<int, double> maxAmountAtLevel)

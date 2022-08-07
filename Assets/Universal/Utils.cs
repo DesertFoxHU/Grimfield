@@ -60,4 +60,10 @@ public static class Utils
             dict.Remove(key);
         }
     }
+
+    public static ResourceStorage Get(this List<ResourceStorage> list, ResourceType type)
+    {
+        ResourceStorage holder = list.Find(x => x.Type == type);
+        return holder;
+    }
 }

@@ -39,4 +39,10 @@ public static class ResourceHolderExtensions
         }
         return holder;
     }
+
+    public static ResourceHolder Get(this List<ResourceHolder> list, ResourceType type)
+    {
+        ResourceHolder holder = list.Find(x => x.type == type);
+        return holder;
+    }
 }
