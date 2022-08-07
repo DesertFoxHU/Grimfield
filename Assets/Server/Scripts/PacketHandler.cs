@@ -24,7 +24,7 @@ namespace ServerSide
         {
             string name = message.GetString();
 
-            if(name == null)
+            if(name == null || name.Length == 0)
             {
                 NetworkManager.Instance.Server.Send(
                     Message.Create(MessageSendMode.reliable,
@@ -102,6 +102,12 @@ namespace ServerSide
         [MessageHandler((ushort)ClientToServerPacket.RequestBuild)]
         private static void RequestToBuild(ushort clientID, Message message)
         {
+            if(clientID != gameController.turnHandler.GetCurrentTurnOwnerID())
+            {
+                ServerSender.SendAlert(clientID, "It's not your turn!");
+                return;
+            }
+
             Vector3 v3Pos = message.GetVector3();
             Vector3Int pos = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(v3Pos);
             BuildingType type = (BuildingType) Enum.Parse(typeof(BuildingType), message.GetString());

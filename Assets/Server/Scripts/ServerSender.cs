@@ -9,6 +9,13 @@ namespace ServerSide
 {
     public static class ServerSender
     {
+        public static void SendAlert(ushort clientID, string message)
+        {
+            NetworkManager.Instance.Server.Send(
+                    Message.Create(MessageSendMode.unreliable, ServerToClientPacket.SendAlert).Add(message),
+                    clientID);
+        }
+
         /// <summary>
         /// Sends everybody a request to render the new building
         /// </summary>

@@ -26,6 +26,9 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    public string ip = "192.168.1.180";
+    public ushort port = 6112;
+
     public Client Client { get; private set; }
     public string Name { get; set; }
     public ClientPlayer ClientPlayer { get; set; }
@@ -73,6 +76,7 @@ public class NetworkManager : MonoBehaviour
 
     public void Connect()
     {
+        //Client.Connect($"{ip}:{port}");
         Client.Connect($"192.168.1.180:6112");
         Debug.Log($"Attempt to join default server");
     }

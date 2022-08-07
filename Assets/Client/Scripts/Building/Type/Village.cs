@@ -12,7 +12,15 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
             new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
             {
                 { 1, 4d }
-            })
+            }),
+            new ResourceStorage(this, ResourceType.Food, new Dictionary<int, double>()
+            {
+                { 1, 10d }
+            }),
+             new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
+            {
+                { 1, 10d }
+            }),
         };
     }
 

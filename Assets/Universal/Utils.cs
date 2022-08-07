@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -48,6 +49,15 @@ public static class Utils
             T value = list[k];
             list[k] = list[n];
             list[n] = value;
+        }
+    }
+
+    public static void RemoveAll<TKey, TValue>(this IDictionary<TKey, TValue> dict, System.Func<TValue, bool> predicate)
+    {
+        var keys = dict.Keys.Where(k => predicate(dict[k])).ToList();
+        foreach (var key in keys)
+        {
+            dict.Remove(key);
         }
     }
 }

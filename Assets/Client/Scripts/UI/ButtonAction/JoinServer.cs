@@ -12,6 +12,14 @@ public class JoinServer : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.HasKey("IpAddress"))
+        {
+            ipAddressField.text = PlayerPrefs.GetString("IpAddress");
+        }
+        if (PlayerPrefs.HasKey("Name"))
+        {
+            nameField.text = PlayerPrefs.GetString("Name");
+        }
         this.GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
@@ -34,8 +42,23 @@ public class JoinServer : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<NetworkManager>().Name = nameField.text;
-        //FindObjectOfType<NetworkManager>().Connect(ipAddressField.text);
+        NetworkManager.Instance.Name = nameField.text;
+
+        string ipAddress = ipAddressField.text;
+        if (ipAddress.Contains(':'))
+        {
+            NetworkManager.Instance.port = ushort.Parse(ipAddress.Split(':')[1]);
+            NetworkManager.Instance.ip = ipAddress.Split(':')[0];
+        }
+        else
+        {
+            NetworkManager.Instance.ip = ipAddress;
+        }
+
+        PlayerPrefs.SetString("IpAddress", ipAddress);
+        PlayerPrefs.SetString("Name", NetworkManager.Instance.Name);
+        PlayerPrefs.Save();
+
         FindObjectOfType<NetworkManager>().Connect();
     }
 }
