@@ -14,7 +14,7 @@ This is a **turn-based multiplayer strategy game**.
 
 You can find the server program in the **Server** folder.<br>
 The default port is **6112**.<br>
-To start the server just run the .exe<br>
+To start the server just run the GrimfieldServer.exe<br>
 
 ## Setting up a Server Project
 
