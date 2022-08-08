@@ -46,6 +46,7 @@ public class Blueprinting : MonoBehaviour
     public void ChangeBlueprint(BuildingDefinition definition)
     {
         this.current = definition;
+        this.spriteRenderer.sprite = definition.spritesLevel[0];
         Show();
     }
 

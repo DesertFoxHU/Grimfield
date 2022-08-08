@@ -7,5 +7,6 @@ public enum TileType
     Grass,
     Mountain,
     Forest,
-    GoldOre
+    GoldOre,
+    ShallowWater,
 }

@@ -58,6 +58,13 @@ namespace ServerSide
                         continue;
                     }
 
+                    float perlin2 = Mathf.PerlinNoise((x + Seed / 100f) / 10f + 10f, (y + Seed / 100f) / 10f - 10f); //Offset by +10,-10
+                    if(perlin2 <= 0.25f)
+                    {
+                        GenerateTile(map, x, y, TileType.ShallowWater);
+                        continue;
+                    }
+
                     GenerateTile(map, x, y, TileType.Grass);
                 }
             }

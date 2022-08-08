@@ -171,6 +171,7 @@ MonoBehaviour:
   ParseOnStart:
   - {fileID: 4900000, guid: 697cf4eaf98d2e84097ae7c436de9e45, type: 3}
   - {fileID: 4900000, guid: 81792961952302a489ec3358aa87d2ce, type: 3}
+  - {fileID: 4900000, guid: 203a30ffa6957f54a87455c42307089b, type: 3}
 --- !u!114 &517942559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +189,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a69e0e7abc3ef334bb9587cbc6376284, type: 2}
   - {fileID: 11400000, guid: 7d8ee7c339328bc47bc4938d5b953959, type: 2}
   - {fileID: 11400000, guid: bdd625656e71df54d934239c380f195d, type: 2}
+  - {fileID: 11400000, guid: a71cc94130ab6f04bb81f78cd62d8483, type: 2}
   Buildings:
   - {fileID: 11400000, guid: 51d58e35de5d60841bedc7b57d326f29, type: 2}
   - {fileID: 11400000, guid: fb91b7b06fc5cdd4d84dc37500d4584c, type: 2}
+  - {fileID: 11400000, guid: 2f95d7cc25c90614ebe4163280fc4fe2, type: 2}

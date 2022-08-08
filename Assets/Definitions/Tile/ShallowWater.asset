@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7990ba9ec3dbb42a50e3b1de680724, type: 3}
+  m_Name: ShallowWater
+  m_EditorClassIdentifier: 
+  type: 4
+  sprites:
+  - {fileID: 21300000, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}

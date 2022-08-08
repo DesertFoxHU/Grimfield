@@ -20,6 +20,7 @@ public abstract class AbstractBuilding
     {
         if (type == BuildingType.Village) return typeof(Village);
         else if (type == BuildingType.Forestry) return typeof(Forestry);
+        else if (type == BuildingType.Orchard) return typeof(Orchard);
         else return null;
     }
 

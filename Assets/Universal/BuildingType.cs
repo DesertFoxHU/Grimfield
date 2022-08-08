@@ -5,5 +5,6 @@ using UnityEngine;
 public enum BuildingType
 {
     Village,
-    Forestry
+    Forestry,
+    Orchard,
 }
