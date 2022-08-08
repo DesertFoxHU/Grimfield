@@ -1,6 +1,3 @@
-# GrimfieldRE
- Grimfield, just better
-
 This is a **turn-based multiplayer strategy game**.
 
 **What features Grimfield will have that other strategy games usually don't have?**
