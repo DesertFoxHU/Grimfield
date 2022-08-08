@@ -66,5 +66,13 @@ namespace ServerSide
             message.Add(turnCycle);
             NetworkManager.Instance.Server.SendToAll(message);
         }
+
+        public static void UpdateResourceCost(ServerPlayer player, BuildingType type)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.UpdateBuildingCost);
+            message.Add(type.ToString());
+            message.Add(player.BuildingBought.ContainsKey(type) ? player.BuildingBought[type] : 0);
+            NetworkManager.Instance.Server.Send(message, player.PlayerId);
+        }
     }
 }

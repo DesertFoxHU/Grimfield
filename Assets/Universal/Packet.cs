@@ -13,6 +13,7 @@ public enum ServerToClientPacket : ushort
     PlayerResourceUpdate,
     SyncPlayers,
     TurnChange,
+    UpdateBuildingCost,
 }
 
 public enum ClientToServerPacket : ushort

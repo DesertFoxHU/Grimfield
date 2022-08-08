@@ -21,9 +21,17 @@ public class BuildPanel : MonoBehaviour
     public GameObject factoryCategory;
     public GameObject segmentPrefab;
 
+    private List<BuildMenuSegment> segments = new List<BuildMenuSegment>();
+    [HideInInspector] public Dictionary<BuildingType, int> BuildingBought = new Dictionary<BuildingType, int>();
+
     public void Start()
     {
         StartCoroutine(FirstLoad());
+    }
+
+    public BuildMenuSegment GetSegment(BuildingType type)
+    {
+        return segments.Find(x => x.Type == type);
     }
 
     private IEnumerator LoadElements()
@@ -36,6 +44,7 @@ public class BuildPanel : MonoBehaviour
             GameObject newSegment = Instantiate(segmentPrefab, new Vector3(0f, Y, 0f), Quaternion.identity);
             newSegment.transform.SetParent(GetCategorysObject(element.Category).transform, false);
             newSegment.GetComponent<BuildMenuSegment>().Load(element);
+            segments.Add(newSegment.GetComponent<BuildMenuSegment>());
         }
         yield return null;
     }

@@ -24,6 +24,10 @@ public class BuildMenuSegment : MonoBehaviour
     public List<ResourceIcons> Icons;
 
     public BuildMenuElement LastLoaded { get; private set; }
+    public BuildingType Type
+    {
+        get => LastLoaded.BuildingType;
+    }
 
     public void Load(BuildMenuElement element)
     {
@@ -32,6 +36,11 @@ public class BuildMenuSegment : MonoBehaviour
         Description.text = LastLoaded.Description;
         Icon.sprite = DefinitionRegistry.Instance.Find(element.BuildingType).GetSpriteByLevel(1);
         RenderCost(element, 0);
+    }
+
+    public void RenderCost(int boughtCount)
+    {
+        RenderCost(LastLoaded, boughtCount);
     }
 
     public void RenderCost(BuildMenuElement element, int boughtCount)

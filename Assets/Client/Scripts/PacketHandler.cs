@@ -156,4 +156,20 @@ public class PacketHandler : MonoBehaviour
             go.GetComponent<TextMeshProUGUI>().text = $"Turn({turnCycle}): {currentPlayer.Name}";
         }
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.UpdateBuildingCost)]
+    private static void UpdateBuildingCost(Message message)
+    {
+        BuildingType type = (BuildingType)Enum.Parse(typeof(BuildingType), message.GetString());
+        int boughtAmount = message.GetInt();
+
+        BuildPanel panel = FindObjectOfType<BuildPanel>();
+        if (panel.BuildingBought.ContainsKey(type))
+        {
+            panel.BuildingBought[type] = boughtAmount;
+        }
+        else panel.BuildingBought.Add(type, boughtAmount);
+
+        panel.GetSegment(type).RenderCost(boughtAmount);
+    }
 }
