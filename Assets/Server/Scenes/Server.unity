@@ -2290,6 +2290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b52160b03a0ee49807ae3cdbdf2631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  port: 6112
+  MaxClient: 10
   State: 0
 --- !u!114 &1613661353
 MonoBehaviour:

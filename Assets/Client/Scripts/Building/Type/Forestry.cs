@@ -9,7 +9,7 @@ public class Forestry : AbstractBuilding, IProducer, IResourceStorage
     {
         BuildingStorage = new List<ResourceStorage>
         {
-            new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
+            new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
             {
                 { 1, 3d }
             })

@@ -24,13 +24,16 @@ public class BuildMenuElement
             else cost[holder.type] += holder.Value;
         }
 
-        foreach (ResourceHolder holder in IncreasePerBuy)
+        if(boughtCount != 0)
         {
-            if (!cost.ContainsKey(holder.type))
+            foreach (ResourceHolder holder in IncreasePerBuy)
             {
-                cost.Add(holder.type, holder.Value * boughtCount);
+                if (!cost.ContainsKey(holder.type))
+                {
+                    cost.Add(holder.type, holder.Value * boughtCount);
+                }
+                else cost[holder.type] += holder.Value * boughtCount;
             }
-            else cost[holder.type] += holder.Value * boughtCount;
         }
         return cost;
     }

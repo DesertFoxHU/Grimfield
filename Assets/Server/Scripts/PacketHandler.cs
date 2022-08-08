@@ -138,10 +138,10 @@ namespace ServerSide
             ServerPlayer player = NetworkManager.Find(clientID);
 
             BuildMenuElement element = FindObjectOfType<BuildMenuElementRegistry>().Find(type);
-            Dictionary<ResourceType, double> cost = element.GetBuildingCost(player.BuildingBought[type]);
+            Dictionary<ResourceType, double> cost = element.GetBuildingCost(player.BuildingBought.ContainsKey(type) ? player.BuildingBought[type] : 0);
             List<ResourceHolder> resources = player.GetAvaibleResources();
 
-            if (!player.PayResources(cost))
+            if (cost.Count != 0 && !player.PayResources(cost))
             {
                 ServerSender.SendAlert(clientID, "You don't have enough resources!");
                 return;
