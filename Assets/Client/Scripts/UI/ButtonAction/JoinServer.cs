@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class JoinServer : MonoBehaviour
 {
-    public TextMeshProUGUI ipAddressField;
+    public TMP_InputField ipAddressField;
     public TextMeshProUGUI nameField;
 
     void Start()
@@ -42,16 +42,12 @@ public class JoinServer : MonoBehaviour
             return;
         }
 
-        NetworkManager.Instance.Name = nameField.text;
+        NetworkManager.Instance.Name = nameField.text.Trim();
 
-        string ipAddress = ipAddressField.text;
+        string ipAddress = ipAddressField.text.Trim();
         if (ipAddress.Contains(':'))
         {
-            /*ushort port;
-            ushort.TryParse(ipAddress.Split(':')[1], out port);
-            NetworkManager.Instance.port = port;*/
-            Debug.Log($"{ipAddress} port: {ipAddress.Split(':')[1]}");
-            NetworkManager.Instance.port = ushort.Parse(ipAddress.Split(':')[1]);
+            NetworkManager.Instance.port = ushort.Parse(ipAddress.Split(':')[1].Trim(), System.Globalization.NumberStyles.Any);
             NetworkManager.Instance.ip = ipAddress.Split(':')[0];
         }
         else

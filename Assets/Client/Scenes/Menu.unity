@@ -890,6 +890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f064c91ddcad97478fb3ada89961982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ip: 192.168.1.180
+  port: 6112
 --- !u!114 &865793835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eca25f58db8fe74d8a77db2dd183609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ipAddressField: {fileID: 1559181202}
+  ipAddressField: {fileID: 727261642}
   nameField: {fileID: 190038707}
 --- !u!1 &1513271333
 GameObject:

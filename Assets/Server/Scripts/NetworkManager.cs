@@ -39,14 +39,13 @@ namespace ServerSide
         }
 
         public Server Server { get; private set; }
-        private ushort port;
-        public ushort MaxClient { get; private set; } = 10;
+        public ushort port = 6112;
+        public ushort MaxClient = 10;
         public ServerState State;
 
         private void Awake()
         {
             Instance = this;
-            port = 6112;
         }
 
         private void Start()
@@ -65,17 +64,12 @@ namespace ServerSide
 
             Server.Start(port, MaxClient);
             State = ServerState.Lobby;
-            Debug.Log($"Server started on {port}");
+            Debug.Log($"Server started on {port} with {MaxClient} slots!");
         }
 
         private void FixedUpdate()
         {
             Server.Tick();
-        }
-
-        private void Update()
-        {
-            
         }
 
         private void OnApplicationQuit()
