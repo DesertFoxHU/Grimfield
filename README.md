@@ -8,6 +8,7 @@ This is a **turn-based multiplayer strategy game**.
 - AIs and Coop mode
 - Passive defenses like towers and traps
 - Some terrain modification
+- Big tech tree
 
 ## Server hosting
 
