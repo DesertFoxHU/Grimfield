@@ -7,6 +7,8 @@ Every packet has it's own unique ID (ushort)
 `SpriteIndex`: Refers to the sprite's index in a list. Usually used for Sync purposes.<br>
 `BuildingType`: Enum<br>
 `TileType`: Enum<br>
+`Multiple Entry`: The packet doesn't have a fixed length and a single packet can have multiple of these fields.<br>
+However the order of these values count.<br>
 
 ## Serverside - Server to Client
 
@@ -157,6 +159,123 @@ Places a new building on the map<br>
 </table>
 <br>
 
+### PlayerResourceUpdate<br>
+Contains information about a player's current resources and resource income per turn<br>
+The default server sends them every **0.5** seconds, also the client is not limited to process them only every 0.5 seconds nor has any cooldown<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>7</td>
+    <td>int</td>
+    <td>List of ResourceType's count</td>
+  </tr>
+  <tr align="center">
+    <td>Multiple Entry</td>
+    <td>ResourceType</td>
+    <td></td>
+  </tr>
+  <tr align="center">
+    <td>Multiple Entry</td>
+    <td>double</td>
+    <td>Resource Amount The player have</td>
+  </tr>
+  <tr align="center">
+    <td>Multiple Entry</td>
+    <td>double</td>
+    <td>This resource income for the player per turn</td>
+  </tr>
+</table>
+<br>
+
+### SyncPlayers<br>
+The packet contains every participants' information and used to share it with<br>
+a client.<br>
+The client use this information for example to determine an another player's name<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>8</td>
+    <td>int</td>
+    <td>Players count</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>ushort</td>
+    <td>The clientID of this packet's reciever</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>string</td>
+    <td>The username of this packet's reciever, the client does nothing with it</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>The player's count excluded the reciever.<br>If there are 10 players we should set this to 9<br>It also determines how many entries will be read by the client</td>
+  </tr>
+  <tr align="center">
+    <td>Multiple Entry</td>
+    <td>ushort</td>
+    <td>ClientID</td>
+  </tr>
+  <tr align="center">
+    <td>Multiple Entry</td>
+    <td>string</td>
+    <td>Player's name</td>
+  </tr>
+</table>
+<br>
+
+### TurnChange<br>
+The server sends this packet to everyone when a next player turn comes<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>9</td>
+    <td>ushort</td>
+    <td>ClientID of the new player who turns</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>Turn cycle count. One turn cycle means every player has its turn once</td>
+  </tr>
+</table>
+<br>
+
+### UpdateResourceCost<br>
+Forces a player's client to calculate and show the new building cost in the Building panel<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>10</td>
+    <td>BuildingType</td>
+    <td>The BuildingType which should be updated</td>
+  </tr>
+  <tr align="center">
+    <td></td>
+    <td>int</td>
+    <td>How many times bought this building by this player?</td>
+  </tr>
+</table>
+<br>
+
 ## Clientside - Client to Server
 
 ### JoinLobby<br>
@@ -223,6 +342,22 @@ After this the server will start sending the ChunkInfo packets<br>
   </tr>
   <tr align="center">
     <td>4</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<br>
+
+### TurnEnd<br>
+Sent by the client when he is done with their turn<br>
+<table>
+  <tr align="center">
+    <th>ID</th>
+    <th>Type</th>
+    <th>Note</th>
+  </tr>
+  <tr align="center">
+    <td>5</td>
     <td></td>
     <td></td>
   </tr>
