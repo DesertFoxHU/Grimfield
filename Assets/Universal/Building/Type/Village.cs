@@ -18,7 +18,19 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
             {
                 { 1, 10d }
             }),
-             new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
+            new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
+            {
+                { 1, 10d }
+            }),
+            new ResourceStorage(this, ResourceType.Stone, new Dictionary<int, double>()
+            {
+                { 1, 10d }
+            }),
+            new ResourceStorage(this, ResourceType.Gold, new Dictionary<int, double>()
+            {
+                { 1, 10d }
+            }),
+            new ResourceStorage(this, ResourceType.Coin, new Dictionary<int, double>()
             {
                 { 1, 10d }
             }),

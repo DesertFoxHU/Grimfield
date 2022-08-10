@@ -42,6 +42,12 @@ namespace ServerSide
                     float perlin = Mathf.PerlinNoise((x + Seed/100f) /10f, (y + Seed/100f) /10f);
                     if(perlin <= 0.20f)
                     {
+                        if (Utils.Roll(1.5f))
+                        {
+                            GenerateTile(map, x, y, TileType.DragonNest);
+                            continue;
+                        }
+
                         GenerateTile(map, x, y, TileType.Mountain);
                         continue;
                     }

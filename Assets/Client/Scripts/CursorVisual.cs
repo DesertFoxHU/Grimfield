@@ -59,7 +59,7 @@ public class CursorVisual : MonoBehaviour
         }
 
         worldPoint = map.ToVector3(pos);
-        worldPoint.Set(worldPoint.x + 0.5f, worldPoint.y + 0.5f, -0.1f);
+        worldPoint.Set(worldPoint.x + 0.5f, worldPoint.y + 0.5f, -1.1f);
         go.SetActive(true);
         go.transform.position = worldPoint;
     }

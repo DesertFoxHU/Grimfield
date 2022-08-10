@@ -7,4 +7,7 @@ public enum BuildingType
     Village,
     Forestry,
     Orchard,
+    Quarry,
+    GoldMine,
+    Barrack
 }
