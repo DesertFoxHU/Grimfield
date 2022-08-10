@@ -57,7 +57,7 @@ public class BuildMenuSegment : MonoBehaviour
             if (count % 2 == 0) pos.y = -12;
             else pos.y = 12;
 
-            pos.x = 120 * ((int) (count/2));
+            pos.x = 120 * ((int) ((count-1)/2));
 
             GameObject costObject = Instantiate(CostPrefab, pos, Quaternion.identity);
             costObject.transform.SetParent(CostHolder.transform, false);

@@ -30,6 +30,7 @@ namespace ServerSide
             message.Add(building.Level);
 
             NetworkManager.Instance.Server.SendToAll(message);
+            ServerSender.UpdateResourceCost(owner, building.BuildingType);
         }
 
         public static void UpdatePlayerResource(ServerPlayer player, List<ResourceHolder> summerized, Dictionary<ResourceType, double> perTurn)

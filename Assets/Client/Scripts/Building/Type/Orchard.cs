@@ -1,3 +1,4 @@
+using ServerSide;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ public class Orchard : AbstractBuilding, IProducer
         { 5, 2 }
     };
 
-    public override void OnTurnCycleEnded()
+    public override void OnTurnCycleEnded(ServerPlayer owner)
     {
-        //Storage[0].AddSafe(ProduceLevel[this.Level]);
+        owner.TryStoreResource(Type, ProduceLevel[this.Level]);
     }
 }

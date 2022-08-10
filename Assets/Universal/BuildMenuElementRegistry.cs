@@ -16,9 +16,6 @@ public class BuildMenuElementRegistry : MonoBehaviour
             elements.Add(BuildMenuElement.LoadText(asset.text));
         }
         Debug.Log($"Loaded {elements.Count} elements!");
-#if UNITY_SERVER && !UNITY_EDITOR
-SceneManager.LoadScene(1, LoadSceneMode.Additive);
-#endif
     }
 
     public BuildMenuElement Find(BuildingType type)

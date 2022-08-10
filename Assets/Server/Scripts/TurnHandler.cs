@@ -43,7 +43,7 @@ namespace ServerSide
             {
                 foreach(AbstractBuilding building in player.Buildings)
                 {
-                    building.OnTurnCycleEnded();
+                    building.OnTurnCycleEnded(player);
                 }
             }
         }

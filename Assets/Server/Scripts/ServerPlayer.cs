@@ -40,6 +40,31 @@ namespace ServerSide
             return resources;
         }
 
+        /// <summary>
+        /// Tries to store these amount of resource in some building
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="amount"></param>
+        public void TryStoreResource(ResourceType type, double amount)
+        {
+            double remained = amount;
+            foreach (AbstractBuilding building in Buildings)
+            {
+                if (remained <= 0) break;
+
+                if (building is IResourceStorage storage)
+                {
+                    foreach (ResourceStorage res in storage.Storage)
+                    {
+                        if(res.Type == type && res.Amount != res.MaxAmountAtLevel[building.Level])
+                        {
+                            remained -= res.AddSafe(remained);
+                        }
+                    }
+                }
+            }
+        }
+
         public Dictionary<ResourceType, double> GetResourceGeneratePerTurn()
         {
             Dictionary<ResourceType, double> generate = new Dictionary<ResourceType, double>();
@@ -82,16 +107,13 @@ namespace ServerSide
         /// <returns>False if couldn't pay</returns>
         public bool PayResources(Dictionary<ResourceType, double> cost)
         {
-            Debug.Log($"Cost: {cost} length: {cost.Count}");
             #region Has enough 
             List<ResourceHolder> resources = GetAvaibleResources();
             foreach (ResourceType resType in cost.Keys)
             {
-                Debug.Log($"HasEnough: {resType}");
                 ResourceHolder holder = resources.Get(resType);
                 if (holder == null || holder.Value < cost[resType])
                 {
-                    Debug.Log($"FALSE: ResType: {resType} >> {holder} || {holder.Value < cost[resType]}");
                     return false;
                 }
             }
@@ -100,7 +122,6 @@ namespace ServerSide
             foreach (ResourceType resType in cost.Keys)
             {
                 double needToPay = cost[resType];
-                Debug.Log($"needToPay: {needToPay} for {resType}");
                 foreach (AbstractBuilding building in Buildings)
                 {
                     if (needToPay <= 0) break;
@@ -128,11 +149,9 @@ namespace ServerSide
                 //None of the buildings could pay for it :(
                 if(needToPay > 0)
                 {
-                    Debug.Log($"FALSE: needToPay is bigger than zero! {needToPay}");
                     return false;
                 }
             }
-            Debug.Log($"TRUE: paid");
             return true;
         }
     }

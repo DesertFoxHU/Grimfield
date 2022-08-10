@@ -1,3 +1,4 @@
+using ServerSide;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,8 +34,12 @@ public class Forestry : AbstractBuilding, IProducer, IResourceStorage
 
     public List<ResourceStorage> BuildingStorage;
 
-    public override void OnTurnCycleEnded()
+    public override void OnTurnCycleEnded(ServerPlayer owner)
     {
-        Storage[0].AddSafe(ProduceLevel[this.Level]);
+        double remained = Storage[0].AddSafe(ProduceLevel[this.Level]);
+        if(remained > 0)
+        {
+            owner.TryStoreResource(Type, remained);
+        }
     }
 }

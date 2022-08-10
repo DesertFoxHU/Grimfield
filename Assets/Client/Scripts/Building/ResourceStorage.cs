@@ -24,15 +24,23 @@ public class ResourceStorage
         MaxAmountAtLevel = maxAmountAtLevel;
     }
 
-    public void AddSafe(double amount)
+    /// <summary>
+    /// Additive method with considering the limit of max amount
+    /// </summary>
+    /// <param name="amount">How many got actually added</param>
+    /// <returns></returns>
+    public double AddSafe(double amount)
     {
+        double oldAmount = Amount;
         if(Amount + amount > MaxAmountAtLevel[owner.Level])
         {
             Amount = MaxAmountAtLevel[owner.Level];
+            return MaxAmountAtLevel[owner.Level] - oldAmount;
         }
         else
         {
             Amount += amount;
+            return 0;
         }
     }
 }

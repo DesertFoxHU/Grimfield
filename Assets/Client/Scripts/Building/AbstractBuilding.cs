@@ -1,3 +1,4 @@
+using ServerSide;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ public abstract class AbstractBuilding
     /// <summary>
     /// Called when every player had thier turn
     /// </summary>
-    public virtual void OnTurnCycleEnded() { }
+    public virtual void OnTurnCycleEnded(ServerPlayer owner) { }
 
     public abstract BuildingType BuildingType { get; }
 }
