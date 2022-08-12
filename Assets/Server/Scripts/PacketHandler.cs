@@ -180,5 +180,23 @@ namespace ServerSide
 
             gameController.turnHandler.TurnEnded();
         }
+
+        [MessageHandler((ushort)ClientToServerPacket.FetchBuildingData)]
+        private static void FetchBuildingData(ushort clientID, Message message)
+        {
+            Guid guid = Guid.Parse(message.GetString());
+            MouseClickType clickType = (MouseClickType)Enum.Parse(typeof(MouseClickType), message.GetString());
+
+            AbstractBuilding building = NetworkManager.GetAllBuilding().Find(x => x.ID == guid);
+            if(building == null)
+            {
+                ServerSender.SendAlert(clientID, "Sync error: No building in this position");
+                return;
+            }
+
+            Message response = Message.Create(MessageSendMode.unreliable, ServerToClientPacket.FetchBuildingDataResponse);
+            response.Add(building);
+            NetworkManager.Instance.Server.Send(response, clientID);
+        }
     }
 }

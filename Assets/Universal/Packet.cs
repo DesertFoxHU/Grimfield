@@ -14,6 +14,7 @@ public enum ServerToClientPacket : ushort
     SyncPlayers,
     TurnChange,
     UpdateBuildingCost,
+    FetchBuildingDataResponse,
 }
 
 public enum ClientToServerPacket : ushort
@@ -23,5 +24,6 @@ public enum ClientToServerPacket : ushort
     RequestBuild,
     MainGameLoaded,
     NextTurn,
+    FetchBuildingData,
 }
 

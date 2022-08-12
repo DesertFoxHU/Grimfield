@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using RiptideNetworking;
 using System;
 using System.Collections;
@@ -7,6 +8,11 @@ using UnityEngine.Tilemaps;
 
 public static class MessageExtensions
 {
+    public static JsonSerializerSettings settings = new JsonSerializerSettings()
+    {
+        TypeNameHandling = TypeNameHandling.All
+    };
+
     public static Message AddGuid(this Message message, Guid ID)
     {
         return message.AddString(ID.ToString());
@@ -30,4 +36,16 @@ public static class MessageExtensions
     }
 
     public static Message Add(this Message message, Vector3Int value) => AddVector3Int(message, value);
+
+    public static Message AddBuilding(this Message message, AbstractBuilding building)
+    {
+        return message.Add(JsonConvert.SerializeObject(building, settings));
+    }
+
+    public static AbstractBuilding GetBuilding(this Message message)
+    {
+        return JsonConvert.DeserializeObject<AbstractBuilding>(message.GetString(), settings);
+    }
+
+    public static Message Add(this Message message, AbstractBuilding value) => AddBuilding(message, value);
 }

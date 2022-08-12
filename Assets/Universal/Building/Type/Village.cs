@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class Village : AbstractBuilding, IProducer, IResourceStorage
 {
-    public Village(Vector3Int position) : base(position) 
+    public Village(Vector3Int position, bool IsCapital = false) : base(position) 
     {
+        this.IsCapital = IsCapital;
         BuildingStorage = new List<ResourceStorage>
         {
             new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
@@ -36,6 +37,8 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
             }),
         };
     }
+
+    public bool IsCapital { get; private set; } = false;
 
     public override BuildingType BuildingType => BuildingType.Village;
 
