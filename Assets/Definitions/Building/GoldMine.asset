@@ -16,3 +16,19 @@ MonoBehaviour:
   spritesLevel:
   - {fileID: 21300000, guid: 4b5f9327f9f7ce941bd7e127bc73451b, type: 3}
   placeable: 03000000
+  hasProductStorage: 0
+  isProducer: 1
+  produceType: 4
+  ProduceLevel:
+  - level: 1
+    value: 0.1
+  - level: 2
+    value: 0.25
+  - level: 3
+    value: 0.5
+  - level: 4
+    value: 1
+  - level: 5
+    value: 2
+  - level: 0
+    value: 0

@@ -36,4 +36,9 @@ public abstract class AbstractBuilding
     public virtual void OnTurnCycleEnded(ServerPlayer owner) { }
 
     public abstract BuildingType BuildingType { get; }
+
+    public BuildingDefinition GetDefinition()
+    {
+        return DefinitionRegistry.Instance.Find(BuildingType);
+    }
 }

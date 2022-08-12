@@ -70,16 +70,17 @@ namespace ServerSide
             Dictionary<ResourceType, double> generate = new Dictionary<ResourceType, double>();
             foreach (AbstractBuilding building in Buildings)
             {
-                if (building is IProducer producer)
+                BuildingDefinition definition = building.GetDefinition();
+                if (definition.isProducer)
                 {
-                    ResourceType type = producer.Type;
+                    ResourceType type = definition.produceType;
                     if (generate.ContainsKey(type))
                     {
-                        generate[type] += producer.ProduceLevel[building.Level];
+                        generate[type] += definition.ProduceLevel.Find(x => x.level == building.Level).value;
                     }
                     else
                     {
-                        generate.Add(type, producer.ProduceLevel[building.Level]);
+                        generate.Add(type, definition.ProduceLevel.Find(x => x.level == building.Level).value);
                     }
                 }
             }

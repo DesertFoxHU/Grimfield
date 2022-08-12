@@ -17,3 +17,17 @@ MonoBehaviour:
   - {fileID: -90022706, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}
   - {fileID: -634119958, guid: ccf179a8a4e844346bc3b59ed021482f, type: 3}
   placeable: 00000000
+  hasProductStorage: 0
+  isProducer: 1
+  produceType: 0
+  ProduceLevel:
+  - level: 1
+    value: 0.5
+  - level: 2
+    value: 1
+  - level: 3
+    value: 1.5
+  - level: 4
+    value: 2
+  - level: 5
+    value: 2.5

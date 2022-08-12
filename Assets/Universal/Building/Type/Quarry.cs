@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quarry : AbstractBuilding, IProducer
+public class Quarry : AbstractBuilding
 {
     public Quarry(Vector3Int position) : base(position) 
     {
@@ -12,19 +12,8 @@ public class Quarry : AbstractBuilding, IProducer
 
     public override BuildingType BuildingType => BuildingType.Quarry;
 
-    public ResourceType Type => ResourceType.Stone;
-
-    public Dictionary<int, double> ProduceLevel => new Dictionary<int, double>()
-    {
-        { 1, 0.1 },
-        { 2, 0.25 },
-        { 3, 0.5 },
-        { 4, 1.0 },
-        { 5, 2 }
-    };
-
     public override void OnTurnCycleEnded(ServerPlayer owner)
     {
-        owner.TryStoreResource(Type, ProduceLevel[this.Level]);
+        owner.TryStoreResource(GetDefinition().produceType, GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
     }
 }

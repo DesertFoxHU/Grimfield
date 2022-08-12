@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Village : AbstractBuilding, IProducer, IResourceStorage
+public class Village : AbstractBuilding, IResourceStorage
 {
     public Village(Vector3Int position) : base(position) 
     {
@@ -42,27 +42,16 @@ public class Village : AbstractBuilding, IProducer, IResourceStorage
 
     public override BuildingType BuildingType => BuildingType.Village;
 
-    public ResourceType Type => ResourceType.Citizen;
-
-    public Dictionary<int, double> ProduceLevel => new Dictionary<int, double>()
-    {
-        { 1, 0.5 },
-        { 2, 1 },
-        { 3, 1.5 },
-        { 4, 2 },
-        { 5, 2.5 }
-    };
-
     public List<ResourceStorage> Storage => BuildingStorage;
 
     public List<ResourceStorage> BuildingStorage;
 
     public override void OnTurnCycleEnded(ServerPlayer owner)
     {
-        double remained = Storage[0].AddSafe(ProduceLevel[this.Level]);
+        double remained = Storage[0].AddSafe(GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
         if (remained > 0)
         {
-            owner.TryStoreResource(Type, remained);
+            owner.TryStoreResource(GetDefinition().produceType, remained);
         }
     }
 }
