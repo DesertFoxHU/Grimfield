@@ -32,12 +32,12 @@ public class CursorAction : MonoBehaviour
 
         //TODO: Check Entity
 
-        foreach (GameObject go in map.transform)
+        foreach (Transform child in map.transform)
         {
-            string name = go.name;
+            string name = child.name;
             if (name.StartsWith("Building"))
             {
-                Vector3Int buildingPos = map.ToVector3Int(go.transform.position);
+                Vector3Int buildingPos = map.ToVector3Int(child.position);
                 if(buildingPos.x == pos.x && buildingPos.y == pos.y)
                 {
                     ushort clientID = ushort.Parse(name.Split('_')[1]);

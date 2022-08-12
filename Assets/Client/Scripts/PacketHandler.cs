@@ -172,4 +172,11 @@ public class PacketHandler : MonoBehaviour
 
         panel.GetSegment(type).RenderCost(boughtAmount);
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.FetchBuildingDataResponse)]
+    private static void FetchBuildingDataResponse(Message message)
+    {
+        AbstractBuilding building = message.GetBuilding();
+        Debug.Log($"Got building: {building} {building.Level} {building.BuildingType}");
+    }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
 public abstract class AbstractBuilding
 {
     public readonly Guid ID = Guid.NewGuid();

@@ -1,10 +1,11 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceStorage
 {
-    public AbstractBuilding owner;
+    [JsonIgnore] public AbstractBuilding owner;
     public ResourceType Type { get; private set; }
     public double Amount { get; set; }
     public Dictionary<int, double> MaxAmountAtLevel { get; set; }

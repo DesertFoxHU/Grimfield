@@ -4,11 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Village : AbstractBuilding, IProducer, IResourceStorage
 {
-    public Village(Vector3Int position, bool IsCapital = false) : base(position) 
+    public Village(Vector3Int position) : base(position) 
     {
-        this.IsCapital = IsCapital;
         BuildingStorage = new List<ResourceStorage>
         {
             new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
