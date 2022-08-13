@@ -8,6 +8,11 @@ using UnityEngine.Tilemaps;
 
 public static class MessageExtensions
 {
+    public static JsonSerializerSettings settings = new JsonSerializerSettings()
+    {
+        TypeNameHandling = TypeNameHandling.All
+    };
+
     public static Message AddGuid(this Message message, Guid ID)
     {
         return message.AddString(ID.ToString());
@@ -32,16 +37,29 @@ public static class MessageExtensions
 
     public static Message Add(this Message message, Vector3Int value) => AddVector3Int(message, value);
 
-    public static Message AddBuilding(this Message message, AbstractBuilding building)
+    public static Message AddBuildingByByte(this Message message, AbstractBuilding building)
     {
         byte[] array = building.ToByteArray();
         return message.Add(array.Length).Add(array);
     }
 
-    public static AbstractBuilding GetBuilding(this Message message)
+    public static AbstractBuilding GetBuildingByByte(this Message message)
     {
         int length = message.GetInt();
         return (AbstractBuilding) message.GetBytes(length).ToObject();
+    }
+
+    public static Message AddByByte(this Message message, AbstractBuilding value) => AddBuildingByByte(message, value);
+
+    public static Message AddBuilding(this Message message, AbstractBuilding building)
+    {
+        string compressed = StringCompressor.CompressString(JsonConvert.SerializeObject(building, settings));
+        return message.Add(compressed);
+    }
+
+    public static AbstractBuilding GetBuilding(this Message message)
+    {
+        return JsonConvert.DeserializeObject<AbstractBuilding>(StringCompressor.DecompressString(message.GetString()), settings);
     }
 
     public static Message Add(this Message message, AbstractBuilding value) => AddBuilding(message, value);

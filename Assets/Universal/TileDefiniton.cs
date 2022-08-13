@@ -6,6 +6,8 @@ using UnityEngine;
 public class TileDefiniton : ScriptableObject
 {
     public TileType type;
+    public string tileName;
+    public string description;
     public Sprite[] sprites;
 
     public Sprite GetRandomSprite()

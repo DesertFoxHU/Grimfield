@@ -2,6 +2,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace ServerSide
@@ -61,6 +62,8 @@ namespace ServerSide
             Server = new Server();
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
+
+            FindObjectOfType<ServerConsole>().StartConsole();
 
             Server.Start(port, MaxClient);
             State = ServerState.Lobby;

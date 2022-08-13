@@ -50,6 +50,6 @@ public class CursorAction : MonoBehaviour
             }
         }
 
-        //TODO: Load tile
+        FindObjectOfType<InfoPanel>().Load(pos);
     }
 }

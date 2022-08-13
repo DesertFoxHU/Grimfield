@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   type: 0
+  tileName: Grass
+  description: Grass. Thats it.
   sprites:
   - {fileID: 487846110, guid: 5fe30f52508c3c849b9da4f9a6e4dc98, type: 3}
   - {fileID: -449981959, guid: 5fe30f52508c3c849b9da4f9a6e4dc98, type: 3}

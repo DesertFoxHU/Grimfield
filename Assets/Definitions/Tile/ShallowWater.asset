@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: ShallowWater
   m_EditorClassIdentifier: 
   type: 4
+  tileName: Shallow Water
+  description: A shallow water
   sprites:
   - {fileID: -965989552, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}

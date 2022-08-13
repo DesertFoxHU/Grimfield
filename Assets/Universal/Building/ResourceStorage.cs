@@ -25,6 +25,15 @@ public class ResourceStorage
         MaxAmountAtLevel = maxAmountAtLevel;
     }
 
+    [JsonConstructor]
+    public ResourceStorage(ResourceType type, double amount, Dictionary<int, double> maxAmountAtLevel)
+    {
+        this.owner = null;
+        Type = type;
+        Amount = amount;
+        MaxAmountAtLevel = maxAmountAtLevel;
+    }
+
     /// <summary>
     /// Additive method with considering the limit of max amount
     /// </summary>

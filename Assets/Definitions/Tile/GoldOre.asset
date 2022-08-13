@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: GoldOre
   m_EditorClassIdentifier: 
   type: 3
+  tileName: Gold Ore
+  description: You can mine gold from here
   sprites:
   - {fileID: 21300000, guid: 0e9de10b36367a946bfa3ae2278e490b, type: 3}
