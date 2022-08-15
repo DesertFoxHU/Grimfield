@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Village : AbstractBuilding, IResourceStorage
 {
-    public Village(Vector3Int position) : base(position) 
+    public Village(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
         BuildingStorage = new List<ResourceStorage>
         {
@@ -36,6 +36,12 @@ public class Village : AbstractBuilding, IResourceStorage
                 { 1, 10d }
             }),
         };
+
+        if (owner.isFirstPlace)
+        {
+            IsCapital = true;
+            owner.isFirstPlace = false;
+        }
     }
 
     public bool IsCapital { get; private set; } = false;
@@ -44,9 +50,9 @@ public class Village : AbstractBuilding, IResourceStorage
 
     public List<ResourceStorage> Storage => BuildingStorage;
 
-    public List<ResourceStorage> BuildingStorage;
+    private List<ResourceStorage> BuildingStorage;
 
-    public override void OnTurnCycleEnded(ServerPlayer owner)
+    public override void OnTurnCycleEnded()
     {
         double remained = Storage[0].AddSafe(GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
         if (remained > 0)

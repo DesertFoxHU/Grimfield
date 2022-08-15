@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Forestry : AbstractBuilding, IResourceStorage
 {
-    public Forestry(Vector3Int position) : base(position) 
+    public Forestry(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
         BuildingStorage = new List<ResourceStorage>
         {
@@ -23,7 +23,7 @@ public class Forestry : AbstractBuilding, IResourceStorage
 
     public List<ResourceStorage> BuildingStorage;
 
-    public override void OnTurnCycleEnded(ServerPlayer owner)
+    public override void OnTurnCycleEnded()
     {
         double remained = Storage[0].AddSafe(GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
         if(remained > 0)

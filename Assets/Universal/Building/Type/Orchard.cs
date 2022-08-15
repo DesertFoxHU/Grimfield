@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Orchard : AbstractBuilding
 {
-    public Orchard(Vector3Int position) : base(position) 
+    public Orchard(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
     }
 
@@ -14,7 +14,7 @@ public class Orchard : AbstractBuilding
 
     public ResourceType Type => ResourceType.Food;
 
-    public override void OnTurnCycleEnded(ServerPlayer owner)
+    public override void OnTurnCycleEnded()
     {
         owner.TryStoreResource(GetDefinition().produceType, GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
     }

@@ -11,6 +11,7 @@ namespace ServerSide
         public string Name { get; private set; }
         public bool IsReady = false;
         public bool IsMainSceneLoaded = false;
+        public bool isFirstPlace = true; //Whenever this player builded something or not
 
         public List<AbstractBuilding> Buildings { get; private set; } = new List<AbstractBuilding>();
         //How many times a building bought by the player

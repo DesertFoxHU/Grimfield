@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class Barrack : AbstractBuilding
 {
-    public Barrack(Vector3Int position) : base(position) 
+    public Barrack(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
     }
 
     public override BuildingType BuildingType => BuildingType.Barrack;
 
-    public override void OnTurnCycleEnded(ServerPlayer owner)
+    public override void OnTurnCycleEnded()
     {
         
     }

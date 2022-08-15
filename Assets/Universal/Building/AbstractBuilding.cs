@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using ServerSide;
 using System;
 using System.Collections;
@@ -8,12 +9,14 @@ using UnityEngine;
 [Serializable]
 public abstract class AbstractBuilding
 {
+    [JsonIgnore] public ServerPlayer owner { get; private set; }
     public readonly Guid ID = Guid.NewGuid();
     public Vector3Int Position { get; private set; }
     public int Level { get; private set; }
 
-    public AbstractBuilding(Vector3Int position)
+    public AbstractBuilding(ServerPlayer owner, Vector3Int position)
     {
+        this.owner = owner;
         Position = position;
         Level = 1;
     }
@@ -33,7 +36,7 @@ public abstract class AbstractBuilding
     /// <summary>
     /// Called when every player had thier turn
     /// </summary>
-    public virtual void OnTurnCycleEnded(ServerPlayer owner) { }
+    public virtual void OnTurnCycleEnded() { }
 
     public abstract BuildingType BuildingType { get; }
 
