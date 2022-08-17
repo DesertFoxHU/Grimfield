@@ -34,8 +34,9 @@ namespace InfoPanel
         {
             map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
 
-            AbstractBuilding test = new Village(new ServerSide.ServerPlayer(0, "Test"), new Vector3Int(0, 0, 0));
-            Load(test);
+            //Fake Building test
+            /*AbstractBuilding test = new Village(new ServerSide.ServerPlayer(0, "Test"), new Vector3Int(0, 0, 0));
+            Load(test);*/
         }
 
         public void HideAll()
@@ -70,6 +71,7 @@ namespace InfoPanel
 
                 icon.sprite = building.GetDefinition().GetSpriteByLevel(building.Level);
                 title.text = building.GetDefinition().type.ToString();
+                description.text = building.GetDefinition().description;
 
                 contens.Find(x => x.type == CurrentType).gameObject.SetActive(true);
                 contens.Find(x => x.type == CurrentType).Load(obj);

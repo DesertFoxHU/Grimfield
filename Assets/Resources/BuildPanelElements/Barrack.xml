@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <BuildMenuElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Title>Barrack</Title>
-  <Description>You can recruit units here to conquer your enemies. Requires coin to recruit units</Description>
   <Category>Village</Category>
   <BuildingType>Barrack</BuildingType>
   <ResourceCost>

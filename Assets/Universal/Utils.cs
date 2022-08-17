@@ -66,4 +66,16 @@ public static class Utils
         ResourceStorage holder = list.Find(x => x.Type == type);
         return holder;
     }
+
+    public static GameObject GetChildrenByName(this GameObject parent, string name)
+    {
+        foreach (Transform transform in parent.transform)
+        {
+            if (transform.name == name)
+            {
+                return transform.gameObject;
+            }
+        }
+        return null;
+    }
 }

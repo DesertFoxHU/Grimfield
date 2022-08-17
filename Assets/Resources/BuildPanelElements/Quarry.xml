@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <BuildMenuElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Title>Quarry</Title>
-  <Description>Produces stone</Description>
   <Category>Factory</Category>
   <BuildingType>Quarry</BuildingType>
   <ResourceCost>

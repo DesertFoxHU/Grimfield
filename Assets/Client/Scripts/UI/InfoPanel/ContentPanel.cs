@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace InfoPanel
@@ -12,12 +13,6 @@ namespace InfoPanel
     public class ContentPanel : MonoBehaviour
     {
         public InfoWindow.ContentType type;
-        private ContentSegmentHolder holder;
-
-        public void Start()
-        {
-            holder = FindObjectOfType<ContentSegmentHolder>();
-        }
 
         public void Load(object obj)
         {
@@ -28,12 +23,31 @@ namespace InfoPanel
                 AbstractBuilding building = (AbstractBuilding) obj;
 
                 //These are just prefabs
-                List<ContentSegment> prefabs = holder.GetPrefabs(building);
+                List<ContentSegment> prefabs = FindObjectOfType<ContentSegmentHolder>().GetPrefabs(building);
                 prefabs = prefabs.OrderBy(x => x.order).ToList();
 
                 foreach(ContentSegment segment in prefabs)
                 {
-                    CreateNewInstance(segment.gameObject, Y);
+                    GameObject newInstance = CreateNewInstance(segment.gameObject, Y);
+
+                    if(segment.ID == "CAPITAL")
+                    {
+                        string input = ((Village)building).IsCapital ? "Yes" : "No";
+                        newInstance.GetComponentInChildren<TextMeshProUGUI>().text = $"Capital: {input}";
+                    }
+                    else if(segment.ID == "STAT")
+                    {
+                        newInstance.GetComponentInChildren<TextMeshProUGUI>().text = $"Level: {building.Level}";
+                    }
+                    else if(segment.ID == "RES_STORAGE")
+                    {
+                        GameObject storageHolder = newInstance.GetChildrenByName("Storage");
+                        foreach(ResourceStorage resStorage in ((IResourceStorage)building).Storage)
+                        {
+                            storageHolder.GetChildrenByName(resStorage.Type.ToString()).GetComponentInChildren<TextMeshProUGUI>().text = "" + resStorage.Amount;
+                        }
+                    }
+
                     Y -= segment.height;
                 }
             }

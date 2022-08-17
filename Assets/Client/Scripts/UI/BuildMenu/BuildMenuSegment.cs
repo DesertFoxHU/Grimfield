@@ -33,7 +33,7 @@ public class BuildMenuSegment : MonoBehaviour
     {
         LastLoaded = element;
         Title.text = LastLoaded.Title;
-        Description.text = LastLoaded.Description;
+        Description.text = DefinitionRegistry.Instance.Find(element.BuildingType).description;
         Icon.sprite = DefinitionRegistry.Instance.Find(element.BuildingType).GetSpriteByLevel(1);
         RenderCost(element, 0);
     }

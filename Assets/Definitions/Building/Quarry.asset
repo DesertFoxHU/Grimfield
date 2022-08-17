@@ -16,6 +16,7 @@ MonoBehaviour:
   spritesLevel:
   - {fileID: 21300000, guid: 16a853a6e5e65be408697eada16b600c, type: 3}
   placeable: 01000000
+  description: Produces stone
   hasProductStorage: 0
   isProducer: 1
   produceType: 3

@@ -17,10 +17,38 @@ public static class TilemapExtensions
 
     public static void SetTileSprite(this Tilemap map, Vector3Int pos, Sprite sprite)
     {
-        Tile tile = ScriptableObject.CreateInstance<Tile>();
+        GrimfieldTile tile;
+        if (map.HasTile(pos))
+        {
+            tile = map.GetTile<GrimfieldTile>(pos);
+        }
+        else
+        {
+            tile = ScriptableObject.CreateInstance<GrimfieldTile>();
+        }
         tile.sprite = sprite;
-        tile.name = sprite.name;
         map.SetTile(pos, tile);
+    }
+
+    public static GrimfieldTile TransformToGrimfieldTile(this Tilemap map, Vector3Int pos)
+    {
+        if (!map.HasTile(pos))
+        {
+            return null;
+        }
+
+        Tile originalTile = map.GetTile<Tile>(pos);
+        GrimfieldTile newTile = ScriptableObject.CreateInstance<GrimfieldTile>();
+
+        newTile.sprite = originalTile.sprite;
+        newTile.name = originalTile.name;
+        newTile.flags = originalTile.flags;
+        newTile.hideFlags = originalTile.hideFlags;
+        newTile.colliderType = originalTile.colliderType;
+        newTile.color = originalTile.color;
+
+        map.SetTile(pos, newTile);
+        return newTile;
     }
 
     public static string GetTileName(this Tilemap map, Vector3Int pos)

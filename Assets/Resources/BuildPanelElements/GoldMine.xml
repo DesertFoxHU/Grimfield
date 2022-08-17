@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <BuildMenuElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Title>Gold Mine</Title>
-  <Description>Mine gold from gold ore</Description>
   <Category>Factory</Category>
   <BuildingType>GoldMine</BuildingType>
   <ResourceCost>

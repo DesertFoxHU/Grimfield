@@ -1,8 +1,8 @@
 using ServerSide;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class Village : AbstractBuilding, IResourceStorage
@@ -51,6 +51,11 @@ public class Village : AbstractBuilding, IResourceStorage
     public List<ResourceStorage> Storage => BuildingStorage;
 
     private List<ResourceStorage> BuildingStorage;
+
+    public override void OnClaimLand(Tilemap map)
+    {
+        OnClaimLand(map, 5);
+    }
 
     public override void OnTurnCycleEnded()
     {

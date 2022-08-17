@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 public class BuildMenuElement
 {
     public string Title;
-    public string Description;
     public BuildPanel.Category Category;
     public BuildingType BuildingType;
     public List<ResourceHolder> ResourceCost;
