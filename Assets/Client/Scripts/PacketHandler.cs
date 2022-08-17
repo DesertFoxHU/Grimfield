@@ -1,3 +1,4 @@
+using InfoPanel;
 using RiptideNetworking;
 using System;
 using System.Collections;
@@ -177,6 +178,7 @@ public class PacketHandler : MonoBehaviour
     private static void FetchBuildingDataResponse(Message message)
     {
         AbstractBuilding building = message.GetBuilding();
+        FindObjectOfType<InfoWindow>().Load(building);
         Debug.Log($"Got building: {building} {building.Level} {building.BuildingType}");
     }
 }

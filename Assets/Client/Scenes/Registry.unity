@@ -132,8 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 517942556}
-  - component: {fileID: 517942558}
   - component: {fileID: 517942559}
+  - component: {fileID: 517942558}
   - component: {fileID: 517942560}
   m_Layer: 0
   m_Name: Registry

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using InfoPanel;
 
 public class CursorAction : MonoBehaviour
 {
@@ -50,6 +51,6 @@ public class CursorAction : MonoBehaviour
             }
         }
 
-        FindObjectOfType<InfoPanel>().Load(pos);
+        FindObjectOfType<InfoWindow>().Load(pos);
     }
 }

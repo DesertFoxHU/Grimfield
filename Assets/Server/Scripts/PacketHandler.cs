@@ -147,7 +147,7 @@ namespace ServerSide
                 return;
             }
 
-            AbstractBuilding building = (AbstractBuilding) Activator.CreateInstance(AbstractBuilding.GetClass(type), pos);
+            AbstractBuilding building = (AbstractBuilding) Activator.CreateInstance(AbstractBuilding.GetClass(type), player, pos);
 
             player.Buildings.Add(building);
             player.IncrementBuildingBought(type);

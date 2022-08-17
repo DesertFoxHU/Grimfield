@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 123922369, guid: fb7c3dee127e2674a8b12bfc8906aa43, type: 3}
   - {fileID: -1712519103, guid: fb7c3dee127e2674a8b12bfc8906aa43, type: 3}
   placeable: 02000000
-  hasProductStorage: 0
+  hasProductStorage: 1
   isProducer: 1
   produceType: 2
   ProduceLevel:
