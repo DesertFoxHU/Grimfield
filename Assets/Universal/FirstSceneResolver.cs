@@ -14,6 +14,7 @@ SceneManager.LoadScene(1, LoadSceneMode.Additive);
 #if (UNITY_STANDALONE || UNITY_STANDALONE_WIN) && !UNITY_EDITOR
 SceneManager.LoadScene(1, LoadSceneMode.Additive);
 SceneManager.LoadScene(2, LoadSceneMode.Additive);
+SceneManager.LoadScene(5, LoadSceneMode.Additive);
 #endif
     }
 
