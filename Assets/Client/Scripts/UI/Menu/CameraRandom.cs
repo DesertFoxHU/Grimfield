@@ -6,11 +6,11 @@ public class CameraRandom : MonoBehaviour
 {
     public bool isTowardsRight = false;
     public float speed;
-    private GameObject camera;
+    private GameObject cam;
 
     public void Start()
     {
-        camera = Camera.main.gameObject;
+        cam = Camera.main.gameObject;
         if (Utils.Roll(50))
         {
             isTowardsRight = true;
@@ -21,16 +21,16 @@ public class CameraRandom : MonoBehaviour
     {
         if (isTowardsRight)
         {
-            camera.transform.position = Vector3.Lerp(
-                camera.transform.position,
-                new Vector3(camera.transform.position.x + 1f, camera.transform.position.y, camera.transform.position.z),
+            cam.transform.position = Vector3.Lerp(
+                cam.transform.position,
+                new Vector3(cam.transform.position.x + 1f, cam.transform.position.y, cam.transform.position.z),
                 Time.deltaTime * speed);
         }
         else
         {
-            camera.transform.position = Vector3.Lerp(
-                camera.transform.position,
-                new Vector3(camera.transform.position.x - 1f, camera.transform.position.y, camera.transform.position.z),
+            cam.transform.position = Vector3.Lerp(
+                cam.transform.position,
+                new Vector3(cam.transform.position.x - 1f, cam.transform.position.y, cam.transform.position.z),
                 Time.deltaTime * speed);
         }
     }
