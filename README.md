@@ -10,6 +10,10 @@ This is a **turn-based multiplayer strategy game**.
 - Some terrain modification
 - Big tech tree
 
+## Technical Informations
+
+**The currently used Unity version is 2022.1.10f1**
+
 ## Server hosting
 
 You can find the server program in the **Server** folder.<br>
