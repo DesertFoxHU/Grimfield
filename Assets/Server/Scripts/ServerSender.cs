@@ -75,5 +75,15 @@ namespace ServerSide
             message.Add(player.BuildingBought.ContainsKey(type) ? player.BuildingBought[type] : 0);
             NetworkManager.Instance.Server.Send(message, player.PlayerId);
         }
+
+        public static void RenderTerritory(ServerPlayer owner, AbstractBuilding building)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.RenderTerritory);
+            message.Add(owner.PlayerId);
+            message.Add(building.ClaimedLand.Count);
+            foreach (Vector3Int v3 in building.ClaimedLand)
+                message.Add(v3);
+            NetworkManager.Instance.Server.SendToAll(message);
+        }
     }
 }

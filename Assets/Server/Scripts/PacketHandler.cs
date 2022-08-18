@@ -148,10 +148,12 @@ namespace ServerSide
             }
 
             AbstractBuilding building = (AbstractBuilding) Activator.CreateInstance(AbstractBuilding.GetClass(type), player, pos);
+            building.OnClaimLand(map);
 
             player.Buildings.Add(building);
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
+            ServerSender.RenderTerritory(player, building);
             Debug.Log($"Added new building with GUID {building.ID}");
         }
 

@@ -20,7 +20,6 @@ public class TileDefiniton : ScriptableObject
     public int GetRandomSpriteIndex()
     {
         if (sprites.Length == 0) return 0;
-        else if (sprites.Length == 1) return 0;
         else return Random.Range(0, sprites.Length);
     }
 }

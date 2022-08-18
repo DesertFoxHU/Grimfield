@@ -20,11 +20,16 @@ public static class TilemapExtensions
         GrimfieldTile tile;
         if (map.HasTile(pos))
         {
-            tile = map.GetTile<GrimfieldTile>(pos);
+            if (map.GetTile(pos) is not GrimfieldTile)
+            {
+                tile = TransformToGrimfieldTile(map, pos);
+            }
+            else tile = map.GetTile<GrimfieldTile>(pos);
         }
         else
         {
             tile = ScriptableObject.CreateInstance<GrimfieldTile>();
+            tile.name = sprite.name;
         }
         tile.sprite = sprite;
         map.SetTile(pos, tile);
@@ -54,7 +59,7 @@ public static class TilemapExtensions
     public static string GetTileName(this Tilemap map, Vector3Int pos)
     {
         if (!map.HasTile(pos)) return null;
-        return map.GetTile(pos).name;
+        return map.GetTile<GrimfieldTile>(pos).name;
     }
 
     public static List<Vector3Int> GetNeighbour(this Tilemap map, Vector3Int pos)

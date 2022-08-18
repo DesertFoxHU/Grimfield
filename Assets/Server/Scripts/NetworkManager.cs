@@ -63,7 +63,7 @@ namespace ServerSide
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
 
-            FindObjectOfType<ServerConsole>().StartConsole();
+            //FindObjectOfType<ServerConsole>().StartConsole();
 
             Server.Start(port, MaxClient);
             State = ServerState.Lobby;

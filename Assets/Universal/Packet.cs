@@ -15,6 +15,7 @@ public enum ServerToClientPacket : ushort
     TurnChange,
     UpdateBuildingCost,
     FetchBuildingDataResponse,
+    RenderTerritory,
 }
 
 public enum ClientToServerPacket : ushort

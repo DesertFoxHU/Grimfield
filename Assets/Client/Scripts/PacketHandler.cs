@@ -179,6 +179,19 @@ public class PacketHandler : MonoBehaviour
     {
         AbstractBuilding building = message.GetBuilding();
         FindObjectOfType<InfoWindow>().Load(building);
-        Debug.Log($"Got building: {building} {building.Level} {building.BuildingType}");
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.RenderTerritory)]
+    private static void RenderTerritory(Message message)
+    {
+        ushort clientID = message.GetUShort();
+        int count = message.GetInt();
+        List<Vector3Int> claimed = new List<Vector3Int>(); 
+        for(int i = 0; i < count; i++)
+        {
+            claimed.Add(message.GetVector3Int());
+        }
+        TerritoryRenderer.Instance.territories.Add(new Territory(clientID, claimed));
+        TerritoryRenderer.Instance.RenderAll();
     }
 }

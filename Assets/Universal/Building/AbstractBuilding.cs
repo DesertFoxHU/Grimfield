@@ -14,7 +14,7 @@ public abstract class AbstractBuilding
     public readonly Guid ID = Guid.NewGuid();
     public Vector3Int Position { get; private set; }
     public int Level { get; private set; }
-    public List<Vector3Int> ClaimedLand { get; private set; } = new List<Vector3Int>();
+    [JsonIgnore] public List<Vector3Int> ClaimedLand { get; private set; } = new List<Vector3Int>();
 
     public AbstractBuilding(ServerPlayer owner, Vector3Int position)
     {
