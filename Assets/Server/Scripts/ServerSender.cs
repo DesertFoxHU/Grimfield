@@ -83,7 +83,10 @@ namespace ServerSide
             message.Add(owner.PlayerId);
             message.Add(building.ClaimedLand.Count);
             foreach (Vector3Int v3 in building.ClaimedLand)
-                message.Add(v3);
+            {
+                string raw = v3.x + "|" + v3.y;
+                message.Add(StringCompressor.CompressString(raw));
+            }
             NetworkManager.Instance.Server.SendToAll(message);
         }
     }

@@ -37,7 +37,7 @@ public class Village : AbstractBuilding, IResourceStorage
             }),
         };
 
-        if (owner.isFirstPlace)
+        if (owner != null && owner.isFirstPlace)
         {
             IsCapital = true;
             owner.isFirstPlace = false;

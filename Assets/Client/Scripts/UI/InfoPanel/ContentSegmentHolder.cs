@@ -18,6 +18,7 @@ namespace InfoPanel
             List<ContentSegment> prefabs = new List<ContentSegment>();
             if (building is Village) prefabs.Add(GetPrefab("CAPITAL"));
             if (building.GetDefinition().hasProductStorage) prefabs.Add(GetPrefab("RES_STORAGE"));
+            if (building.GetType().GetMethod("InvokeRecruit") != null) prefabs.Add(GetPrefab("INVOKE_RECRUIT"));
 
             prefabs.Add(GetPrefab("STAT"));
             return prefabs;

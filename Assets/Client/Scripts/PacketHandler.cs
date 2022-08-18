@@ -189,7 +189,9 @@ public class PacketHandler : MonoBehaviour
         List<Vector3Int> claimed = new List<Vector3Int>(); 
         for(int i = 0; i < count; i++)
         {
-            claimed.Add(message.GetVector3Int());
+            string raw = StringCompressor.DecompressString(message.GetString());
+            Vector3Int v3 = new Vector3Int(int.Parse(raw.Split('|')[0]), int.Parse(raw.Split('|')[1]), 0);
+            claimed.Add(v3);
         }
         TerritoryRenderer.Instance.territories.Add(new Territory(clientID, claimed));
         TerritoryRenderer.Instance.RenderAll();

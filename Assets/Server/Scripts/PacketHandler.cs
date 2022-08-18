@@ -154,6 +154,7 @@ namespace ServerSide
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
             ServerSender.RenderTerritory(player, building);
+
             Debug.Log($"Added new building with GUID {building.ID}");
         }
 

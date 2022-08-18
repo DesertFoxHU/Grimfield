@@ -12,7 +12,7 @@ public class Forestry : AbstractBuilding, IResourceStorage
         {
             new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
             {
-                { 1, 3d }
+                { 1, 5d }
             })
         };
     }

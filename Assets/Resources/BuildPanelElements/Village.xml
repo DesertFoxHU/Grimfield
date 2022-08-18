@@ -6,7 +6,7 @@
   <IncreasePerBuy>
     <ResourceHolder>
       <type>Citizen</type>
-      <Value>5</Value>
+      <Value>4</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>

@@ -68,6 +68,7 @@ namespace ServerSide
             Server = new Server();
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
+            Server.TimeoutTime = 15000;
 
             Message.MaxPayloadSize = 10000; //in bytes
 

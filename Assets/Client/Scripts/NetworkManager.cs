@@ -54,8 +54,12 @@ public class NetworkManager : MonoBehaviour
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, true);
 
         Client = new Client();
+        Client.TimeoutTime = 15000;
         Client.Connected += DidConnect;
         Client.ConnectionFailed += FailedConnect;
+
+        Message.MaxPayloadSize = 10000;
+
         Debug.Log("Created new RiptideClient!");
     }
 

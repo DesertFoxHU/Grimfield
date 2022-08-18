@@ -12,6 +12,11 @@ public class Barrack : AbstractBuilding
 
     public override BuildingType BuildingType => BuildingType.Barrack;
 
+    public void InvokeRecruit()
+    {
+
+    }
+
     public override void OnTurnCycleEnded()
     {
         
