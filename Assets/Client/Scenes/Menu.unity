@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 3
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0
 --- !u!1 &48842587
 GameObject:
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 3
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.1
 --- !u!1 &247865589
 GameObject:
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 3
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.3
 --- !u!1 &482402694
 GameObject:
@@ -1524,7 +1524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.5
 --- !u!1 &534255756
 GameObject:
@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 1
 --- !u!1 &681489365
 GameObject:
@@ -2499,7 +2499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 1
 --- !u!1 &907084990
 GameObject:
@@ -2841,7 +2841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 1
 --- !u!1 &1027234520
 GameObject:
@@ -3027,7 +3027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.5
 --- !u!1 &1053027833
 GameObject:
@@ -3129,7 +3129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.3
 --- !u!1 &1093744560
 GameObject:
@@ -3543,7 +3543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.7
 --- !u!1 &1157592495
 GameObject:
@@ -3889,7 +3889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.1
 --- !u!1 &1483336242
 GameObject:
@@ -5177,7 +5177,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e64501b71f475a84bbe2ba6ed6eecb4a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5619,7 +5619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
-  camera: {fileID: 1697436104}
+  cam: {fileID: 1697436104}
   parallaxEffect: 0.3
 --- !u!1 &1904224466
 GameObject:
