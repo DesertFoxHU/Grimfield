@@ -9,6 +9,7 @@ namespace ServerSide
     {
         public ushort PlayerId { get; private set; }
         public string Name { get; private set; }
+        public Color Color { get; private set; }
         public bool IsReady = false;
         public bool IsMainSceneLoaded = false;
         public bool isFirstPlace = true; //Whenever this player builded something or not
@@ -17,10 +18,11 @@ namespace ServerSide
         //How many times a building bought by the player
         public Dictionary<BuildingType, int> BuildingBought { get; private set; } = new();
 
-        public ServerPlayer(ushort playerId, string name)
+        public ServerPlayer(ushort playerId, string name, Color color)
         {
             PlayerId = playerId;
             Name = name;
+            Color = color;
             NetworkManager.players.Add(this);
         }
 

@@ -45,7 +45,7 @@ namespace ServerSide
             }
 
             Debug.Log($"{name} joined to the lobby!");
-            new ServerPlayer(clientID, name);
+            new ServerPlayer(clientID, name, NetworkManager.Instance.Lobby.GetAnAvaibleColor());
 
             Message lobbyMsg = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadLobby);
             FindObjectOfType<NetworkManager>().Server.Send(lobbyMsg, clientID);

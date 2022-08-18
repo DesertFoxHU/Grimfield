@@ -52,9 +52,10 @@ namespace ServerSide
                 message.Add(NetworkManager.players.Count);
                 message.Add(player.PlayerId);
                 message.Add(player.Name);
+                message.Add(player.Color);
                 message.Add(NetworkManager.players.Count - 1); //-1 because we already added the owner's ServerPlayer
                 foreach (ServerPlayer otherPlayer in NetworkManager.players)
-                    if (otherPlayer.PlayerId != player.PlayerId) message.Add(otherPlayer.PlayerId).Add(otherPlayer.Name);
+                    if (otherPlayer.PlayerId != player.PlayerId) message.Add(otherPlayer.PlayerId).Add(otherPlayer.Name).Add(otherPlayer.Color);
 
                 NetworkManager.Instance.Server.Send(message, player.PlayerId);
             }

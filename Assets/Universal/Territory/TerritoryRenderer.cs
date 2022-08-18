@@ -19,7 +19,6 @@ public class TerritoryRenderer : MonoBehaviour
     }
 
     public static TerritoryRenderer Instance;
-    public Color color;
     private Tilemap map;
 
     public GameObject spritePrefab;
@@ -43,7 +42,7 @@ public class TerritoryRenderer : MonoBehaviour
 
         foreach (Territory territory in territories)
         {
-            Render(territory.ClaimedLand, color);
+            Render(territory.ClaimedLand, territory.Color);
         }
     }
 

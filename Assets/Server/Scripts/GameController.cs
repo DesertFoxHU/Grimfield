@@ -18,6 +18,7 @@ namespace ServerSide
         {
             turnHandler = new TurnHandler();
 
+            NetworkManager.Instance.Lobby = null;
             NetworkManager.Instance.State = ServerState.Playing;
             ServerSender.SyncPlayers();
             GeneretaMap();

@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public string ip = "192.168.1.180";
+    public string ip;
     public ushort port = 6112;
 
     public Client Client { get; private set; }

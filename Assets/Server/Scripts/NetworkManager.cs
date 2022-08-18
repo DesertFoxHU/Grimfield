@@ -43,6 +43,12 @@ namespace ServerSide
         public ushort port = 6112;
         public ushort MaxClient = 10;
         public ServerState State;
+        public List<Color> PlayerColors;
+
+        /// <summary>
+        /// Only avaible if ServerState is Lobby
+        /// </summary>
+        public Lobby Lobby { get; set; }
 
         private void Awake()
         {
@@ -63,11 +69,12 @@ namespace ServerSide
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
 
-            Message.MaxPayloadSize = 10000;
+            Message.MaxPayloadSize = 10000; //in bytes
 
             //FindObjectOfType<ServerConsole>().StartConsole();
 
             Server.Start(port, MaxClient);
+            Lobby = new Lobby();
             State = ServerState.Lobby;
             Debug.Log($"Server started on {port} with {MaxClient} slots!");
         }

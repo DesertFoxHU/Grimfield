@@ -132,11 +132,11 @@ public class PacketHandler : MonoBehaviour
     private static void SyncPlayers(Message message)
     {
         int playerCount = message.GetInt();
-        NetworkManager.Instance.ClientPlayer = new ClientPlayer(message.GetUShort(), message.GetString());
+        NetworkManager.Instance.ClientPlayer = new ClientPlayer(message.GetUShort(), message.GetString(), message.GetColor());
         NetworkManager.Instance.Players = new List<ClientPlayer>();
         for (int i = 0; i < message.GetInt(); i++)
         {
-            NetworkManager.Instance.Players.Add(new ClientPlayer(message.GetUShort(), message.GetString()));
+            NetworkManager.Instance.Players.Add(new ClientPlayer(message.GetUShort(), message.GetString(), message.GetColor()));
         }
     }
 

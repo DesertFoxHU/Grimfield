@@ -64,6 +64,22 @@ public static class MessageExtensions
 
     public static Message Add(this Message message, AbstractBuilding value) => AddBuilding(message, value);
 
+    public static Message AddColor(this Message message, Color color)
+    {
+        return message.Add(color.a).Add(color.r).Add(color.g).Add(color.b);
+    }
+
+    public static Color GetColor(this Message message)
+    {
+        float a = message.GetFloat();
+        float r = message.GetFloat();
+        float g = message.GetFloat();
+        float b = message.GetFloat();
+        return new Color(r, g, b, a);
+    }
+
+    public static Message Add(this Message message, Color value) => AddColor(message, value);
+
     #region Vector2
     /// <inheritdoc cref="AddVector2(Message, Vector2)"/>
     /// <remarks>This method is simply an alternative way of calling <see cref="AddVector2(Message, Vector2)"/>.</remarks>
