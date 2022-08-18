@@ -262,13 +262,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "net.tomweiland.riptidenetworking": {
-      "version": "https://github.com/tom-weiland/RiptideNetworking.git?path=/UnityPackage#v1.2.0",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "fe7dae1b73362bfca626284facb6441130c5a3a1"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

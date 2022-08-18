@@ -1,5 +1,5 @@
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide;
+using Riptide.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -62,6 +62,8 @@ namespace ServerSide
             Server = new Server();
             Server.ClientConnected += NewPlayerConnected;
             Server.ClientDisconnected += PlayerLeft;
+
+            Message.MaxPayloadSize = 10000;
 
             //FindObjectOfType<ServerConsole>().StartConsole();
 
