@@ -3,7 +3,7 @@ This is a **turn-based multiplayer strategy game**.
 **What features Grimfield will have that other strategy games usually don't have?**
 - Complex industries and buildings
 - Usually lot more resources than simple strategy games (citizen, food, wood, stone, gold, coin)
-- More siege like
+- More siege like, including walls and traps
 - Territories and Diplomacies
 - AIs and Coop mode
 - Passive defenses like towers and traps
