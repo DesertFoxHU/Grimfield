@@ -22,14 +22,14 @@ MonoBehaviour:
   produceType: 4
   ProduceLevel:
   - level: 1
-    value: 0.1
-  - level: 2
-    value: 0.25
-  - level: 3
     value: 0.5
-  - level: 4
+  - level: 2
+    value: 0.75
+  - level: 3
     value: 1
+  - level: 4
+    value: 1.5
   - level: 5
     value: 2
-  - level: 0
-    value: 0
+  canClaimTerritory: 0
+  territoryClaimRange: 0

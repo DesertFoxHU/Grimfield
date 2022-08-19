@@ -125,6 +125,7 @@ public class PacketHandler : MonoBehaviour
             double amount = message.GetDouble();
             double perTurn = message.GetDouble();
             res.UpdateType(type, amount, perTurn);
+            PlayerInfo.UpdateResource(type, amount);
         }
     }
 
@@ -154,7 +155,9 @@ public class PacketHandler : MonoBehaviour
         ClientPlayer currentPlayer = NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == CurrentID);
         foreach(GameObject go in GameObject.FindGameObjectsWithTag("TurnInfo"))
         {
-            go.GetComponent<TextMeshProUGUI>().text = $"Turn({turnCycle}): {currentPlayer.Name}";
+            TextMeshProUGUI gui = go.GetComponent<TextMeshProUGUI>();
+            gui.text = $"Turn({turnCycle}): {currentPlayer.Name}";
+            gui.color = currentPlayer.Color;
         }
     }
 

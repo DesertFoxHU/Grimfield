@@ -10,11 +10,11 @@
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>
-      <Value>10</Value>
+      <Value>6</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Stone</type>
-      <Value>5</Value>
+      <Value>4</Value>
     </ResourceHolder>
   </IncreasePerBuy>
 </BuildMenuElement>

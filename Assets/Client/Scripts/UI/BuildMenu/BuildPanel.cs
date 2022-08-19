@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class BuildPanel : MonoBehaviour
 {
+    public static BuildPanel Instance;
+
     public enum Category
     {
         Village,
@@ -21,11 +23,12 @@ public class BuildPanel : MonoBehaviour
     public GameObject factoryCategory;
     public GameObject segmentPrefab;
 
-    private List<BuildMenuSegment> segments = new List<BuildMenuSegment>();
+    [HideInInspector] public List<BuildMenuSegment> segments = new List<BuildMenuSegment>();
     [HideInInspector] public Dictionary<BuildingType, int> BuildingBought = new Dictionary<BuildingType, int>();
 
     public void Start()
     {
+        Instance = this;
         StartCoroutine(FirstLoad());
     }
 
