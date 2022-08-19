@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Like a BuildMenuElement but it's attached to one of them to make logic
@@ -36,6 +37,28 @@ public class BuildMenuSegment : MonoBehaviour
         Description.text = DefinitionRegistry.Instance.Find(element.BuildingType).description;
         Icon.sprite = DefinitionRegistry.Instance.Find(element.BuildingType).GetSpriteByLevel(1);
         RenderCost(element, 0);
+    }
+
+    public void UpdateCostColor()
+    {
+        foreach (Transform children in CostHolder.transform)
+        {
+            ResourceType resourceType = (ResourceType) System.Enum.Parse(typeof(ResourceType), children.name);
+            TextMeshProUGUI valueText = children.GetComponentInChildren<TextMeshProUGUI>();
+            double cost = double.Parse(valueText.text.Trim());
+            if (!PlayerInfo.Resources.ContainsKey(resourceType))
+            {
+                valueText.color = Color.red;
+            }
+            else
+            {
+                if (PlayerInfo.Resources[resourceType] >= cost)
+                {
+                    valueText.color = Color.black;
+                }
+                else valueText.color = Color.red;
+            }
+        }
     }
 
     public void RenderCost(int boughtCount)
