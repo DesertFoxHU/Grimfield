@@ -30,6 +30,7 @@ public abstract class AbstractBuilding
         else if (type == BuildingType.Orchard) return typeof(Orchard);
         else if (type == BuildingType.Quarry) return typeof(Quarry);
         else if (type == BuildingType.GoldMine) return typeof(GoldMine);
+        else if (type == BuildingType.CoinMint) return typeof(CoinMint);
 
         else if (type == BuildingType.Barrack) return typeof(Barrack);
         else return null;

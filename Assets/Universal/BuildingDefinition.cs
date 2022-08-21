@@ -13,13 +13,19 @@ public class BuildingDefinition : ScriptableObject
 
     #region ProducerBuilding
     public bool isProducer;
-    /*[Conditional("isProducer", true)]*/ public ResourceType produceType;
+    [Conditional("isProducer", true)] public ResourceType produceType;
     /*[Conditional("isProducer", true)]*/ public List<ValuePair> ProduceLevel;
     #endregion
 
     #region Territory
-    public bool canClaimTerritory;
+    [Space] public bool canClaimTerritory;
     [Conditional("canClaimTerritory", true)] public int territoryClaimRange;
+    #endregion
+
+    #region 
+    [Space] public bool isExchanger;
+    public List<ExchangeRate> ExchangeFrom;
+    public List<ExchangeRate> ExchangeTo;
     #endregion
 
     public Sprite GetSpriteByLevel(int level)
@@ -33,4 +39,12 @@ public struct ValuePair
 {
     public int level;
     public double value;
+}
+
+[System.Serializable]
+public struct ExchangeRate
+{
+    public int level;
+    public ResourceType type;
+    public double amount;
 }

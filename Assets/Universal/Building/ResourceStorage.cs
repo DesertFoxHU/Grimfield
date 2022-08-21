@@ -50,7 +50,16 @@ public class ResourceStorage
         else
         {
             Amount += amount;
-            return 0;
+            return amount;
         }
+    }
+
+    /// <summary>
+    /// The max amount that can be still added before it would be full
+    /// </summary>
+    /// <returns></returns>
+    public double CouldAddTillMax()
+    {
+        return MaxAmountAtLevel[owner.Level] - Amount;
     }
 }

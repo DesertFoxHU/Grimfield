@@ -9,5 +9,6 @@ public enum BuildingType
     Orchard,
     Quarry,
     GoldMine,
-    Barrack
+    Barrack,
+    CoinMint
 }

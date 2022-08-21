@@ -36,12 +36,12 @@ namespace ServerSide
             Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
 
             chunkManager = new ChunkManager(SizeX, SizeY);
-            for(int x = 0; x <= SizeX; x++)
+            for (int x = 0; x <= SizeX; x++)
             {
                 for (int y = 0; y <= SizeY; y++)
                 {
-                    float perlin = Mathf.PerlinNoise((x + Seed/100f) /10f, (y + Seed/100f) /10f);
-                    if(perlin <= 0.20f)
+                    float perlin = Mathf.PerlinNoise((x + Seed / 100f) / 10f, (y + Seed / 100f) / 10f);
+                    if (perlin <= 0.20f)
                     {
                         if (Utils.Roll(1.5f))
                         {
@@ -53,7 +53,7 @@ namespace ServerSide
                         continue;
                     }
 
-                    if (perlin <= 0.25f && Utils.Roll(7f))
+                    if (perlin <= 0.25f && Utils.Roll(12f))
                     {
                         GenerateTile(map, x, y, TileType.GoldOre);
                         continue;
@@ -66,7 +66,7 @@ namespace ServerSide
                     }
 
                     float perlin2 = Mathf.PerlinNoise((x + Seed / 100f) / 10f + 10f, (y + Seed / 100f) / 10f - 10f); //Offset by +10,-10
-                    if(perlin2 <= 0.25f)
+                    if (perlin2 <= 0.25f)
                     {
                         GenerateTile(map, x, y, TileType.ShallowWater);
                         continue;
@@ -78,6 +78,16 @@ namespace ServerSide
 
             map.RefreshAllTiles();
             Debug.Log("Map is generated!");
+        }
+
+        [ContextMenu("Fill Building Resources")]
+        private void InfiniteResources()
+        {
+            foreach (ServerPlayer player in NetworkManager.players)
+            {
+                foreach(ResourceType type in System.Enum.GetValues(typeof(ResourceType)))
+                    player.TryStoreResource(type, 9999);
+            }
         }
 
         private void GenerateTile(Tilemap map, int x, int y, TileType type)
@@ -95,9 +105,9 @@ namespace ServerSide
 
         public void SendMapTo(ushort clientID)
         {
-            chunkManager.chunks.ForEach(chunk => 
+            chunkManager.chunks.ForEach(chunk =>
             NetworkManager.Instance.Server.Send(chunk.AsPacket(
-                MessageSendMode.reliable, 
+                MessageSendMode.reliable,
                 (ushort)ServerToClientPacket.ChunkInfo), clientID));
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ServerSide
@@ -66,6 +67,28 @@ namespace ServerSide
                     }
                 }
             }
+        }
+
+        public bool CouldStoreResource(ResourceType type, double amount)
+        {
+            double remained = amount;
+            foreach (AbstractBuilding building in Buildings)
+            {
+                if (remained <= 0) break;
+
+                if (building is IResourceStorage storage)
+                {
+                    foreach (ResourceStorage res in storage.Storage)
+                    {
+                        if (res.Type == type && res.Amount != res.MaxAmountAtLevel[building.Level])
+                        {
+                            remained -= res.CouldAddTillMax();
+                        }
+                    }
+                }
+            }
+
+            return remained <= 0;
         }
 
         public Dictionary<ResourceType, double> GetResourceGeneratePerTurn()
@@ -157,6 +180,11 @@ namespace ServerSide
                 }
             }
             return true;
+        }
+
+        public bool PayResources(params KeyValuePair<ResourceType, double>[] amount)
+        {
+            return PayResources(amount.ToDictionary(x => x.Key, x => x.Value));
         }
     }
 }
