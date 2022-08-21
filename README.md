@@ -10,6 +10,11 @@ This is a **turn-based multiplayer strategy game**.
 - Some terrain modification
 - Big tech tree
 
+## VERY VERY early gameplay screenshots
+
+![kép](https://user-images.githubusercontent.com/40893862/185801962-877479ec-5932-423a-87f0-a59a73ab4394.png)
+![kép](https://user-images.githubusercontent.com/40893862/185801922-6e312f59-daf9-459e-abc8-8aec8dafb14c.png)
+
 ## Technical Informations
 
 **The currently used Unity version is 2022.1.10f1**
