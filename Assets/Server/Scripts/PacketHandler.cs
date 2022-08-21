@@ -153,7 +153,7 @@ namespace ServerSide
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
 
-            FindObjectOfType<ServerSide.TerritoryRenderer>().TryAddNew(building);
+            FindObjectOfType<ServerSide.TerritoryRenderer>().TryAddNew(map, building);
 
             Debug.Log($"Added new building with GUID {building.ID}");
         }
