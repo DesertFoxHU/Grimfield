@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Universal;
 
 public class PacketHandler : MonoBehaviour
 {
@@ -196,7 +197,7 @@ public class PacketHandler : MonoBehaviour
             Vector3Int v3 = new Vector3Int(int.Parse(raw.Split('|')[0]), int.Parse(raw.Split('|')[1]), 0);
             claimed.Add(v3);
         }
-        TerritoryRenderer.Instance.territories.Add(new Territory(clientID, claimed));
+        TerritoryRenderer.Instance.territories.Add(new ClientTerritory(clientID, claimed));
         TerritoryRenderer.Instance.RenderAll();
     }
 }
