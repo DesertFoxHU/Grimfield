@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <BuildMenuElement xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Title>Quarry</Title>
+  <Title>Coin Mint</Title>
   <Category>Factory</Category>
-  <BuildingType>Quarry</BuildingType>
+  <BuildingType>CoinMint</BuildingType>
   <ResourceCost>
     <ResourceHolder>
       <type>Citizen</type>
@@ -10,21 +10,29 @@
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>
-      <Value>6</Value>
+      <Value>13</Value>
+    </ResourceHolder>
+    <ResourceHolder>
+      <type>Stone</type>
+      <Value>4</Value>
+    </ResourceHolder>
+    <ResourceHolder>
+      <type>Gold</type>
+      <Value>5</Value>
     </ResourceHolder>
   </ResourceCost>
   <IncreasePerBuy>
     <ResourceHolder>
       <type>Citizen</type>
-      <Value>1</Value>
+      <Value>4</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>
       <Value>2</Value>
     </ResourceHolder>
     <ResourceHolder>
-      <type>Stone</type>
-      <Value>2</Value>
+      <type>Coin</type>
+      <Value>1</Value>
     </ResourceHolder>
   </IncreasePerBuy>
 </BuildMenuElement>

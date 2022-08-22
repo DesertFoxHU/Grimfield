@@ -13,6 +13,7 @@ public class DefinitionRegistry : MonoBehaviour
 
     public List<TileDefiniton> Tiles;
     public List<BuildingDefinition> Buildings;
+    public List<EntityDefinition> Entities;
 
     public BuildingDefinition Find(BuildingType type)
     {
@@ -22,6 +23,11 @@ public class DefinitionRegistry : MonoBehaviour
     public TileDefiniton Find(TileType type)
     {
         return Tiles.Find(a => a.type == type);
+    }
+
+    public EntityDefinition Find(EntityType type)
+    {
+        return Entities.Find(a => a.Type == type);
     }
 
     public TileDefiniton Find(string spriteName)
