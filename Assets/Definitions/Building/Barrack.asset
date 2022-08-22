@@ -23,3 +23,7 @@ MonoBehaviour:
   ProduceLevel: []
   canClaimTerritory: 0
   territoryClaimRange: 0
+  isExchanger: 0
+  ExchangeFrom: []
+  ExchangeTo: []
+  canRecruit: 01000000

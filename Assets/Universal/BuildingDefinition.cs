@@ -22,11 +22,13 @@ public class BuildingDefinition : ScriptableObject
     [Conditional("canClaimTerritory", true)] public int territoryClaimRange;
     #endregion
 
-    #region 
+    #region Exchanger
     [Space] public bool isExchanger;
     public List<ExchangeRate> ExchangeFrom;
     public List<ExchangeRate> ExchangeTo;
     #endregion
+
+    public List<EntityType> canRecruit;
 
     public Sprite GetSpriteByLevel(int level)
     {
