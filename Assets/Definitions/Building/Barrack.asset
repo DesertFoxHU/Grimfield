@@ -26,4 +26,4 @@ MonoBehaviour:
   isExchanger: 0
   ExchangeFrom: []
   ExchangeTo: []
-  canRecruit: 01000000
+  canRecruit: 01000000040000000500000006000000

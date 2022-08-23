@@ -26,5 +26,6 @@ public enum ClientToServerPacket : ushort
     MainGameLoaded,
     NextTurn,
     FetchBuildingData,
+    BuyEntity,
 }
 

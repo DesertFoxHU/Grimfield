@@ -3,5 +3,8 @@ public enum EntityType
     Militia,
     Skeleton,
     Dragon,
-    Wyvern
+    Wyvern,
+    FlyingEye,
+    Goblin,
+    Mushroom
 }

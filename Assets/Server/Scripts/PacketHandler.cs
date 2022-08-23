@@ -201,5 +201,29 @@ namespace ServerSide
             response.Add(building);
             NetworkManager.Instance.Server.Send(response, clientID);
         }
+
+        [MessageHandler((ushort)ClientToServerPacket.BuyEntity)]
+        private static void BuyEntity(ushort clientID, Message message)
+        {
+            EntityType type = (EntityType) Enum.Parse(typeof(EntityType), message.GetString());
+            Vector3Int position = message.GetVector3Int();
+
+            ServerPlayer player = NetworkManager.Find(clientID);
+            AbstractBuilding building = player.Buildings.Find(x => x.Position == position);
+            if(building == null)
+            {
+                Debug.LogWarning($"Player {player.Name} tried to recruit an unit in {position}, however the position is not a building. Probably delay error or cheat attempt.");
+                return;
+            }
+
+            EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
+            if(definition == null)
+            {
+                Debug.LogError($"Can't find any EntityDefinition with this type: {type}");
+                return;
+            }
+
+            //TODO: Spawn Entity
+        }
     }
 }
