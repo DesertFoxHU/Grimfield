@@ -28,8 +28,7 @@ public class RecruitPanel : MonoBehaviour
 
     private void Start()
     {
-        //Close();
-        LoadPanel(new Vector3Int(0, 0, 0), FindObjectOfType<DefinitionRegistry>().Find(BuildingType.Barrack));
+        Close();
     }
 
     public void LoadPanel(Vector3Int position, BuildingDefinition building)

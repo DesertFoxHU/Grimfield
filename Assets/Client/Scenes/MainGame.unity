@@ -708,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &91858230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5110,7 +5110,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1057136803}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2146980820}
+        m_TargetAssemblyTypeName: RecruitPanel, Assembly-CSharp
+        m_MethodName: BuyEntity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1057136803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8988,7 +9000,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1981484124}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 565039468}
+        m_TargetAssemblyTypeName: InfoPanel.InfoWindow, Assembly-CSharp
+        m_MethodName: OpenRecruitPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1981484124
 MonoBehaviour:
   m_ObjectHideFlags: 0

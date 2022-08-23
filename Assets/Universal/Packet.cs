@@ -16,6 +16,7 @@ public enum ServerToClientPacket : ushort
     UpdateBuildingCost,
     FetchBuildingDataResponse,
     RenderTerritory,
+    SpawnEntity,
 }
 
 public enum ClientToServerPacket : ushort

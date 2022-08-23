@@ -23,6 +23,7 @@ MonoBehaviour:
   - 1
   Speed:
   - 5
+  MovementType: 1
   MovementCost:
   - Value1: 0
     Value2: 1

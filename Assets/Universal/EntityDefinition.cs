@@ -5,6 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Entity/EntityDefinition", fileName = "EntityDefinition")]
 public class EntityDefinition : ScriptableObject
 {
+    public enum TerrainMovementType
+    {
+        Ground,
+        Air,
+        Water
+    }
+
     public EntityType Type;
     public GameObject Prefab;
     public Sprite RecruitIcon;
@@ -13,6 +20,7 @@ public class EntityDefinition : ScriptableObject
     public List<double> Health;
     public List<double> Damage;
     public List<double> Speed;
+    public TerrainMovementType MovementType;
     [SerializeField] private List<ValuePair<TileType, double>> MovementCost;
 
     public double GetMovementCost(TileType type)
