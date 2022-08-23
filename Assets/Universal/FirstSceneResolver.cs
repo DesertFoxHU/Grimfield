@@ -9,9 +9,7 @@ public class FirstSceneResolver : MonoBehaviour
     {
 #if UNITY_SERVER && !UNITY_EDITOR
 SceneManager.LoadScene(1, LoadSceneMode.Additive);
-#endif
-
-#if (UNITY_STANDALONE || UNITY_STANDALONE_WIN) && !UNITY_EDITOR
+#elif (UNITY_STANDALONE || UNITY_STANDALONE_WIN) && !UNITY_EDITOR
 SceneManager.LoadScene(1, LoadSceneMode.Additive);
 SceneManager.LoadScene(2, LoadSceneMode.Additive);
 SceneManager.LoadScene(5, LoadSceneMode.Additive);
