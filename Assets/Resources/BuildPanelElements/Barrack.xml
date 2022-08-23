@@ -6,19 +6,19 @@
   <ResourceCost>
     <ResourceHolder>
       <type>Citizen</type>
-      <Value>14</Value>
+      <Value>12</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>
-      <Value>40</Value>
-    </ResourceHolder>
-    <ResourceHolder>
-      <type>Stone</type>
       <Value>20</Value>
     </ResourceHolder>
     <ResourceHolder>
+      <type>Stone</type>
+      <Value>15</Value>
+    </ResourceHolder>
+    <ResourceHolder>
       <type>Gold</type>
-      <Value>10</Value>
+      <Value>7</Value>
     </ResourceHolder>
   </ResourceCost>
   <IncreasePerBuy>

@@ -200,4 +200,18 @@ public class PacketHandler : MonoBehaviour
         TerritoryRenderer.Instance.territories.Add(new ClientTerritory(clientID, claimed));
         TerritoryRenderer.Instance.RenderAll();
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.SpawnEntity)]
+    private static void SpawnEntity(Message message)
+    {
+        ushort clientID = message.GetUShort();
+        EntityType type = (EntityType) Enum.Parse(typeof(EntityType), message.GetString());
+        Vector3Int position = message.GetVector3Int();
+
+        Vector3 pos = map.ToVector3(position);
+        pos = new Vector3(pos.x + 0.5f, pos.y + 0.5f, -1.1f);
+
+        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
+        GameObject go = Instantiate(definition.Prefab, pos, Quaternion.identity);
+    }
 }

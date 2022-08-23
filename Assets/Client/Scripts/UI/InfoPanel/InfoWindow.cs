@@ -24,6 +24,8 @@ namespace InfoPanel
         [HideInInspector] public Tilemap map;
         public List<ContentPanel> contens;
 
+        public object LastObject { get; private set; }
+
         #region Resource
         public Image icon;
         public TextMeshProUGUI title;
@@ -44,8 +46,20 @@ namespace InfoPanel
             contens.ForEach(x => x.gameObject.SetActive(false));
         }
 
+        public void OpenRecruitPanel()
+        {
+            if(LastObject is AbstractBuilding building)
+            {
+                FindObjectOfType<RecruitPanel>().LoadPanel(building.Position, building.GetDefinition());
+            }
+        }
+
         public void Load(object obj)
         {
+            if (obj == null) return;
+
+
+            LastObject = obj;
             if (obj.GetType() == typeof(Vector3Int))
             {
                 CurrentType = ContentType.Tile;

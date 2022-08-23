@@ -34,6 +34,14 @@ public class BuildingDefinition : ScriptableObject
     {
         return spritesLevel[level-1];
     }
+
+    public List<EntityDefinition> GetRecruitable()
+    {
+        List<EntityDefinition> list = new List<EntityDefinition>();
+        foreach(EntityType type in canRecruit)
+            list.Add(FindObjectOfType<DefinitionRegistry>().Find(type));
+        return list;
+    }
 }
 
 [System.Serializable]

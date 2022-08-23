@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb5f2429f01afb4181aa40c0b9f2891, type: 3}
-  m_Name: Skeleton
+  m_Name: Mushroom
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 6
   Prefab: {fileID: 4836018041068456585, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
-  RecruitIcon: {fileID: -1397868286, guid: 0c55e916ed8341e4a845fc255af9ba33, type: 3}
-  Name: Skeleton
-  Description: Simple skeleton for simple tasks
+  RecruitIcon: {fileID: -70532297, guid: 10fcf5e428aef4a48980335689b9494d, type: 3}
+  Name: Mushroom
+  Description: A tanky unit on the ground
   Health:
-  - 10
+  - 40
   Damage:
-  - 4
+  - 2
   Speed:
-  - 3
+  - 2
   MovementCost:
   - Value1: 0
     Value2: 1
   - Value1: 1
-    Value2: 2
+    Value2: 3
   - Value1: 2
-    Value2: 1
+    Value2: 2
   - Value1: 3
     Value2: 1
   - Value1: 4
-    Value2: 1
+    Value2: 2
   - Value1: 5
     Value2: 3
