@@ -31,6 +31,14 @@ public class CursorAction : MonoBehaviour
 
         if (!map.HasTile(pos)) return;
 
+        foreach(Entity entity in GameObject.FindObjectsOfType<Entity>())
+        {
+            if(entity.Position == pos)
+            {
+                FindObjectOfType<InfoWindow>().Load(entity);
+                return;
+            }
+        }
         //TODO: Check Entity
 
         foreach (Transform child in map.transform)

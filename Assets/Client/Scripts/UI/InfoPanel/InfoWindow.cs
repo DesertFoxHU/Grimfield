@@ -58,7 +58,6 @@ namespace InfoPanel
         {
             if (obj == null) return;
 
-
             LastObject = obj;
             if (obj.GetType() == typeof(Vector3Int))
             {
@@ -74,26 +73,29 @@ namespace InfoPanel
                 icon.sprite = tile.sprite;
                 title.text = definition.tileName;
                 description.text = definition.description;
-
-                contens.Find(x => x.type == CurrentType).gameObject.SetActive(true);
-                contens.Find(x => x.type == CurrentType).Load(obj);
             }
             else if (obj is AbstractBuilding building)
             {
                 CurrentType = ContentType.Building;
-                HideAll();
 
                 icon.sprite = building.GetDefinition().GetSpriteByLevel(building.Level);
                 title.text = building.GetDefinition().type.ToString();
                 description.text = building.GetDefinition().description;
-
-                contens.Find(x => x.type == CurrentType).gameObject.SetActive(true);
-                contens.Find(x => x.type == CurrentType).Load(obj);
             }
-            else
+            else if(obj is Entity entity)
             {
-                //TODO: Entity
+                CurrentType = ContentType.Entity;
+
+                icon.sprite = entity.Definition.RecruitIcon;
+                title.text = entity.Definition.Name;
+                description.text = "";
+
             }
+
+            HideAll();
+
+            contens.Find(x => x.type == CurrentType).gameObject.SetActive(true);
+            contens.Find(x => x.type == CurrentType).Load(obj);
         }
 
     }

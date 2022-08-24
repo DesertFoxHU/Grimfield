@@ -213,6 +213,6 @@ public class PacketHandler : MonoBehaviour
 
         EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
         GameObject go = Instantiate(definition.Prefab, pos, Quaternion.identity);
-        go.GetComponent<Entity>().Initialize(definition);
+        go.GetComponent<Entity>().Initialize(position, definition);
     }
 }
