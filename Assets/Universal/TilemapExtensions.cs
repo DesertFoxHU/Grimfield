@@ -59,7 +59,8 @@ public static class TilemapExtensions
     public static string GetTileName(this Tilemap map, Vector3Int pos)
     {
         if (!map.HasTile(pos)) return null;
-        return map.GetTile<GrimfieldTile>(pos).name;
+        else if(map.GetTile<GrimfieldTile>(pos) != null) return map.GetTile<GrimfieldTile>(pos).name;
+        return map.GetTile<Tile>(pos).name;
     }
 
     public static List<Vector3Int> GetNeighbour(this Tilemap map, Vector3Int pos)
