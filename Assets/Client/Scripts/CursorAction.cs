@@ -33,13 +33,12 @@ public class CursorAction : MonoBehaviour
 
         foreach(Entity entity in GameObject.FindObjectsOfType<Entity>())
         {
-            if(entity.Position == pos)
+            if(entity.Position.x == pos.x && entity.Position.y == pos.y)
             {
                 FindObjectOfType<InfoWindow>().Load(entity);
                 return;
             }
         }
-        //TODO: Check Entity
 
         foreach (Transform child in map.transform)
         {

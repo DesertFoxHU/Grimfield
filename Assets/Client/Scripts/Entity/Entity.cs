@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Entity : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class Entity : MonoBehaviour
     public double speed;
 
     #region Debug
-    public void Start()
+    public void Awake()
     {
-        Initialize(new Vector3Int(0, 0, 0), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
+        Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
     }
     #endregion
 

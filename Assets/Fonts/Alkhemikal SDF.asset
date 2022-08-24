@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-7666343492146582652
+--- !u!21 &-4677152938202857980
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 6736305197296601266}
+        m_Texture: {fileID: 4971572231596606790}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: Alkhemikal SDF
   m_EditorClassIdentifier: 
   hashCode: -213843976
-  material: {fileID: -7666343492146582652}
+  material: {fileID: -4677152938202857980}
   materialHashCode: -811457704
   m_Version: 1.1.0
   m_SourceFontFileGUID: 730b9aeb8c92aa94ba35fd2c34ad20cc
@@ -1995,7 +1995,7 @@ MonoBehaviour:
     m_GlyphIndex: 347
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 6736305197296601266}
+  - {fileID: 4971572231596606790}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -2652,9 +2652,9 @@ MonoBehaviour:
     packingMode: 0
     atlasWidth: 512
     atlasHeight: 512
-    characterSetSelectionMode: 0
-    characterSequence: 32 - 126, 160, 8203, 8230, 9633
-    referencedFontAssetGUID: 
+    characterSetSelectionMode: 6
+    characterSequence: 20-7E,A0,2026
+    referencedFontAssetGUID: d1fa03597e9d555448f3dd06b15e9a83
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0
@@ -2688,7 +2688,7 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &6736305197296601266
+--- !u!28 &4971572231596606790
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
