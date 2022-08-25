@@ -38,4 +38,10 @@ public class Entity : MonoBehaviour
     {
         this.OwnerId = clientID;
     }
+
+    public void DrawNavigation()
+    {
+        Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+        WeightGraph graph = new WeightGraph(map, this);
+    }
 }

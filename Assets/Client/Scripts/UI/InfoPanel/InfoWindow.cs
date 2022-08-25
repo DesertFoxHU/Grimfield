@@ -68,7 +68,7 @@ namespace InfoPanel
                 if (!map.HasTile(pos)) return;
 
                 Tile tile = map.GetTile<Tile>(pos);
-                TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+                TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
 
                 icon.sprite = tile.sprite;
                 title.text = definition.tileName;

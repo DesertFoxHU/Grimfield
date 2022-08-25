@@ -92,7 +92,7 @@ namespace ServerSide
 
         private void GenerateTile(Tilemap map, int x, int y, TileType type)
         {
-            TileDefiniton definition = DefinitionRegistry.Instance.Find(type);
+            TileDefinition definition = DefinitionRegistry.Instance.Find(type);
             int spriteIndex = definition.GetRandomSpriteIndex();
             map.SetTileSprite(new Vector3Int(x, y, 0), definition.sprites[spriteIndex]);
             chunkManager.SetTile(x, y, type, spriteIndex);

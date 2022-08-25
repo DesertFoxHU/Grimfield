@@ -15,6 +15,12 @@ public static class TilemapExtensions
         return map.layoutGrid.CellToWorld(pos);
     }
 
+    public static Vector3 ToVector3Center(this Tilemap map, Vector3Int pos)
+    {
+        Vector3 raw = map.layoutGrid.CellToWorld(pos);
+        return new Vector3(raw.x + 0.5f, raw.y + 0.5f, raw.z);
+    }
+
     public static void SetTileSprite(this Tilemap map, Vector3Int pos, Sprite sprite)
     {
         GrimfieldTile tile;
@@ -46,7 +52,7 @@ public static class TilemapExtensions
         GrimfieldTile newTile = ScriptableObject.CreateInstance<GrimfieldTile>();
 
         newTile.sprite = originalTile.sprite;
-        newTile.name = originalTile.name;
+        newTile.name = originalTile.sprite.name;
         newTile.flags = originalTile.flags;
         newTile.hideFlags = originalTile.hideFlags;
         newTile.colliderType = originalTile.colliderType;
@@ -59,8 +65,10 @@ public static class TilemapExtensions
     public static string GetTileName(this Tilemap map, Vector3Int pos)
     {
         if (!map.HasTile(pos)) return null;
-        else if(map.GetTile<GrimfieldTile>(pos) != null) return map.GetTile<GrimfieldTile>(pos).name;
-        return map.GetTile<Tile>(pos).name;
+        else if(map.GetTile<GrimfieldTile>(pos) != null) return map.GetTile<GrimfieldTile>(pos).sprite.name;
+
+        GrimfieldTile transformed = TransformToGrimfieldTile(map, pos);
+        return transformed.sprite.name;
     }
 
     public static List<Vector3Int> GetNeighbour(this Tilemap map, Vector3Int pos)

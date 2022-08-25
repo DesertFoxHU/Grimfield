@@ -35,6 +35,12 @@ public class CursorAction : MonoBehaviour
         {
             if(entity.Position.x == pos.x && entity.Position.y == pos.y)
             {
+                if(type == MouseClickType.LeftClick)
+                {
+                    entity.DrawNavigation();
+                    return;
+                }
+                
                 FindObjectOfType<InfoWindow>().Load(entity);
                 return;
             }

@@ -23,14 +23,18 @@ MonoBehaviour:
   produceType: 0
   ProduceLevel:
   - level: 1
-    value: 0.5
-  - level: 2
     value: 1
-  - level: 3
-    value: 1.5
-  - level: 4
+  - level: 2
     value: 2
+  - level: 3
+    value: 2
+  - level: 4
+    value: 3
   - level: 5
-    value: 2.5
+    value: 4
   canClaimTerritory: 1
   territoryClaimRange: 3
+  isExchanger: 0
+  ExchangeFrom: []
+  ExchangeTo: []
+  canRecruit: 

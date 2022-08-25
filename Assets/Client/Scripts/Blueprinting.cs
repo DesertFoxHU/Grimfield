@@ -71,7 +71,7 @@ public class Blueprinting : MonoBehaviour
             bool canBuild = true;
 
             Vector3Int pos = map.ToVector3Int(worldPoint);
-            TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
             if (definition == null)
             {
                 Debug.LogError($"Definition is null for: {map.GetTileName(pos)}, mapReference: {map}");
