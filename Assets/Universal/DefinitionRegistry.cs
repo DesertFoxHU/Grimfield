@@ -11,7 +11,7 @@ public class DefinitionRegistry : MonoBehaviour
         Instance = this;
     }
 
-    public List<TileDefiniton> Tiles;
+    public List<TileDefinition> Tiles;
     public List<BuildingDefinition> Buildings;
     public List<EntityDefinition> Entities;
 
@@ -20,7 +20,7 @@ public class DefinitionRegistry : MonoBehaviour
         return Buildings.Find(a => a.type == type);
     }
 
-    public TileDefiniton Find(TileType type)
+    public TileDefinition Find(TileType type)
     {
         return Tiles.Find(a => a.type == type);
     }
@@ -30,9 +30,9 @@ public class DefinitionRegistry : MonoBehaviour
         return Entities.Find(a => a.Type == type);
     }
 
-    public TileDefiniton Find(string spriteName)
+    public TileDefinition Find(string spriteName)
     {
-        foreach (TileDefiniton tf in Tiles)
+        foreach (TileDefinition tf in Tiles)
         {
             foreach(Sprite sprite in tf.sprites)
             {

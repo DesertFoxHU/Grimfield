@@ -112,7 +112,7 @@ namespace ServerSide
             Vector3Int pos = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(v3Pos);
             BuildingType type = (BuildingType) Enum.Parse(typeof(BuildingType), message.GetString());
 
-            TileDefiniton definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
             if (definition == null)
             {
                 Debug.LogError("Definition for this position wasn't loaded!");
@@ -225,6 +225,7 @@ namespace ServerSide
 
             Vector3 v3 = map.ToVector3(position);
             GameObject go = Instantiate(definition.Prefab, new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f), Quaternion.identity);
+            go.GetComponent<Entity>().Initialize(position, definition);
 
             Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
             newMessage.Add(clientID);
