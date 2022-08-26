@@ -16,8 +16,6 @@ public class WeightGraph
         this.map = map;
         this.source = entity.Position;
         this.pathRange = (int) entity.speed;
-
-        GetMovementRange(entity);
     }
 
     public HashSet<Vector3Int> GetMovementRange(Entity entity)
@@ -74,10 +72,10 @@ public class WeightGraph
 
                     Vector3Int neighbourMatrixIndex = GetOffsetPosition(OffsetPosition, neighbour);
 
-                    /*if(neighbourMatrixIndex.x >= pathRange*2+1 || neighbourMatrixIndex.y >= pathRange * 2 + 1)
+                    if(neighbourMatrixIndex.x >= pathRange*2+1 || neighbourMatrixIndex.y >= pathRange * 2 + 1)
                     {
                         continue;
-                    }*/
+                    }
 
                     TileDefinition tile = DefinitionRegistry.Instance.Find(map.GetTileName(neighbour));
                     if (tile == null)
@@ -98,7 +96,8 @@ public class WeightGraph
             tempUIHighlight = new HashSet<Vector3Int>();
         }
 
-        GameObject prefab = GameObject.FindGameObjectWithTag("TextMesh");
+        #region Debug
+        /*GameObject prefab = GameObject.FindGameObjectWithTag("TextMesh");
         for (int x = 0; x < cost.GetLength(0); x++)
         {
             for (int y = 0; y < cost.GetLength(1); y++)
@@ -115,8 +114,9 @@ public class WeightGraph
         {
             Vector3 local = map.ToVector3(canGo);
             Debug.DrawLine(local, new Vector3(local.x + 1f, local.y + 1f, local.z), Color.red);
-            Debug.Break();
-        }
+            //Debug.Break();
+        }*/
+        #endregion
         return finalMovementHighlight;
     }
 

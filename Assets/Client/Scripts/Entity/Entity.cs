@@ -17,6 +17,8 @@ public class Entity : MonoBehaviour
     public double damage;
     public double speed;
 
+    private List<Vector3Int> lastDrawn = new List<Vector3Int>();
+
     #region Debug
     public void Awake()
     {
@@ -43,5 +45,40 @@ public class Entity : MonoBehaviour
     {
         Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
         WeightGraph graph = new WeightGraph(map, this);
+        HashSet<Vector3Int> canGo = graph.GetMovementRange(this);
+
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        Vector3 botLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+
+        topRight.Set(topRight.x + 5f, topRight.y + 5f, topRight.z);
+        botLeft.Set(botLeft.x - 5f, botLeft.y - 5f, botLeft.z);
+
+        Vector3Int topRightInt = map.ToVector3Int(topRight);
+        Vector3Int botLeftInt = map.ToVector3Int(botLeft);
+
+        Color outside = new Color(87 / 255f, 87 / 255f, 87 / 255f, 235 / 255f);
+
+        for(int x = botLeftInt.x; x < topRightInt.x; x++)
+        {
+            for (int y = botLeftInt.y; y < topRightInt.y; y++)
+            {
+                Vector3Int v3 = new Vector3Int(x, y, botLeftInt.z);
+                if (canGo.Contains(v3)) continue;
+
+                map.SetColor(v3, outside);
+                lastDrawn.Add(v3);
+            }
+        }
+        map.RefreshAllTiles();
+    }
+
+    public void ClearDraw()
+    {
+        Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+        foreach (Vector3Int v3 in lastDrawn)
+        {
+            map.SetColor(v3, Color.white);
+        }
+        lastDrawn.Clear();
     }
 }
