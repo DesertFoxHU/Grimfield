@@ -17,10 +17,10 @@ public class WeightGraph
         this.source = entity.Position;
         this.pathRange = (int) entity.speed;
 
-        Calculate(entity);
+        GetMovementRange(entity);
     }
 
-    public void Calculate(Entity entity)
+    public HashSet<Vector3Int> GetMovementRange(Entity entity)
     {
         //Offset (from 0 to pathRange)
         //Where start position is center of this matrix
@@ -117,6 +117,7 @@ public class WeightGraph
             Debug.DrawLine(local, new Vector3(local.x + 1f, local.y + 1f, local.z), Color.red);
             Debug.Break();
         }
+        return finalMovementHighlight;
     }
 
     /// <summary>

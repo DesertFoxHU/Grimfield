@@ -10,8 +10,8 @@ namespace ServerSide
     {
         [HideInInspector] public ChunkManager chunkManager;
         public int Seed = -1;
-        public int SizeX;
-        public int SizeY;
+        [Range(1, 64)] public int SizeX;
+        [Range(1, 64)] public int SizeY;
         public TurnHandler turnHandler;
 
         public void StartMatchGame()
