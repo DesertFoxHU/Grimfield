@@ -7,6 +7,7 @@ using InfoPanel;
 public class CursorAction : MonoBehaviour
 {
     private static Tilemap map;
+    [HideInInspector] public Entity drawnEntity;
 
     void Start()
     {
@@ -38,12 +39,19 @@ public class CursorAction : MonoBehaviour
                 if(type == MouseClickType.LeftClick)
                 {
                     entity.DrawNavigation();
+                    drawnEntity = entity;
                     return;
                 }
                 
                 FindObjectOfType<InfoWindow>().Load(entity);
                 return;
             }
+        }
+
+        if(drawnEntity != null)
+        {
+            drawnEntity.ClearDraw();
+            drawnEntity = null;
         }
 
         foreach (Transform child in map.transform)
