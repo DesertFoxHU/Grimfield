@@ -13,7 +13,7 @@ This is a **turn-based multiplayer strategy game**.
 ## VERY VERY early gameplay screenshots
 
 ![kép](https://user-images.githubusercontent.com/40893862/185801962-877479ec-5932-423a-87f0-a59a73ab4394.png)
-![kép](https://user-images.githubusercontent.com/40893862/185801922-6e312f59-daf9-459e-abc8-8aec8dafb14c.png)
+![kép](https://user-images.githubusercontent.com/40893862/186993638-48205607-6f7b-4340-996e-063215661d3b.png)
 
 ## Technical Informations
 
