@@ -1,0 +1,15 @@
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\bin\Debug\net6.0\Console.exe
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\bin\Debug\net6.0\Console.deps.json
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\bin\Debug\net6.0\Console.runtimeconfig.json
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\bin\Debug\net6.0\Console.dll
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\bin\Debug\net6.0\Console.pdb
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.csproj.AssemblyReference.cache
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.AssemblyInfoInputs.cache
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.AssemblyInfo.cs
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.csproj.CoreCompileInputs.cache
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.dll
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\refint\Console.dll
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.pdb
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\Console.genruntimeconfig.cache
+C:\Users\xy\Grimfield\ServerConsole\Console\Console\obj\Debug\net6.0\ref\Console.dll
