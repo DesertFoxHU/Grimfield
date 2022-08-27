@@ -1,5 +1,6 @@
 using Riptide;
 using Riptide.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -72,8 +73,6 @@ namespace ServerSide
 
             Message.MaxPayloadSize = 10000; //in bytes
 
-            //FindObjectOfType<ServerConsole>().StartConsole();
-
             Server.Start(port, MaxClient);
             Lobby = new Lobby();
             State = ServerState.Lobby;
@@ -83,6 +82,16 @@ namespace ServerSide
         private void FixedUpdate()
         {
             Server.Tick();
+        }
+
+        public Response<ResponseType, string> HandleCommand(string command)
+        {
+            if (!command.StartsWith("/"))
+            {
+                return new Response<ResponseType, string>(ResponseType.FAILURE, "Every command should start with a '/' symbol!");
+            }
+
+            return new Response<ResponseType, string>(ResponseType.SUCCESS, null);
         }
 
         private void OnApplicationQuit()
