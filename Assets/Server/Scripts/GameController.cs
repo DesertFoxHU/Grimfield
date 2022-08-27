@@ -8,6 +8,13 @@ namespace ServerSide
 {
     public class GameController : MonoBehaviour
     {
+        public static GameController Instance;
+
+        private void Start()
+        {
+            Instance = this;
+        }
+
         [HideInInspector] public ChunkManager chunkManager;
         public int Seed = -1;
         [Range(1, 64)] public int SizeX;
