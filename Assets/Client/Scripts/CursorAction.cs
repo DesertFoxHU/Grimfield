@@ -50,7 +50,7 @@ public class CursorAction : MonoBehaviour
 
         if(drawnEntity != null)
         {
-            if(drawnEntity.OwnerId == NetworkManager.Instance.ClientPlayer.ClientID) drawnEntity.MoveToClientRequest(pos);
+            if(drawnEntity.OwnerId == NetworkManager.Instance.ClientPlayer.ClientID) drawnEntity.ClientMoveToRequest(pos);
             drawnEntity.ClearDraw();
             drawnEntity = null;
         }

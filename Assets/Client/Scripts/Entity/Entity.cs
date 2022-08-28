@@ -24,7 +24,7 @@ public class Entity : MonoBehaviour
     #region Debug
     public void Awake()
     {
-        Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
+        //Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
     }
     #endregion
 
@@ -89,7 +89,7 @@ public class Entity : MonoBehaviour
         lastDrawn.Clear();
     }
 
-    public void MoveToClientRequest(Vector3Int to)
+    public void ClientMoveToRequest(Vector3Int to)
     {
         CalculateMovementRange();
         if (!lastCanMove.Contains(to))

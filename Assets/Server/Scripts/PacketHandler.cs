@@ -239,6 +239,8 @@ namespace ServerSide
                 return;
             }
 
+            if (!EntityLogic.OnMoveTo(NetworkManager.Find(clientID), map, entity, from)) return;
+
             Vector3 v3 = map.ToVector3(to);
             entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
             entity.Position = to;
