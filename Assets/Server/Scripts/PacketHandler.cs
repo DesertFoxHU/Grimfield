@@ -22,7 +22,7 @@ namespace ServerSide
         [MessageHandler((ushort)ClientToServerPacket.JoinLobby)]
         private static void JoinLobby(ushort clientID, Message message)
         {
-            string name = message.GetString();
+            string name = message.GetString().Trim();
 
             if(name == null || name.Length == 0)
             {
@@ -216,22 +216,7 @@ namespace ServerSide
                 return;
             }
 
-            EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
-            if(definition == null)
-            {
-                Debug.LogError($"Can't find any EntityDefinition with this type: {type}");
-                return;
-            }
-
-            Vector3 v3 = map.ToVector3(position);
-            GameObject go = Instantiate(definition.Prefab, new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f), Quaternion.identity);
-            go.GetComponent<Entity>().Initialize(position, definition);
-
-            Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
-            newMessage.Add(clientID);
-            newMessage.Add(type.ToString());
-            newMessage.Add(position);
-            NetworkManager.Instance.Server.SendToAll(newMessage);
+            GameController.Instance.SpawnUnit(player, position, type);
         }
     }
 }

@@ -88,12 +88,14 @@ namespace ServerSide
 
         public Response<string> HandleCommand(string command)
         {
+            command = command.Trim();
             if (!command.StartsWith("/"))
             {
                 return Response<string>.Create(ResponseType.FAILURE, "Every command should start with a '/' symbol!");
             }
 
             string prefix = command.Split(' ')[0];
+            prefix = prefix.Replace(@"/", String.Empty);
 
             if (Commands.commandHandlers.ContainsKey(prefix))
             {

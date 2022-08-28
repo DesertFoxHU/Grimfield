@@ -21,8 +21,11 @@ namespace ServerSide
         [Range(1, 64)] public int SizeY;
         public TurnHandler turnHandler;
 
+        private Tilemap map;
+
         public void StartMatchGame()
         {
+            map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
             turnHandler = new TurnHandler();
 
             NetworkManager.Instance.Lobby = null;
@@ -32,6 +35,26 @@ namespace ServerSide
 
             Message startGamePacket = Message.Create(MessageSendMode.reliable, ServerToClientPacket.LoadGameScene);
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
+        }
+
+        public void SpawnUnit(ServerPlayer player, Vector3Int position, EntityType type)
+        {
+            EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
+            if (definition == null)
+            {
+                Debug.LogError($"Can't find any EntityDefinition with this type: {type}");
+                return;
+            }
+
+            Vector3 v3 = map.ToVector3(position);
+            GameObject go = Instantiate(definition.Prefab, new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f), Quaternion.identity);
+            go.GetComponent<Entity>().Initialize(position, definition);
+
+            Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
+            newMessage.Add(player.PlayerId);
+            newMessage.Add(type.ToString());
+            newMessage.Add(position);
+            NetworkManager.Instance.Server.SendToAll(newMessage);
         }
 
         [ContextMenu("GenerateMap")]
