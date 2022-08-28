@@ -36,6 +36,7 @@ public static class TilemapExtensions
         {
             tile = ScriptableObject.CreateInstance<GrimfieldTile>();
             tile.name = sprite.name;
+            tile.flags = TileFlags.None;
         }
         tile.sprite = sprite;
         map.SetTile(pos, tile);

@@ -11,15 +11,16 @@ public class WeightGraph
     public Vector3Int source;
     public int pathRange;
 
-    public WeightGraph(Tilemap map, Entity entity)
+    public WeightGraph(Entity entity)
     {
-        this.map = map;
+        this.map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
         this.source = entity.Position;
-        this.pathRange = (int) entity.speed;
     }
 
     public HashSet<Vector3Int> GetMovementRange(Entity entity)
     {
+        this.pathRange = (int) entity.speed;
+
         //Offset (from 0 to pathRange)
         //Where start position is center of this matrix
         double[,] cost = new double[pathRange * 2 + 1, pathRange * 2 + 1];
@@ -65,6 +66,7 @@ public class WeightGraph
             foreach (Vector3Int v3 in UIHighlight)
             {
                 Vector3Int matrixIndex = GetOffsetPosition(OffsetPosition, v3);
+                double parentCost = cost[matrixIndex.x, matrixIndex.y];
 
                 foreach (Vector3Int neighbour in map.GetTileRange(v3, 1))
                 {
@@ -76,6 +78,10 @@ public class WeightGraph
                     {
                         continue;
                     }
+                    else if(neighbourMatrixIndex.x < 0 || neighbourMatrixIndex.y < 0)
+                    {
+                        continue;
+                    }
 
                     TileDefinition tile = DefinitionRegistry.Instance.Find(map.GetTileName(neighbour));
                     if (tile == null)
@@ -83,7 +89,15 @@ public class WeightGraph
                         Debug.LogError($"No tile definition for {map.GetTileName(neighbour)}");
                     }
 
-                    cost[neighbourMatrixIndex.x, neighbourMatrixIndex.y] = entity.Definition.GetMovementCost(tile.type) + cost[matrixIndex.x, matrixIndex.y];
+                    try
+                    {
+                        cost[neighbourMatrixIndex.x, neighbourMatrixIndex.y] = entity.Definition.GetMovementCost(tile.type) + parentCost;
+                    }
+                    catch
+                    {
+                        Debug.LogError($"Can't set tile cost for (offset) {neighbourMatrixIndex.x},{neighbourMatrixIndex.y}, range: {pathRange}, matrix size: {pathRange * 2 + 1}");
+                    }
+
                     if (pathRange - cost[neighbourMatrixIndex.x, neighbourMatrixIndex.y] >= 0)
                     {
                         tempUIHighlight.Add(neighbour);

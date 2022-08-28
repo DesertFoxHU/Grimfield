@@ -21,6 +21,7 @@ public class EntityDefinition : ScriptableObject
     public List<double> Damage;
     public List<double> Speed;
     public TerrainMovementType MovementType;
+    public List<ResourceHolder> RecruitCost;
     [SerializeField] private List<ValuePair<TileType, double>> MovementCost;
 
     public double GetMovementCost(TileType type)

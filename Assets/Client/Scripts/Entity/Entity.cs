@@ -1,3 +1,4 @@
+using Riptide;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,19 @@ public class Entity : MonoBehaviour
         get => Definition.Type;
     }
     public bool IsInitialized { get; private set; } = false;
-    public Vector3Int Position { get; private set; }
+    public Vector3Int Position { get; set; }
     public ushort OwnerId { get; private set; }
     public double health;
     public double damage;
     public double speed;
 
     private List<Vector3Int> lastDrawn = new List<Vector3Int>();
+    private HashSet<Vector3Int> lastCanMove = new HashSet<Vector3Int>();
 
     #region Debug
     public void Awake()
     {
-        Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
+        //Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
     }
     #endregion
 
@@ -41,17 +43,22 @@ public class Entity : MonoBehaviour
         this.OwnerId = clientID;
     }
 
+    public void CalculateMovementRange()
+    {
+        WeightGraph graph = new WeightGraph(this);
+        lastCanMove = graph.GetMovementRange(this);
+    }
+
     public void DrawNavigation()
     {
         Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
-        WeightGraph graph = new WeightGraph(map, this);
-        HashSet<Vector3Int> canGo = graph.GetMovementRange(this);
+        CalculateMovementRange();
 
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         Vector3 botLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
 
-        topRight.Set(topRight.x + 5f, topRight.y + 5f, topRight.z);
-        botLeft.Set(botLeft.x - 5f, botLeft.y - 5f, botLeft.z);
+        topRight.Set(topRight.x + 3f, topRight.y + 3f, topRight.z);
+        botLeft.Set(botLeft.x - 3f, botLeft.y - 3f, botLeft.z);
 
         Vector3Int topRightInt = map.ToVector3Int(topRight);
         Vector3Int botLeftInt = map.ToVector3Int(botLeft);
@@ -63,7 +70,7 @@ public class Entity : MonoBehaviour
             for (int y = botLeftInt.y; y < topRightInt.y; y++)
             {
                 Vector3Int v3 = new Vector3Int(x, y, botLeftInt.z);
-                if (canGo.Contains(v3)) continue;
+                if (lastCanMove.Contains(v3)) continue;
 
                 map.SetColor(v3, outside);
                 lastDrawn.Add(v3);
@@ -80,5 +87,20 @@ public class Entity : MonoBehaviour
             map.SetColor(v3, Color.white);
         }
         lastDrawn.Clear();
+    }
+
+    public void ClientMoveToRequest(Vector3Int to)
+    {
+        CalculateMovementRange();
+        if (!lastCanMove.Contains(to))
+        {
+            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit can move there.");
+            return;
+        }
+
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.MoveEntity);
+        message.Add(Position);
+        message.Add(to);
+        NetworkManager.Instance.Client.Send(message);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 /// ResourceHolder is capable of storing a single type of Resource, but its not suitable for holding all Resource type
 /// Instead use ResourceInventory for tracking every Resource
 /// </summary>
+[System.Serializable]
 public class ResourceHolder
 {
     public ResourceType type;

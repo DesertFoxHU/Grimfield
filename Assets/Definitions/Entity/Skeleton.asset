@@ -18,12 +18,17 @@ MonoBehaviour:
   Name: Skeleton
   Description: Simple skeleton for simple tasks
   Health:
-  - 10
+  - 13
   Damage:
   - 4
   Speed:
   - 3
   MovementType: 0
+  RecruitCost:
+  - type: 0
+    Value: 1
+  - type: 5
+    Value: 17
   MovementCost:
   - Value1: 0
     Value2: 1
