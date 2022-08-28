@@ -12,7 +12,9 @@ namespace ServerSide
     {
         public static bool OnMoveTo(ServerPlayer player, Tilemap map, Entity entity, Vector3Int newPosition)
         {
-
+            //TODO: Enemy entity attack
+            //TODO: Claim enemy building
+            //TODO: Attack enemy building
             return true;
         }
     }

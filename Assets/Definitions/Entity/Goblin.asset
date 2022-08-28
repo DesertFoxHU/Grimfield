@@ -23,6 +23,10 @@ MonoBehaviour:
   - 2
   Speed:
   - 4
+  MovementType: 0
+  RecruitCost:
+  - type: 4
+    Value: 3
   MovementCost:
   - Value1: 0
     Value2: 1
