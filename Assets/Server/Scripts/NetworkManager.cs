@@ -3,6 +3,8 @@ using Riptide.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 
@@ -84,14 +86,24 @@ namespace ServerSide
             Server.Tick();
         }
 
-        public Response<ResponseType, string> HandleCommand(string command)
+        public Response<string> HandleCommand(string command)
         {
+            command = command.Trim();
             if (!command.StartsWith("/"))
             {
-                return new Response<ResponseType, string>(ResponseType.FAILURE, "Every command should start with a '/' symbol!");
+                return Response<string>.Create(ResponseType.FAILURE, "Every command should start with a '/' symbol!");
             }
 
-            return new Response<ResponseType, string>(ResponseType.SUCCESS, null);
+            string prefix = command.Split(' ')[0];
+            prefix = prefix.Replace(@"/", String.Empty);
+
+            if (Commands.commandHandlers.ContainsKey(prefix))
+            {
+                string[] args = command.Split(' ').Skip(1).ToArray();
+                return Commands.commandHandlers[prefix].Invoke(args, command);
+            }
+
+            return Response<string>.Create(ResponseType.FAILURE, "Unrecognized command: " + command + "! For help: /help");
         }
 
         private void OnApplicationQuit()

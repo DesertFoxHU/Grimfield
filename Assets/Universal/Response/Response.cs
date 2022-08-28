@@ -8,18 +8,23 @@ public enum ResponseType
     FAILURE
 }
 
-public class Response<ResponseType, T>
+public class Response<T>
 {
     public ResponseType type;
     public T value;
 
-    public Response()
+    private Response()
     {
     }
 
-    public Response(ResponseType type, T value)
+    private Response(ResponseType type, T value)
     {
         this.type = type;
         this.value = value;
+    }
+
+    public static Response<T> Create(ResponseType type, T value)
+    {
+        return new Response<T>(type, value);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class JoinServer : MonoBehaviour
 {
     public TMP_InputField ipAddressField;
-    public TextMeshProUGUI nameField;
+    public TMP_InputField nameField;
 
     void Start()
     {

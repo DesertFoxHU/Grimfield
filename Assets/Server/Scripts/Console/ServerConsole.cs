@@ -42,7 +42,7 @@ namespace ServerSide
         //
         void OnInputText(string _msg)
         {
-            Response<ResponseType, string> response = NetworkManager.Instance.HandleCommand(_msg);
+            Response<string> response = NetworkManager.Instance.HandleCommand(_msg);
             if(!String.IsNullOrEmpty(response.value))
             {
                 Console.WriteLine(response.value);
