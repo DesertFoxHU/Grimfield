@@ -94,7 +94,7 @@ public class Entity : MonoBehaviour
         CalculateMovementRange();
         if (!lastCanMove.Contains(to))
         {
-            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit can move there.");
+            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit can't move there.");
             return;
         }
 
