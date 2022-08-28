@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 namespace ServerSide
 {
@@ -217,6 +218,35 @@ namespace ServerSide
             }
 
             GameController.Instance.SpawnUnit(player, position, type);
+        }
+
+        [MessageHandler((ushort)ClientToServerPacket.MoveEntity)]
+        private static void MoveEntity(ushort clientID, Message message)
+        {
+            Vector3Int from = message.GetVector3Int();
+            Vector3Int to = message.GetVector3Int();
+
+            Entity entity = FindObjectsOfType<Entity>().First(x => x.Position.x == from.x && x.Position.y == from.y);
+            if(entity == null)
+            {
+                ServerSender.SendAlert(clientID, "Didn't find any entity on that position. Can this be desync related error?");
+                return;
+            }
+
+            if(entity.OwnerId != clientID)
+            {
+                ServerSender.SendAlert(clientID, "You are not owner of this unit!");
+                return;
+            }
+
+            Vector3 v3 = map.ToVector3(to);
+            entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
+            entity.Position = to;
+
+            Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.MoveEntity);
+            response.Add(from);
+            response.Add(to);
+            NetworkManager.Instance.Server.SendToAll(response);
         }
     }
 }

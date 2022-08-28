@@ -43,11 +43,6 @@ namespace ServerSide
             string pos = args[1];
 
             ServerPlayer player = NetworkManager.players.Find(x => x.Name == name);
-            foreach(ServerPlayer players in NetworkManager.players)
-            {
-                Debug.Log(players.Name);
-            }
-
             if(player == null)
             {
                 return Response<string>.Create(ResponseType.FAILURE, $"There is no player named {name}");

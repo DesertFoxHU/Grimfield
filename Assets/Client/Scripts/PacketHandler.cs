@@ -3,6 +3,7 @@ using Riptide;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -213,6 +214,21 @@ public class PacketHandler : MonoBehaviour
 
         EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
         GameObject go = Instantiate(definition.Prefab, pos, Quaternion.identity);
-        go.GetComponent<Entity>().Initialize(position, definition);
+        Entity entity = go.GetComponent<Entity>();
+        entity.Initialize(position, definition);
+        entity.SetOwner(clientID);
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.MoveEntity)]
+    private static void MoveEntity(Message message)
+    {
+        Vector3Int from = message.GetVector3Int();
+        Vector3Int to = message.GetVector3Int();
+
+        Entity entity = FindObjectsOfType<Entity>().First(x => x.Position.x == from.x && x.Position.y == from.y);
+
+        Vector3 v3 = map.ToVector3(to);
+        entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
+        entity.Position = to;
     }
 }

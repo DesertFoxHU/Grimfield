@@ -48,7 +48,10 @@ namespace ServerSide
 
             Vector3 v3 = map.ToVector3(position);
             GameObject go = Instantiate(definition.Prefab, new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f), Quaternion.identity);
-            go.GetComponent<Entity>().Initialize(position, definition);
+
+            Entity entity = go.GetComponent<Entity>();
+            entity.Initialize(position, definition);
+            entity.SetOwner(player.PlayerId);
 
             Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
             newMessage.Add(player.PlayerId);
