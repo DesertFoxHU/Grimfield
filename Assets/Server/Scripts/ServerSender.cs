@@ -63,11 +63,6 @@ namespace ServerSide
 
         public static void TurnChange(ServerPlayer currentPlayer, int turnCycle)
         {
-            foreach(Entity entity in currentPlayer.entities)
-            {
-                entity.canMove = true;
-            }
-
             Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.TurnChange);
             message.Add(currentPlayer.PlayerId);
             message.Add(turnCycle);

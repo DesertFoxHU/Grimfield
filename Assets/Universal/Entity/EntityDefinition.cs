@@ -23,6 +23,7 @@ public class EntityDefinition : ScriptableObject
     public List<double> Speed;
     public TerrainMovementType MovementType;
     public List<ResourceHolder> RecruitCost;
+    public List<ResourceHolder> Upkeep;
     [SerializeField] private List<ValuePair<TileType, double>> MovementCost;
 
     public double GetMovementCost(TileType type)
@@ -38,6 +39,11 @@ public class EntityDefinition : ScriptableObject
     }
 
     public Dictionary<ResourceType, double> GetRecruitCost()
+    {
+        return RecruitCost.ToDictionary(x => x.type, y => y.Value);
+    }
+
+    public Dictionary<ResourceType, double> GetUpkeep()
     {
         return RecruitCost.ToDictionary(x => x.type, y => y.Value);
     }
