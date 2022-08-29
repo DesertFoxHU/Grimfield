@@ -52,6 +52,7 @@ namespace ServerSide
             Entity entity = go.GetComponent<Entity>();
             entity.Initialize(position, definition);
             entity.SetOwner(player.PlayerId);
+            entity.SetColor(player.Color);
 
             Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
             newMessage.Add(player.PlayerId);

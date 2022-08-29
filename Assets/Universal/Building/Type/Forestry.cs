@@ -25,10 +25,11 @@ public class Forestry : AbstractBuilding, IResourceStorage
 
     public override void OnTurnCycleEnded()
     {
-        double remained = Storage[0].AddSafe(GetDefinition().ProduceLevel.Find(x => x.level == Level).value);
-        if(remained > 0)
+        double produce = GetDefinition().ProduceLevel.Find(x => x.level == Level).value;
+        produce -= Storage[0].AddSafe(produce);
+        if (produce > 0) //Remained some resource
         {
-            owner.TryStoreResource(GetDefinition().produceType, remained);
+            owner.TryStoreResource(GetDefinition().produceType, produce);
         }
     }
 }

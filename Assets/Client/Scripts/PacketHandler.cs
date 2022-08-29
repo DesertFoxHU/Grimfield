@@ -217,6 +217,7 @@ public class PacketHandler : MonoBehaviour
         Entity entity = go.GetComponent<Entity>();
         entity.Initialize(position, definition);
         entity.SetOwner(clientID);
+        entity.SetColor(NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == clientID).Color);
     }
 
     [MessageHandler((ushort)ServerToClientPacket.MoveEntity)]

@@ -240,7 +240,7 @@ namespace ServerSide
             }
 
             WeightGraph graph = new WeightGraph(entity);
-            if (graph.GetMovementRange(entity).Contains(to))
+            if (!graph.GetMovementRange(entity).Contains(to))
             {
                 ServerSender.SendAlert(clientID, "This unit can't move here.");
                 return;
