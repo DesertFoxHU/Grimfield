@@ -21,12 +21,12 @@ public class Entity : MonoBehaviour
     private List<Vector3Int> lastDrawn = new List<Vector3Int>();
     private HashSet<Vector3Int> lastCanMove = new HashSet<Vector3Int>();
 
-    #region Debug
+    private MaterialInstancing secondaryTexture;
+
     public void Awake()
     {
-        //Initialize(GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(this.transform.position), FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton));
+        secondaryTexture = GetComponent<MaterialInstancing>();
     }
-    #endregion
 
     public void Initialize(Vector3Int Position, EntityDefinition definition)
     {
@@ -41,6 +41,12 @@ public class Entity : MonoBehaviour
     public void SetOwner(ushort clientID)
     {
         this.OwnerId = clientID;
+    }
+
+    public void SetColor(Color color)
+    {
+        secondaryTexture.input = color;
+        secondaryTexture.ChangePropertyBlock();
     }
 
     public void CalculateMovementRange()
@@ -94,7 +100,7 @@ public class Entity : MonoBehaviour
         CalculateMovementRange();
         if (!lastCanMove.Contains(to))
         {
-            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit can move there.");
+            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit can't move there.");
             return;
         }
 

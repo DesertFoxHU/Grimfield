@@ -19,7 +19,7 @@ public class MaterialInstancing : MonoBehaviour
     }
 
     [ContextMenu("Update")]
-    private void ChangePropertyBlock()
+    public void ChangePropertyBlock()
     {
         sRenderer.GetPropertyBlock(materialBlock);
         materialBlock.SetColor("_Color", input);

@@ -239,6 +239,13 @@ namespace ServerSide
                 return;
             }
 
+            WeightGraph graph = new WeightGraph(entity);
+            if (!graph.GetMovementRange(entity).Contains(to))
+            {
+                ServerSender.SendAlert(clientID, "This unit can't move here.");
+                return;
+            }
+
             if (!EntityLogic.OnMoveTo(NetworkManager.Find(clientID), map, entity, from)) return;
 
             Vector3 v3 = map.ToVector3(to);
