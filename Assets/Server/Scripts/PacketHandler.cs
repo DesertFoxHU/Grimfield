@@ -211,18 +211,32 @@ namespace ServerSide
 
             ServerPlayer player = NetworkManager.Find(clientID);
             AbstractBuilding building = player.Buildings.Find(x => x.Position == position);
-            if(building == null)
+            if (building == null)
             {
                 Debug.LogWarning($"Player {player.Name} tried to recruit an unit in {position}, however the position is not a building. Probably delay error or cheat attempt.");
                 return;
             }
 
-            GameController.Instance.SpawnUnit(player, position, type);
+            EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
+            if (!player.PayResources(definition.GetRecruitCost()))
+            {
+                ServerSender.SendAlert(clientID, $"Don't have enough resources to recruit this unit!");
+                return;
+            }
+
+            Entity entity = GameController.Instance.SpawnUnit(player, position, type);
+            if (entity != null) player.entities.Add(entity);
         }
 
         [MessageHandler((ushort)ClientToServerPacket.MoveEntity)]
         private static void MoveEntity(ushort clientID, Message message)
         {
+            if(GameController.Instance.turnHandler.GetCurrentTurnOwnerID() != clientID)
+            {
+                ServerSender.SendAlert(clientID, "It's not your turn!");
+                return;
+            }
+
             Vector3Int from = message.GetVector3Int();
             Vector3Int to = message.GetVector3Int();
 
@@ -251,6 +265,7 @@ namespace ServerSide
             Vector3 v3 = map.ToVector3(to);
             entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
             entity.Position = to;
+            entity.canMove = false;
 
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.MoveEntity);
             response.Add(from);

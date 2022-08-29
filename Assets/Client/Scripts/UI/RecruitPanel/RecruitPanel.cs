@@ -24,6 +24,8 @@ public class RecruitPanel : MonoBehaviour
     public TextMeshProUGUI healthValue;
     public TextMeshProUGUI damageValue;
     public TextMeshProUGUI speedValue;
+    public GameObject costHolder;
+    public GameObject costPrefab;
     #endregion
 
     private void Start()
@@ -69,6 +71,23 @@ public class RecruitPanel : MonoBehaviour
         healthValue.text = definition.Health[0].ToString();
         damageValue.text = definition.Damage[0].ToString();
         speedValue.text = definition.Speed[0].ToString();
+
+        foreach(Transform child in costHolder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        ResourceIconRegistry iconReg = FindObjectOfType<ResourceIconRegistry>();
+        int index = 0;
+        foreach (ResourceHolder resource in definition.RecruitCost)
+        {
+            GameObject go = Instantiate(costPrefab, new Vector3(80 * index, 0, 0), Quaternion.identity);
+            go.transform.SetParent(costHolder.transform, false);
+            go.GetComponent<Image>().sprite = iconReg.Find(resource.type);
+            go.GetComponentInChildren<TextMeshProUGUI>().text = "" + resource.Value;
+
+            index++;
+        }
     }
 
     public void BuyEntity()

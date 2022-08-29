@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "Entity/EntityDefinition", fileName = "EntityDefinition")]
 public class EntityDefinition : ScriptableObject
@@ -34,6 +35,11 @@ public class EntityDefinition : ScriptableObject
             }
         }
         return 1;
+    }
+
+    public Dictionary<ResourceType, double> GetRecruitCost()
+    {
+        return RecruitCost.ToDictionary(x => x.type, y => y.Value);
     }
 
     private void OnValidate()

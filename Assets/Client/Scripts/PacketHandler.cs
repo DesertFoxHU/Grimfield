@@ -161,6 +161,14 @@ public class PacketHandler : MonoBehaviour
             gui.text = $"Turn({turnCycle}): {currentPlayer.Name}";
             gui.color = currentPlayer.Color;
         }
+
+        foreach(Entity entity in FindObjectsOfType<Entity>())
+        {
+            if(entity.OwnerId == currentPlayer.ClientID)
+            {
+                entity.canMove = true;
+            }
+        }
     }
 
     [MessageHandler((ushort)ServerToClientPacket.UpdateBuildingCost)]
@@ -231,5 +239,6 @@ public class PacketHandler : MonoBehaviour
         Vector3 v3 = map.ToVector3(to);
         entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
         entity.Position = to;
+        entity.canMove = false;
     }
 }

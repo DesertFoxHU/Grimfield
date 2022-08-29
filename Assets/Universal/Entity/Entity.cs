@@ -22,6 +22,7 @@ public class Entity : MonoBehaviour
     private HashSet<Vector3Int> lastCanMove = new HashSet<Vector3Int>();
 
     private MaterialInstancing secondaryTexture;
+    [HideInInspector] public bool canMove;
 
     public void Awake()
     {
@@ -36,6 +37,7 @@ public class Entity : MonoBehaviour
         damage = definition.Damage[0];
         speed = definition.Speed[0];
         IsInitialized = true;
+        canMove = true;
     }
 
     public void SetOwner(ushort clientID)
@@ -97,6 +99,12 @@ public class Entity : MonoBehaviour
 
     public void ClientMoveToRequest(Vector3Int to)
     {
+        if (!canMove)
+        {
+            FindObjectOfType<MessageDisplayer>().SetMessage($"This unit has been already moved.");
+            return;
+        }
+
         CalculateMovementRange();
         if (!lastCanMove.Contains(to))
         {
