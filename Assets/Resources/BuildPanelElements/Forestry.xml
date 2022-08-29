@@ -6,7 +6,7 @@
   <ResourceCost>
     <ResourceHolder>
       <type>Citizen</type>
-      <Value>3</Value>
+      <Value>2</Value>
     </ResourceHolder>
   </ResourceCost>
   <IncreasePerBuy>

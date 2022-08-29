@@ -10,19 +10,11 @@ using System;
 /// </summary>
 public class BuildMenuSegment : MonoBehaviour
 {
-    [System.Serializable]
-    public struct ResourceIcons
-    {
-        public ResourceType type;
-        public Sprite icon;
-    }
-
     public Image Icon;
     public TextMeshProUGUI Title;
     public TextMeshProUGUI Description;
     public GameObject CostHolder;
     public GameObject CostPrefab;
-    public List<ResourceIcons> Icons;
 
     public BuildMenuElement LastLoaded { get; private set; }
     public BuildingType Type
@@ -85,7 +77,7 @@ public class BuildMenuSegment : MonoBehaviour
             GameObject costObject = Instantiate(CostPrefab, pos, Quaternion.identity);
             costObject.transform.SetParent(CostHolder.transform, false);
             costObject.name = type.ToString();
-            costObject.GetComponent<Image>().sprite = Icons.Find(x => x.type == type).icon;
+            costObject.GetComponent<Image>().sprite = FindObjectOfType<ResourceIconRegistry>().Find(type);
             costObject.GetComponentInChildren<TextMeshProUGUI>().text = "" + cost[type];
 
             count++;

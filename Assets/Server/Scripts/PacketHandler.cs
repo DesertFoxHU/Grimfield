@@ -217,6 +217,13 @@ namespace ServerSide
                 return;
             }
 
+            EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
+            if (!player.PayResources(definition.GetRecruitCost()))
+            {
+                ServerSender.SendAlert(clientID, $"Don't have enough resources to recruit this unit!");
+                return;
+            }
+
             Entity entity = GameController.Instance.SpawnUnit(player, position, type);
             if (entity != null) player.entities.Add(entity);
         }
