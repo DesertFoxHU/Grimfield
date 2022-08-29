@@ -111,6 +111,23 @@ namespace ServerSide
                     }
                 }
             }
+
+            foreach(Entity entity in entities)
+            {
+                foreach(ResourceType type in entity.Definition.GetUpkeep().Keys)
+                {
+                    double value = entity.Definition.GetUpkeep()[type];
+                    if (!generate.ContainsKey(type))
+                    {
+                        generate.Add(type, -value);
+                    }
+                    else
+                    {
+                        generate[type] -= value;
+                    }
+                }
+            }
+
             return generate;
         }
 

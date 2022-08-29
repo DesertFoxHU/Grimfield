@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   Type: 5
-  Prefab: {fileID: 4836018041068456585, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
+  Prefab: {fileID: 4608790218158315172, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
   RecruitIcon: {fileID: -1879985265, guid: 2610a8aef6892b54a89925fe673e7885, type: 3}
   Name: Goblin
   Description: A weak unit, but has a moderate movement speed.
@@ -27,6 +27,9 @@ MonoBehaviour:
   RecruitCost:
   - type: 4
     Value: 3
+  Upkeep:
+  - type: 5
+    Value: 1
   MovementCost:
   - Value1: 0
     Value2: 1

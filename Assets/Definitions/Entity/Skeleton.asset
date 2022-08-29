@@ -29,6 +29,9 @@ MonoBehaviour:
     Value: 1
   - type: 5
     Value: 17
+  Upkeep:
+  - type: 1
+    Value: 1
   MovementCost:
   - Value1: 0
     Value2: 1

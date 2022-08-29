@@ -30,6 +30,13 @@ namespace ServerSide
                 currentIndex = 0;
                 OnNewTurnCycle();
             }
+
+            ServerPlayer currentPlayer = turnOrder[currentIndex];
+            foreach (Entity entity in currentPlayer.entities)
+            {
+                entity.canMove = true;
+            }
+
             ServerSender.TurnChange(turnOrder[currentIndex], turnCycleCount);
         }
 
@@ -44,6 +51,14 @@ namespace ServerSide
                 foreach(AbstractBuilding building in player.Buildings)
                 {
                     building.OnTurnCycleEnded();
+                }
+
+                foreach(Entity entity in player.entities)
+                {
+                    if (!player.PayResources(entity.Definition.GetUpkeep()))
+                    {
+                        //TODO: Entity didn't get the upkeep cost
+                    }
                 }
             }
         }

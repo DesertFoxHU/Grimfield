@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlyingEye
   m_EditorClassIdentifier: 
   Type: 4
-  Prefab: {fileID: 4836018041068456585, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
+  Prefab: {fileID: 5638765283666359529, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
   RecruitIcon: {fileID: -867470852, guid: f3b238b850e71494ba1b6d634cea4b0d, type: 3}
   Name: Flying Eye
   Description: Can fly and have a bunch of HP.
@@ -27,6 +27,9 @@ MonoBehaviour:
   RecruitCost:
   - type: 5
     Value: 24
+  Upkeep:
+  - type: 5
+    Value: 1
   MovementCost:
   - Value1: 0
     Value2: 1
