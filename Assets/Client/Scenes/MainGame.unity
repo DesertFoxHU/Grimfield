@@ -14032,7 +14032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5638765283666359529, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5638765283666359530, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
       propertyPath: m_RootOrder
@@ -14311,7 +14311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4836018041068456585, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4836018041068456586, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
       propertyPath: m_RootOrder
@@ -14628,6 +14628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 8241297974481740143, guid: ee9973ceeac2e2948829b343b843dd11, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ee9973ceeac2e2948829b343b843dd11, type: 3}
@@ -14642,6 +14646,10 @@ PrefabInstance:
     - target: {fileID: 4608790218158315172, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
       propertyPath: m_Name
       value: Goblin
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608790218158315172, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4608790218158315175, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
       propertyPath: m_RootOrder
