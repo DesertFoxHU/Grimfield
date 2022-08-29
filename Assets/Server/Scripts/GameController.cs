@@ -37,13 +37,13 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
         }
 
-        public void SpawnUnit(ServerPlayer player, Vector3Int position, EntityType type)
+        public Entity SpawnUnit(ServerPlayer player, Vector3Int position, EntityType type)
         {
             EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
             if (definition == null)
             {
                 Debug.LogError($"Can't find any EntityDefinition with this type: {type}");
-                return;
+                return null;
             }
 
             Vector3 v3 = map.ToVector3(position);
@@ -59,6 +59,7 @@ namespace ServerSide
             newMessage.Add(type.ToString());
             newMessage.Add(position);
             NetworkManager.Instance.Server.SendToAll(newMessage);
+            return entity;
         }
 
         [ContextMenu("GenerateMap")]
