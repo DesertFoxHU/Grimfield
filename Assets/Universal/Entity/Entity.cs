@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Entity : MonoBehaviour
 {
@@ -24,6 +25,13 @@ public class Entity : MonoBehaviour
     private MaterialInstancing secondaryTexture;
     [HideInInspector] public bool canMove;
 
+    public Image healthBar;
+
+    public float HealthPercentage
+    {
+        get => (float)health / (float)Definition.Health[0];
+    }
+
     public void Awake()
     {
         secondaryTexture = GetComponent<MaterialInstancing>();
@@ -38,6 +46,7 @@ public class Entity : MonoBehaviour
         speed = definition.Speed[0];
         IsInitialized = true;
         canMove = true;
+        healthBar.fillAmount = HealthPercentage;
     }
 
     public void SetOwner(ushort clientID)
