@@ -42,7 +42,6 @@ public class NetworkManager : MonoBehaviour
         return players;
     }
 
-
     private void Awake() 
     { 
         Instance = this;
@@ -91,4 +90,10 @@ public class NetworkManager : MonoBehaviour
         Client.Send(message);
     }
 
+    public void SendMessageToServer(string text)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.SendMessage);
+        message.Add(text);
+        Client.Send(message);
+    }
 }

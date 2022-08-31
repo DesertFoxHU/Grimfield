@@ -241,4 +241,11 @@ public class PacketHandler : MonoBehaviour
         entity.Position = to;
         entity.canMove = false;
     }
+
+    [MessageHandler((ushort)ServerToClientPacket.SendMessage)]
+    private static void RecieveMessage(Message message)
+    {
+        string text = message.GetString();
+        FindObjectOfType<ChatPanel>().AddMessage(text);
+    }
 }

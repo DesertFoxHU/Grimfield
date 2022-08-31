@@ -60,6 +60,15 @@ public class Entity : MonoBehaviour
         secondaryTexture.ChangePropertyBlock();
     }
 
+    #region Inner Events
+    public virtual void OnMoved(Vector3Int from, Vector3Int to) { }
+
+    public virtual void OnDamaged() { }
+
+    public virtual void OnUpkeepFailedToPay() { }
+    #endregion
+
+    #region Movement
     public void CalculateMovementRange()
     {
         WeightGraph graph = new WeightGraph(this);
@@ -105,7 +114,9 @@ public class Entity : MonoBehaviour
         }
         lastDrawn.Clear();
     }
+    #endregion
 
+    #region ClientSide
     public void ClientMoveToRequest(Vector3Int to)
     {
         if (!canMove)
@@ -126,4 +137,5 @@ public class Entity : MonoBehaviour
         message.Add(to);
         NetworkManager.Instance.Client.Send(message);
     }
+    #endregion
 }

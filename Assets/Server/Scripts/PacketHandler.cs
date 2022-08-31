@@ -266,10 +266,29 @@ namespace ServerSide
             entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
             entity.Position = to;
             entity.canMove = false;
+            entity.OnMoved(from, to);
 
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.MoveEntity);
             response.Add(from);
             response.Add(to);
+            NetworkManager.Instance.Server.SendToAll(response);
+        }
+
+        [MessageHandler((ushort)ClientToServerPacket.SendMessage)]
+        private static void RecieveMessage(ushort clientID, Message message)
+        {
+            string text = message.GetString();
+            if (text.StartsWith('/'))
+            {
+                //TODO: Command
+                ServerSender.SendAlert(clientID, "You are not an administrator!");
+                return;
+            }
+
+            text = "[" + NetworkManager.Find(clientID).Name + "]:" + text;
+
+            Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
+            response.Add(text);
             NetworkManager.Instance.Server.SendToAll(response);
         }
     }

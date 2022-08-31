@@ -17,7 +17,8 @@ public enum ServerToClientPacket : ushort
     FetchBuildingDataResponse,
     RenderTerritory,
     SpawnEntity,
-    MoveEntity
+    MoveEntity,
+    SendMessage
 }
 
 public enum ClientToServerPacket : ushort
@@ -30,5 +31,6 @@ public enum ClientToServerPacket : ushort
     FetchBuildingData,
     BuyEntity,
     MoveEntity,
+    SendMessage,
 }
 
