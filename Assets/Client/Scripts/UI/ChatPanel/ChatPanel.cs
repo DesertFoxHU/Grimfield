@@ -12,8 +12,16 @@ public class ChatPanel : MonoBehaviour
     public GameObject contentHolder;
 
     public GameObject textPrefab;
+    public GameObject toggleButton;
+
+    public bool isEnabled { get; private set; }
 
     private readonly List<TextMeshProUGUI> texts = new();
+
+    private void Start()
+    {
+        SetEnabled(false);
+    }
 
     public void AddMessage(string message)
     {
@@ -43,6 +51,31 @@ public class ChatPanel : MonoBehaviour
             string message = text.Remove(text.Length - 1);
             FindObjectOfType<NetworkManager>().SendMessageToServer(message);
             inputField.text = "";
+        }
+    }
+
+    public void OnCloseChatPanel()
+    {
+        if (isEnabled)
+        {
+            toggleButton.SetActive(true);
+        }
+        else
+        {
+            toggleButton.SetActive(false);
+        }
+    }
+
+    public void SetEnabled(bool isEnabled)
+    {
+        this.isEnabled = isEnabled;
+        if(isEnabled && !chatPanel.activeSelf)
+        {
+            toggleButton.SetActive(true);
+        }
+        else
+        {
+            toggleButton.SetActive(false);
         }
     }
 }

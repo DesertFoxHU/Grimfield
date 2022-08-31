@@ -27,6 +27,10 @@ public class PacketHandler : MonoBehaviour
             Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.MainGameLoaded);
             NetworkManager.Instance.Client.Send(message);
         }
+        else if(scene.name == "LobbyScene")
+        {
+            FindObjectOfType<ChatPanel>().SetEnabled(true);
+        }
     }
 
     [MessageHandler((ushort)ServerToClientPacket.SendAlert)]

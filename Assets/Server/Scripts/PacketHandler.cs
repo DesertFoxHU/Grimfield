@@ -281,15 +281,12 @@ namespace ServerSide
             if (text.StartsWith('/'))
             {
                 //TODO: Command
-                ServerSender.SendAlert(clientID, "You are not an administrator!");
+                ServerSender.SendChatMessage(clientID, "You are not an administrator!");
                 return;
             }
 
             text = "[" + NetworkManager.Find(clientID).Name + "]:" + text;
-
-            Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
-            response.Add(text);
-            NetworkManager.Instance.Server.SendToAll(response);
+            ServerSender.SendChatMessageToAll(text);
         }
     }
 }
