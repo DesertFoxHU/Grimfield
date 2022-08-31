@@ -97,7 +97,7 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(response);
         }
 
-        public static void SendChatMessage(int clientID, string text)
+        public static void SendChatMessage(ushort clientID, string text)
         {
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
             response.Add(text);
