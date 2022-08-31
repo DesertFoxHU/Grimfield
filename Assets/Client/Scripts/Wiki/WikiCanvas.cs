@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WikiCanvas : MonoBehaviour
 {
+    public KeyCode toggleKey;
     public GameObject panel;
     public List<OptionalConnectedPage> pages;
     private OptionalConnectedPage? current;
@@ -33,7 +34,7 @@ public class WikiCanvas : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(toggleKey))
         {
             panel.SetActive(!panel.activeSelf);
         }

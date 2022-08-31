@@ -23,6 +23,7 @@ namespace InfoPanel
         public ContentType? CurrentType { get; private set; } = null;
         [HideInInspector] public Tilemap map;
         public List<ContentPanel> contens;
+        public GameObject visibilityPanel;
 
         public object LastObject { get; private set; }
 
@@ -35,10 +36,17 @@ namespace InfoPanel
         private void Start()
         {
             map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+            SetActive(false);
 
             //Fake Building test
             /*AbstractBuilding test = new Village(new ServerSide.ServerPlayer(0, "Test"), new Vector3Int(0, 0, 0));
             Load(test);*/
+        }
+
+        public void SetActive(bool isActive)
+        {
+            visibilityPanel.SetActive(isActive);
+            GetComponent<Image>().enabled = isActive;
         }
 
         public void HideAll()
@@ -58,6 +66,7 @@ namespace InfoPanel
         {
             if (obj == null) return;
 
+            SetActive(true);
             LastObject = obj;
             if (obj.GetType() == typeof(Vector3Int))
             {
