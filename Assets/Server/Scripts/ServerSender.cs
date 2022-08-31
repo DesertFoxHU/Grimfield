@@ -89,5 +89,19 @@ namespace ServerSide
             }
             NetworkManager.Instance.Server.SendToAll(message);
         }
+
+        public static void SendChatMessageToAll(string text)
+        {
+            Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
+            response.Add(text);
+            NetworkManager.Instance.Server.SendToAll(response);
+        }
+
+        public static void SendChatMessage(int clientID, string text)
+        {
+            Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
+            response.Add(text);
+            NetworkManager.Instance.Server.Send(response, clientID);
+        }
     }
 }
