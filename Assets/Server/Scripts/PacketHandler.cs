@@ -269,6 +269,7 @@ namespace ServerSide
             entity.OnMoved(from, to);
 
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.MoveEntity);
+            response.Add(entity.Id);
             response.Add(from);
             response.Add(to);
             NetworkManager.Instance.Server.SendToAll(response);
@@ -281,12 +282,32 @@ namespace ServerSide
             if (text.StartsWith('/'))
             {
                 //TODO: Command
-                ServerSender.SendChatMessage(clientID, "You are not an administrator!");
+                ServerSender.SendChatMessage(clientID, "You are not an administrator!", false);
                 return;
             }
 
             text = "[" + NetworkManager.Find(clientID).Name + "]:" + text;
             ServerSender.SendChatMessageToAll(text);
+        }
+
+        [MessageHandler((ushort)ClientToServerPacket.AttackEntityRequest)]
+        private static void RecieveAttackEntityRequest(ushort clientID, Message message)
+        {
+            int victimId = message.GetInt();
+            int attackerId = message.GetInt();
+
+            Entity victim = FindObjectsOfType<Entity>().First(x => x.Id == victimId);
+            Entity attacker = FindObjectsOfType<Entity>().First(x => x.Id == attackerId);
+
+            if (!attacker.GetTargetables().Contains(victim))
+            {
+                ServerSender.SendAlert(clientID, "You can't attack that unit!");
+                return;
+            }
+
+            victim.OnDamaged(attacker.damage);
+            attacker.canMove = false;
+            ServerSender.DamageEntityByEntity(victim, attacker);
         }
     }
 }

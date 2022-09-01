@@ -244,10 +244,11 @@ public class PacketHandler : MonoBehaviour
     [MessageHandler((ushort)ServerToClientPacket.MoveEntity)]
     private static void MoveEntity(Message message)
     {
+        int id = message.GetInt();
         Vector3Int from = message.GetVector3Int();
         Vector3Int to = message.GetVector3Int();
 
-        Entity entity = FindObjectsOfType<Entity>().First(x => x.Position.x == from.x && x.Position.y == from.y);
+        Entity entity = FindObjectsOfType<Entity>().First(x => x.Id == id);
 
         Vector3 v3 = map.ToVector3(to);
         entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
@@ -259,7 +260,15 @@ public class PacketHandler : MonoBehaviour
     private static void RecieveMessage(Message message)
     {
         string text = message.GetString();
-        FindObjectOfType<ChatPanel>().AddMessage(text);
+        bool forceOpen = message.GetBool();
+        ChatPanel chatPanel = FindObjectOfType<ChatPanel>();
+        chatPanel.AddMessage(text);
+
+        if (forceOpen)
+        {
+            chatPanel.chatPanel.SetActive(true);
+            chatPanel.toggleButton.SetActive(false);
+        }
     }
 
     [MessageHandler((ushort)ServerToClientPacket.DestroyEntity)]
@@ -274,5 +283,26 @@ public class PacketHandler : MonoBehaviour
         }
 
         Destroy(entity.gameObject);
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.RenderAttackEntity)]
+    private static void AttackEntity(Message message)
+    {
+        int victimId = message.GetInt();
+        int attackerId = message.GetInt();
+        double remainedHealth = message.GetDouble();
+
+        Entity victim = FindObjectsOfType<Entity>().First(x => x.Id == victimId);
+        Entity attacker = FindObjectsOfType<Entity>().First(x => x.Id == attackerId);
+
+        //TODO: Victim can be null here, because the server will automatically destroy it when died
+        //so the client should know when the victim has less hp
+
+        if (victim == null) return;
+
+        victim.health = remainedHealth;
+        victim.RefreshHealthbar();
+        
+        attacker.canMove = false;
     }
 }

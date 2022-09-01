@@ -21,6 +21,7 @@ public class EntityDefinition : ScriptableObject
     public List<double> Health;
     public List<double> Damage;
     public List<double> Speed;
+    public List<int> attackRange;
     public TerrainMovementType MovementType;
     public List<ResourceHolder> RecruitCost;
     public List<ResourceHolder> Upkeep;

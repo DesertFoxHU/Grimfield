@@ -19,7 +19,8 @@ public enum ServerToClientPacket : ushort
     SpawnEntity,
     MoveEntity,
     SendMessage,
-    DestroyEntity
+    DestroyEntity,
+    RenderAttackEntity
 }
 
 public enum ClientToServerPacket : ushort
@@ -33,5 +34,6 @@ public enum ClientToServerPacket : ushort
     BuyEntity,
     MoveEntity,
     SendMessage,
+    AttackEntityRequest,
 }
 

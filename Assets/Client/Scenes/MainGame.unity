@@ -8444,7 +8444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc04ea1596e8a64a93329238ab09f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawnEntity: {fileID: 0}
+  selectedEntity: {fileID: 0}
 --- !u!1 &1221385446
 GameObject:
   m_ObjectHideFlags: 0
@@ -14390,6 +14390,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5908705903646347146, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
@@ -14672,6 +14676,10 @@ PrefabInstance:
     - target: {fileID: 4836018041068456586, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281970967583311807, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8595223254913485995, guid: cfb93d0dd26762a41aff1fc3f30b95e1, type: 3}
       propertyPath: m_FillAmount

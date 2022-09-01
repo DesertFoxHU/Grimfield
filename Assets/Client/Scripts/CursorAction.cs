@@ -7,7 +7,7 @@ using InfoPanel;
 public class CursorAction : MonoBehaviour
 {
     private static Tilemap map;
-    [HideInInspector] public Entity drawnEntity;
+    [HideInInspector] public Entity selectedEntity;
 
     void Start()
     {
@@ -36,10 +36,33 @@ public class CursorAction : MonoBehaviour
         {
             if(entity.Position.x == pos.x && entity.Position.y == pos.y)
             {
+                //Player clicked on an enemy unit, so this is an attack
+                if(type == MouseClickType.LeftClick && selectedEntity != null && entity.OwnerId != selectedEntity.OwnerId)
+                {
+                    if (!selectedEntity.GetTargetables().Contains(entity))
+                    {
+                        FindObjectOfType<MessageDisplayer>().SetMessage("You can't reach this unit!");
+                        return;
+                    }
+
+                    if (!selectedEntity.canMove)
+                    {
+                        FindObjectOfType<MessageDisplayer>().SetMessage("This unit has already moved/attacked in this turn!");
+                        return;
+                    }
+
+                    entity.ClientAttackRequest(selectedEntity);
+                    selectedEntity.ClearDraw();
+                    selectedEntity.ClearTargetables();
+                    selectedEntity = null;
+                    return;
+                }
+
                 if(type == MouseClickType.LeftClick)
                 {
                     entity.DrawNavigation();
-                    drawnEntity = entity;
+                    entity.DrawTargetables();
+                    selectedEntity = entity;
                     return;
                 }
                 
@@ -48,11 +71,12 @@ public class CursorAction : MonoBehaviour
             }
         }
 
-        if(drawnEntity != null)
+        if(selectedEntity != null)
         {
-            if(drawnEntity.OwnerId == NetworkManager.Instance.ClientPlayer.ClientID) drawnEntity.ClientMoveToRequest(pos);
-            drawnEntity.ClearDraw();
-            drawnEntity = null;
+            if(selectedEntity.OwnerId == NetworkManager.Instance.ClientPlayer.ClientID) selectedEntity.ClientMoveToRequest(pos);
+            selectedEntity.ClearDraw();
+            selectedEntity.ClearTargetables();
+            selectedEntity = null;
         }
 
         foreach (Transform child in map.transform)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Entity : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Entity : MonoBehaviour
     private MaterialInstancing secondaryTexture;
     [HideInInspector] public bool canMove;
 
+    public List<Entity> LastTargetables { get; private set; } = new();
+
     public Image healthBar;
 
     public float HealthPercentage
@@ -47,7 +50,7 @@ public class Entity : MonoBehaviour
         speed = definition.Speed[0];
         this.Id = Id;
         canMove = true;
-        healthBar.fillAmount = HealthPercentage;
+        RefreshHealthbar();
 
         IsInitialized = true;
     }
@@ -63,10 +66,61 @@ public class Entity : MonoBehaviour
         secondaryTexture.ChangePropertyBlock();
     }
 
+    public List<Entity> GetTargetables()
+    {
+        List<Entity> entities = FindObjectsOfType<Entity>().ToList();
+        entities.RemoveAll(x => x.Id == this.Id || x.OwnerId == this.OwnerId);
+
+        List<Entity> final = new List<Entity>();
+        foreach (Entity entity in entities)
+        {
+            int distX = Mathf.Abs(Position.x - entity.Position.x);
+            int distY = Mathf.Abs(Position.y - entity.Position.y);
+            
+            if(distX <= entity.Definition.attackRange[0] && distY <= entity.Definition.attackRange[0]) final.Add(entity);
+        }
+        return final;
+    }
+
+    public void DrawTargetables()
+    {
+        ClearTargetables();
+
+        List<Entity> targets = GetTargetables();
+        foreach(Entity entity in targets)
+        {
+            entity.gameObject.GetChildrenByName("AttackableMarker").GetComponent<SpriteRenderer>().enabled = true;
+            LastTargetables.Add(entity);
+        }
+    }
+
+    public void ClearTargetables()
+    {
+        foreach (Entity last in LastTargetables)
+        {
+            last.gameObject.GetChildrenByName("AttackableMarker").GetComponent<SpriteRenderer>().enabled = false;
+        }
+        LastTargetables.Clear();
+    }
+
+    public void RefreshHealthbar()
+    {
+        healthBar.fillAmount = HealthPercentage;
+    }
+
     #region ServerSide Inner Events
     public virtual void OnMoved(Vector3Int from, Vector3Int to) { }
 
-    public virtual void OnDamaged() { }
+    public virtual void OnDamaged(double damage) 
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            ServerSide.EntityManager.DestroyEntity(this);
+            return;
+        }
+        RefreshHealthbar();
+    }
 
     public virtual void OnUpkeepFailedToPay() 
     {
@@ -141,6 +195,14 @@ public class Entity : MonoBehaviour
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.MoveEntity);
         message.Add(Position);
         message.Add(to);
+        NetworkManager.Instance.Client.Send(message);
+    }
+
+    public void ClientAttackRequest(Entity attacker)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.AttackEntityRequest);
+        message.Add(this.Id);
+        message.Add(attacker.Id);
         NetworkManager.Instance.Client.Send(message);
     }
     #endregion
