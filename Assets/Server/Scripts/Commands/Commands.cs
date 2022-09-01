@@ -37,42 +37,76 @@ namespace ServerSide
         }
 
         //SpawnUnit [PlayerName] [Pos] [EntityType]
+        //SpawnUnit [Pos] [EntityType]
         public static Response<string> SpawnUnit(string[] args, string fullCommand)
         {
-            string name = args[0].Trim();
-            string pos = args[1];
-
-            ServerPlayer player = NetworkManager.players.Find(x => x.Name == name);
-            if(player == null)
+            if(args.Length == 3)
             {
-                return Response<string>.Create(ResponseType.FAILURE, $"There is no player named {name}");
-            }
+                string name = args[0].Trim();
+                string pos = args[1];
 
-            if (!pos.Contains(','))
-            {
-                return Response<string>.Create(ResponseType.FAILURE, $"The position format is incorrect. Correct usage: x,y");
-            }
+                ServerPlayer player = NetworkManager.players.Find(x => x.Name == name);
+                if (player == null)
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"There is no player named {name}");
+                }
 
-            int x = 0;
-            int y = 0;
-            try
-            {
-                x = int.Parse(pos.Split(',')[0]);
-                y = int.Parse(pos.Split(',')[1]);
-            }
-            catch
-            {
-                return Response<string>.Create(ResponseType.FAILURE, $"Can't parse position. Input was: {pos}");
-            }
+                if (!pos.Contains(','))
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"The position format is incorrect. Correct usage: x,y");
+                }
 
-            if(!Enum.IsDefined(typeof(EntityType), args[2]))
-            {
-                return Response<string>.Create(ResponseType.FAILURE, $"There is no EntityType named {args[2]}");
-            }
+                int x = 0;
+                int y = 0;
+                try
+                {
+                    x = int.Parse(pos.Split(',')[0]);
+                    y = int.Parse(pos.Split(',')[1]);
+                }
+                catch
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"Can't parse position. Input was: {pos}");
+                }
 
-            EntityType type = (EntityType) Enum.Parse(typeof(EntityType), args[2]);
-            GameController.Instance.SpawnUnit(player, new Vector3Int(x, y, 0), type);
-            return Response<string>.Create(ResponseType.SUCCESS, $"Spawned {type} on {new Vector3Int(x, y, 0)} for {name}");
+                if (!Enum.IsDefined(typeof(EntityType), args[2]))
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"There is no EntityType named {args[2]}");
+                }
+
+                EntityType type = (EntityType)Enum.Parse(typeof(EntityType), args[2]);
+                GameController.Instance.SpawnUnit(player, new Vector3Int(x, y, 0), type);
+                return Response<string>.Create(ResponseType.SUCCESS, $"Spawned {type} on {new Vector3Int(x, y, 0)} for {name}");
+            }
+            else
+            {
+                string pos = args[0];
+
+                if (!pos.Contains(','))
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"The position format is incorrect. Correct usage: x,y");
+                }
+
+                int x = 0;
+                int y = 0;
+                try
+                {
+                    x = int.Parse(pos.Split(',')[0]);
+                    y = int.Parse(pos.Split(',')[1]);
+                }
+                catch
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"Can't parse position. Input was: {pos}");
+                }
+
+                if (!Enum.IsDefined(typeof(EntityType), args[1]))
+                {
+                    return Response<string>.Create(ResponseType.FAILURE, $"There is no EntityType named {args[1]}");
+                }
+
+                EntityType type = (EntityType)Enum.Parse(typeof(EntityType), args[1]);
+                GameController.Instance.SpawnUnit(null, new Vector3Int(x, y, 0), type);
+                return Response<string>.Create(ResponseType.SUCCESS, $"Spawned {type} on {new Vector3Int(x, y, 0)}");
+            }
         }
         #endregion
     }

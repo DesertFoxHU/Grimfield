@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 //Schema for Entities
 public class Dragon : Entity
 {
-    public override void OnDamaged()
-    {
-        base.OnDamaged();
-    }
-
     public override void OnUpkeepFailedToPay()
     {
-        base.OnUpkeepFailedToPay();
+        OwnerId = null;
+        //Make aggressive
     }
 }

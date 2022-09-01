@@ -23,6 +23,7 @@ MonoBehaviour:
   - 4
   Speed:
   - 3
+  attackRange: 01000000
   MovementType: 0
   RecruitCost:
   - type: 0

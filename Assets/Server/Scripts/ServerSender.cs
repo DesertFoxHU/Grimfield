@@ -97,11 +97,28 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(response);
         }
 
-        public static void SendChatMessage(ushort clientID, string text)
+        public static void SendChatMessage(ushort clientID, string text, bool forceOpen)
         {
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
             response.Add(text);
+            response.Add(forceOpen);
             NetworkManager.Instance.Server.Send(response, clientID);
+        }
+
+        public static void DestroyEntity(Entity entity)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.DestroyEntity);
+            message.Add(entity.Id);
+            NetworkManager.Instance.Server.SendToAll(message);
+        }
+
+        public static void DamageEntityByEntity(Entity victim, Entity attacker)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.RenderAttackEntity);
+            message.Add(victim.Id);
+            message.Add(attacker.Id);
+            message.Add(victim.health);
+            NetworkManager.Instance.Server.SendToAll(message);
         }
     }
 }
