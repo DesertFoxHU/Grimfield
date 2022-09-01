@@ -12,9 +12,10 @@ public class Entity : MonoBehaviour
     {
         get => Definition.Type;
     }
-    public bool IsInitialized { get; private set; } = false;
+    public int Id { get; protected set; }
+    public bool IsInitialized { get; protected set; } = false;
     public Vector3Int Position { get; set; }
-    public ushort OwnerId { get; private set; }
+    public ushort? OwnerId { get; protected set; } = null;
     public double health;
     public double damage;
     public double speed;
@@ -37,16 +38,18 @@ public class Entity : MonoBehaviour
         secondaryTexture = GetComponent<MaterialInstancing>();
     }
 
-    public void Initialize(Vector3Int Position, EntityDefinition definition)
+    public void Initialize(Vector3Int Position, EntityDefinition definition, int Id)
     {
         Definition = definition;
         this.Position = Position;
         health = definition.Health[0];
         damage = definition.Damage[0];
         speed = definition.Speed[0];
-        IsInitialized = true;
+        this.Id = Id;
         canMove = true;
         healthBar.fillAmount = HealthPercentage;
+
+        IsInitialized = true;
     }
 
     public void SetOwner(ushort clientID)
@@ -60,12 +63,15 @@ public class Entity : MonoBehaviour
         secondaryTexture.ChangePropertyBlock();
     }
 
-    #region Inner Events
+    #region ServerSide Inner Events
     public virtual void OnMoved(Vector3Int from, Vector3Int to) { }
 
     public virtual void OnDamaged() { }
 
-    public virtual void OnUpkeepFailedToPay() { }
+    public virtual void OnUpkeepFailedToPay() 
+    {
+        ServerSide.EntityManager.DestroyEntity(this);
+    }
     #endregion
 
     #region Movement

@@ -217,9 +217,11 @@ public class PacketHandler : MonoBehaviour
     [MessageHandler((ushort)ServerToClientPacket.SpawnEntity)]
     private static void SpawnEntity(Message message)
     {
-        ushort clientID = message.GetUShort();
+        string clientIDraw = message.GetString();
+        ushort? clientID = clientIDraw == "" ? null : ushort.Parse(clientIDraw);
         EntityType type = (EntityType) Enum.Parse(typeof(EntityType), message.GetString());
         Vector3Int position = message.GetVector3Int();
+        int id = message.GetInt();
 
         Vector3 pos = map.ToVector3(position);
         pos = new Vector3(pos.x + 0.5f, pos.y + 0.5f, -1.1f);
@@ -227,9 +229,16 @@ public class PacketHandler : MonoBehaviour
         EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
         GameObject go = Instantiate(definition.Prefab, pos, Quaternion.identity);
         Entity entity = go.GetComponent<Entity>();
-        entity.Initialize(position, definition);
-        entity.SetOwner(clientID);
-        entity.SetColor(NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == clientID).Color);
+        entity.Initialize(position, definition, id);
+        if (clientID != null)
+        {
+            entity.SetOwner(clientID.Value);
+            entity.SetColor(NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == clientID).Color);
+        }
+        else
+        {
+            entity.SetColor(Color.white);
+        }
     }
 
     [MessageHandler((ushort)ServerToClientPacket.MoveEntity)]
@@ -251,5 +260,19 @@ public class PacketHandler : MonoBehaviour
     {
         string text = message.GetString();
         FindObjectOfType<ChatPanel>().AddMessage(text);
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.DestroyEntity)]
+    private static void DestroyEntity(Message message)
+    {
+        int id = message.GetInt();
+        Entity entity = FindObjectsOfType<Entity>().First(x => x.Id == id);
+        if(entity == null)
+        {
+            Debug.LogError("Can't find destroyable entity with this ID! Can be desync error?");
+            return;
+        }
+
+        Destroy(entity.gameObject);
     }
 }

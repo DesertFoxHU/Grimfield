@@ -1,6 +1,4 @@
 using Riptide;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -37,7 +35,7 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(startGamePacket);
         }
 
-        public Entity SpawnUnit(ServerPlayer player, Vector3Int position, EntityType type)
+        public Entity SpawnUnit(ServerPlayer? player, Vector3Int position, EntityType type)
         {
             EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(type);
             if (definition == null)
@@ -50,14 +48,20 @@ namespace ServerSide
             GameObject go = Instantiate(definition.Prefab, new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f), Quaternion.identity);
 
             Entity entity = go.GetComponent<Entity>();
-            entity.Initialize(position, definition);
-            entity.SetOwner(player.PlayerId);
-            entity.SetColor(player.Color);
+            entity.Initialize(position, definition, EntityManager.GetNextEntityId());
+            if (player != null)
+            {
+                entity.SetOwner(player.PlayerId);
+                entity.SetColor(player.Color);
+            }
+
+            string playerId = player == null ?  "" : "" + player.PlayerId;
 
             Message newMessage = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SpawnEntity);
-            newMessage.Add(player.PlayerId);
+            newMessage.Add(playerId);
             newMessage.Add(type.ToString());
             newMessage.Add(position);
+            newMessage.Add(entity.Id);
             NetworkManager.Instance.Server.SendToAll(newMessage);
             return entity;
         }

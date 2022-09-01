@@ -18,7 +18,8 @@ public enum ServerToClientPacket : ushort
     RenderTerritory,
     SpawnEntity,
     MoveEntity,
-    SendMessage
+    SendMessage,
+    DestroyEntity
 }
 
 public enum ClientToServerPacket : ushort

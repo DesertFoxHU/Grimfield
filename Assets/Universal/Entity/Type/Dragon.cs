@@ -14,6 +14,7 @@ public class Dragon : Entity
 
     public override void OnUpkeepFailedToPay()
     {
-        base.OnUpkeepFailedToPay();
+        OwnerId = null;
+        //Make aggressive
     }
 }

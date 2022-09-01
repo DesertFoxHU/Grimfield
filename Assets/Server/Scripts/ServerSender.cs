@@ -103,5 +103,12 @@ namespace ServerSide
             response.Add(text);
             NetworkManager.Instance.Server.Send(response, clientID);
         }
+
+        public static void DestroyEntity(Entity entity)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.DestroyEntity);
+            message.Add(entity.Id);
+            NetworkManager.Instance.Server.SendToAll(message);
+        }
     }
 }
