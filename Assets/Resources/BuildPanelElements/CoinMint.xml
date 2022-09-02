@@ -10,21 +10,21 @@
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>
-      <Value>10</Value>
+      <Value>7</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Stone</type>
-      <Value>3</Value>
+      <Value>2</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Gold</type>
-      <Value>3</Value>
+      <Value>1</Value>
     </ResourceHolder>
   </ResourceCost>
   <IncreasePerBuy>
     <ResourceHolder>
       <type>Citizen</type>
-      <Value>3</Value>
+      <Value>2</Value>
     </ResourceHolder>
     <ResourceHolder>
       <type>Wood</type>

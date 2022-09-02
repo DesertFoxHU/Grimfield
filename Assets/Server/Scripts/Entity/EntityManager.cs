@@ -15,8 +15,6 @@ namespace ServerSide
         {
             entity.lastTurnWhenMoved = GameController.Instance.turnHandler.turnCycleCount;
 
-            //TODO: Claim enemy building
-            //TODO: Attack enemy building
             AbstractBuilding building = NetworkManager.GetAllBuilding().Find(x => x.Position.x == newPosition.x && x.Position.y == newPosition.y);
             if(building != null && building.owner.PlayerId != player.PlayerId)
             {
