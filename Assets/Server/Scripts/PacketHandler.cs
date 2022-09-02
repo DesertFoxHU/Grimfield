@@ -206,10 +206,16 @@ namespace ServerSide
         [MessageHandler((ushort)ClientToServerPacket.BuyEntity)]
         private static void BuyEntity(ushort clientID, Message message)
         {
+            ServerPlayer player = NetworkManager.Find(clientID);
+            if(GameController.Instance.turnHandler.GetCurrentTurnOwnerID() != clientID)
+            {
+                ServerSender.SendAlert(clientID, "You can only recruit when its your turn");
+                return;
+            }
+
             EntityType type = (EntityType) Enum.Parse(typeof(EntityType), message.GetString());
             Vector3Int position = message.GetVector3Int();
 
-            ServerPlayer player = NetworkManager.Find(clientID);
             AbstractBuilding building = player.Buildings.Find(x => x.Position == position);
             if (building == null)
             {
