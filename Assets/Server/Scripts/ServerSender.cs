@@ -79,21 +79,28 @@ namespace ServerSide
 
         public static void RenderTerritory(ServerPlayer owner, AbstractBuilding building)
         {
-            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.RenderTerritory);
-            message.Add(owner.PlayerId);
-            message.Add(building.ClaimedLand.Count);
-            foreach (Vector3Int v3 in building.ClaimedLand)
+            ServerTerritory territory = building.territory;
+            foreach (int index in territory.ClaimedLand.Keys)
             {
-                string raw = v3.x + "|" + v3.y;
-                message.Add(StringCompressor.CompressString(raw));
+                List<Vector3Int> land = territory.ClaimedLand[index];
+                Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.RenderTerritory);
+                message.Add(owner.PlayerId);
+                message.Add(territory.ID);
+                message.Add(index);
+                message.Add(land.Count);
+                foreach (Vector3Int v3 in land)
+                {
+                    message.Add(v3);
+                }
+                NetworkManager.Instance.Server.SendToAll(message);
             }
-            NetworkManager.Instance.Server.SendToAll(message);
         }
 
-        public static void SendChatMessageToAll(string text)
+        public static void SendChatMessageToAll(string text, bool forceOpen)
         {
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
             response.Add(text);
+            response.Add(forceOpen);
             NetworkManager.Instance.Server.SendToAll(response);
         }
 

@@ -10,11 +10,14 @@ using UnityEngine.Tilemaps;
 [Serializable]
 public abstract class AbstractBuilding
 {
-    [JsonIgnore] public ServerPlayer owner { get; private set; }
     public readonly Guid ID = Guid.NewGuid();
     public Vector3Int Position { get; private set; }
     public int Level { get; private set; }
+    #region ServerSide
+    [JsonIgnore] public ServerPlayer owner { get; private set; }
     [JsonIgnore] public List<Vector3Int> ClaimedLand { get; private set; } = new List<Vector3Int>();
+    [JsonIgnore] public ServerTerritory territory;
+    #endregion
 
     public AbstractBuilding(ServerPlayer owner, Vector3Int position)
     {

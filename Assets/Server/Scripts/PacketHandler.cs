@@ -154,9 +154,9 @@ namespace ServerSide
             player.IncrementBuildingBought(type);
             ServerSender.SendNewBuilding(player, building);
 
-            FindObjectOfType<ServerSide.TerritoryRenderer>().TryAddNew(map, building);
+            FindObjectOfType<ServerSide.TerritoryRenderer>().TryAddNew(map, player, building);
 
-            Debug.Log($"Added new building with GUID {building.ID}");
+            Debug.Log($"Added new building with GUID: {building.ID}");
         }
 
         [MessageHandler((ushort)ClientToServerPacket.NextTurn)]
@@ -294,7 +294,7 @@ namespace ServerSide
             }
 
             text = "[" + NetworkManager.Find(clientID).Name + "]:" + text;
-            ServerSender.SendChatMessageToAll(text);
+            ServerSender.SendChatMessageToAll(text, false);
         }
 
         [MessageHandler((ushort)ClientToServerPacket.AttackEntityRequest)]

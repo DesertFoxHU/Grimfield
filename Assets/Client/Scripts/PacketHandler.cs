@@ -203,15 +203,27 @@ public class PacketHandler : MonoBehaviour
     private static void RenderTerritory(Message message)
     {
         ushort clientID = message.GetUShort();
+        int ID = message.GetInt();
+        int index = message.GetInt();
         int count = message.GetInt();
         List<Vector3Int> claimed = new List<Vector3Int>(); 
         for(int i = 0; i < count; i++)
         {
-            string raw = StringCompressor.DecompressString(message.GetString());
-            Vector3Int v3 = new Vector3Int(int.Parse(raw.Split('|')[0]), int.Parse(raw.Split('|')[1]), 0);
+            Vector3Int v3 = message.GetVector3Int();
             claimed.Add(v3);
         }
-        TerritoryRenderer.Instance.territories.Add(new ClientTerritory(clientID, claimed));
+
+        ClientTerritory territory = (ClientTerritory) TerritoryRenderer.Instance.territories.Find(x => x.ID == ID);
+        if (territory == null)
+        {
+            territory = new ClientTerritory(clientID, ID, index, claimed);
+            TerritoryRenderer.Instance.territories.Add(territory);
+        }
+        else
+        {
+            territory.LoadPartly(index, claimed);
+        }
+
         TerritoryRenderer.Instance.RenderAll();
     }
 
