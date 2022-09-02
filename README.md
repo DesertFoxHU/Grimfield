@@ -6,7 +6,7 @@ This is a **turn-based multiplayer strategy game**.
 - More siege like, including walls and traps
 - Territories and Diplomacies
 - AIs and Coop mode
-- Passive defenses like towers and traps
+- Passive defenses like towers
 - Some terrain modification
 - Big tech tree
 
