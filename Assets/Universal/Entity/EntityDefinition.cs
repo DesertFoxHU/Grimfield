@@ -46,7 +46,7 @@ public class EntityDefinition : ScriptableObject
 
     public Dictionary<ResourceType, double> GetUpkeep()
     {
-        return RecruitCost.ToDictionary(x => x.type, y => y.Value);
+        return Upkeep.ToDictionary(x => x.type, y => y.Value);
     }
 
     private void OnValidate()

@@ -272,6 +272,7 @@ namespace ServerSide
             response.Add(entity.Id);
             response.Add(from);
             response.Add(to);
+            response.Add(entity.lastTurnWhenMoved);
             NetworkManager.Instance.Server.SendToAll(response);
         }
 
@@ -309,5 +310,6 @@ namespace ServerSide
             attacker.canMove = false;
             ServerSender.DamageEntityByEntity(victim, attacker);
         }
+        
     }
 }

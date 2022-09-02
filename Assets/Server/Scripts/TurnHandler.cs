@@ -35,6 +35,7 @@ namespace ServerSide
             foreach (Entity entity in currentPlayer.entities)
             {
                 entity.canMove = true;
+                entity.OnGotTurn();
             }
 
             ServerSender.TurnChange(turnOrder[currentIndex], turnCycleCount);
@@ -57,7 +58,7 @@ namespace ServerSide
                 {
                     if (!player.PayResources(entity.Definition.GetUpkeep()))
                     {
-                        //TODO: Entity didn't get the upkeep cost
+                        entity.OnUpkeepFailedToPay();
                     }
                 }
             }

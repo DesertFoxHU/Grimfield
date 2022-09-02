@@ -13,16 +13,31 @@ namespace ServerSide
     {
         public static bool OnMoveTo(ServerPlayer player, Tilemap map, Entity entity, Vector3Int newPosition)
         {
-            //TODO: Enemy entity attack
+            entity.lastTurnWhenMoved = GameController.Instance.turnHandler.turnCycleCount;
+
             //TODO: Claim enemy building
             //TODO: Attack enemy building
+            AbstractBuilding building = NetworkManager.GetAllBuilding().Find(x => x.Position.x == newPosition.x && x.Position.y == newPosition.y);
+            if(building != null && building.owner.PlayerId != player.PlayerId)
+            {
+                entity.claiming = building;
+                entity.canClaimBuilding = false;
+                ServerSender.SendChatMessage(building.owner.PlayerId, "Your building is under attack: " + building.GetDefinition().name, true);
+            }
+            else
+            {
+                entity.claiming = null;
+                entity.canClaimBuilding = false;
+            }
+
             return true;
         }
 
         public static void DestroyEntity(Entity entity)
         {
+            GameObject reference = entity.gameObject;
             ServerSender.DestroyEntity(entity);
-            UnityEngine.Object.Destroy(entity.gameObject);
+            if(reference != null) UnityEngine.Object.Destroy(reference);
         }
 
         /// <summary>

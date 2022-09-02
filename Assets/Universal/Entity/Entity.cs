@@ -26,10 +26,14 @@ public class Entity : MonoBehaviour
 
     private MaterialInstancing secondaryTexture;
     [HideInInspector] public bool canMove;
-
     public List<Entity> LastTargetables { get; private set; } = new();
-
     public Image healthBar;
+
+    #region 
+    public int lastTurnWhenMoved;
+    public AbstractBuilding claiming;
+    public bool canClaimBuilding = false;
+    #endregion
 
     public float HealthPercentage
     {
@@ -109,6 +113,15 @@ public class Entity : MonoBehaviour
     }
 
     #region ServerSide Inner Events
+    public virtual void OnGotTurn()
+    {
+        canClaimBuilding = true;
+        if(claiming != null)
+        {
+            ServerSide.ServerSender.DestroyBuilding(claiming);
+        }
+    }
+
     public virtual void OnMoved(Vector3Int from, Vector3Int to) { }
 
     public virtual void OnDamaged(double damage) 
