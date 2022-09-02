@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class NetworkManager : MonoBehaviour
         Client.TimeoutTime = 15000;
         Client.Connected += DidConnect;
         Client.ConnectionFailed += FailedConnect;
+        Client.Disconnected += Disconnected;
 
         Message.MaxPayloadSize = 10000;
 
@@ -81,6 +83,13 @@ public class NetworkManager : MonoBehaviour
     {
         Client.Connect($"{ip}:{port}");
         Debug.Log("Join request sent!");
+    }
+
+    public void Disconnected(object sender, DisconnectedEventArgs e)
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("LobbyScene");
+        SceneManager.UnloadSceneAsync("MainGame");
     }
 
     public void DidConnect(object sender, EventArgs e)

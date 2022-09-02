@@ -90,10 +90,11 @@ namespace ServerSide
             NetworkManager.Instance.Server.SendToAll(message);
         }
 
-        public static void SendChatMessageToAll(string text)
+        public static void SendChatMessageToAll(string text, bool forceOpen)
         {
             Message response = Message.Create(MessageSendMode.reliable, ServerToClientPacket.SendMessage);
             response.Add(text);
+            response.Add(forceOpen);
             NetworkManager.Instance.Server.SendToAll(response);
         }
 

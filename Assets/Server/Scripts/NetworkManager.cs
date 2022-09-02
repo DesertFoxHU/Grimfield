@@ -116,6 +116,10 @@ namespace ServerSide
 
         private void NewPlayerConnected(object sender, ServerClientConnectedEventArgs e) { }
 
-        private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) { }
+        private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) 
+        {
+            ServerPlayer player = Find(e.Id);
+            ServerSender.SendChatMessageToAll($"{player.Name} has left the game!", true);
+        }
     }
 }
