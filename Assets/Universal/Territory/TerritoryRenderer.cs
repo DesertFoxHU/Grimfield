@@ -44,7 +44,7 @@ namespace Universal
 
             foreach (Territory territory in territories)
             {
-                Render(territory.ClaimedLand, territory.GetColor());
+                Render(territory.GetAll(), territory.GetColor());
             }
         }
 
