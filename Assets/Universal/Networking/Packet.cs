@@ -20,7 +20,8 @@ public enum ServerToClientPacket : ushort
     MoveEntity,
     SendMessage,
     DestroyEntity,
-    RenderAttackEntity
+    RenderAttackEntity,
+    DestroyBuilding,
 }
 
 public enum ClientToServerPacket : ushort

@@ -206,10 +206,16 @@ namespace ServerSide
         [MessageHandler((ushort)ClientToServerPacket.BuyEntity)]
         private static void BuyEntity(ushort clientID, Message message)
         {
+            ServerPlayer player = NetworkManager.Find(clientID);
+            if(GameController.Instance.turnHandler.GetCurrentTurnOwnerID() != clientID)
+            {
+                ServerSender.SendAlert(clientID, "You can only recruit when its your turn");
+                return;
+            }
+
             EntityType type = (EntityType) Enum.Parse(typeof(EntityType), message.GetString());
             Vector3Int position = message.GetVector3Int();
 
-            ServerPlayer player = NetworkManager.Find(clientID);
             AbstractBuilding building = player.Buildings.Find(x => x.Position == position);
             if (building == null)
             {
@@ -260,7 +266,7 @@ namespace ServerSide
                 return;
             }
 
-            if (!EntityManager.OnMoveTo(NetworkManager.Find(clientID), map, entity, from)) return;
+            if (!EntityManager.OnMoveTo(NetworkManager.Find(clientID), map, entity, to)) return;
 
             Vector3 v3 = map.ToVector3(to);
             entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
@@ -272,6 +278,7 @@ namespace ServerSide
             response.Add(entity.Id);
             response.Add(from);
             response.Add(to);
+            response.Add(entity.lastTurnWhenMoved);
             NetworkManager.Instance.Server.SendToAll(response);
         }
 
@@ -309,5 +316,6 @@ namespace ServerSide
             attacker.canMove = false;
             ServerSender.DamageEntityByEntity(victim, attacker);
         }
+        
     }
 }

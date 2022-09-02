@@ -109,6 +109,7 @@ public class PacketHandler : MonoBehaviour
         go.name = "Building_" + clientID + "_" + ID.ToString();
         go.transform.position = new Vector3(pos.x + .5f, pos.y + .5f, -1f);
         go.transform.SetParent(map.transform);
+        go.tag = "Building";
         SpriteRenderer render = go.AddComponent<SpriteRenderer>();
 
         render.sprite = DefinitionRegistry.Instance.Find(type).GetSpriteByLevel(level);
@@ -247,6 +248,7 @@ public class PacketHandler : MonoBehaviour
         int id = message.GetInt();
         Vector3Int from = message.GetVector3Int();
         Vector3Int to = message.GetVector3Int();
+        int lastTurnWhenMoved = message.GetInt();
 
         Entity entity = FindObjectsOfType<Entity>().First(x => x.Id == id);
 
@@ -254,6 +256,7 @@ public class PacketHandler : MonoBehaviour
         entity.gameObject.transform.position = new Vector3(v3.x + 0.5f, v3.y + 0.5f, -1.1f);
         entity.Position = to;
         entity.canMove = false;
+        entity.lastTurnWhenMoved = lastTurnWhenMoved;
     }
 
     [MessageHandler((ushort)ServerToClientPacket.SendMessage)]
@@ -304,5 +307,14 @@ public class PacketHandler : MonoBehaviour
         victim.RefreshHealthbar();
         
         attacker.canMove = false;
+    }
+
+    [MessageHandler((ushort)ServerToClientPacket.DestroyBuilding)]
+    private static void DestroyBuilding(Message message)
+    {
+        Guid guid = message.GetGuid();
+
+        GameObject building = GameObject.FindGameObjectsWithTag("Building").ToList().Find(x => x.name.Split('_')[2] == guid.ToString());
+        Destroy(building);
     }
 }

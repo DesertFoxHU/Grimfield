@@ -120,5 +120,14 @@ namespace ServerSide
             message.Add(victim.health);
             NetworkManager.Instance.Server.SendToAll(message);
         }
+
+        public static void DestroyBuilding(AbstractBuilding building)
+        {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientPacket.DestroyBuilding);
+            message.Add(building.ID);
+            NetworkManager.Instance.Server.SendToAll(message);
+
+            building.owner.Buildings.Remove(building);
+        }
     }
 }
