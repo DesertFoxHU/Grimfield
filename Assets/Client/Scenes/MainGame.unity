@@ -15047,6 +15047,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7152382423732541793, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
+      propertyPath: input.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152382423732541793, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
+      propertyPath: input.b
+      value: 0.17942329
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152382423732541793, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
+      propertyPath: input.g
+      value: 0.5396555
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152382423732541793, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
+      propertyPath: input.r
+      value: 0.6037736
+      objectReference: {fileID: 0}
     - target: {fileID: 8053631033800416006, guid: 8c65191b838d11c4592837ed5d0b78a4, type: 3}
       propertyPath: m_FillAmount
       value: 0.278
