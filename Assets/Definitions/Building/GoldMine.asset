@@ -18,6 +18,22 @@ MonoBehaviour:
   placeable: 03000000
   description: Mines gold from gold ore
   hasProductStorage: 0
+  ResourceCost:
+  - type: 0
+    Value: 5
+  - type: 2
+    Value: 15
+  - type: 3
+    Value: 4
+  IncreasePerBuy:
+  - type: 0
+    Value: 2
+  - type: 1
+    Value: 2
+  - type: 2
+    Value: 4
+  - type: 3
+    Value: 2
   isProducer: 1
   produceType: 4
   ProduceLevel:

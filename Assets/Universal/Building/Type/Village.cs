@@ -9,33 +9,14 @@ public class Village : AbstractBuilding, IResourceStorage
 {
     public Village(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
-        BuildingStorage = new List<ResourceStorage>
+        BuildingStorage = new List<ResourceStorage>();
+        foreach (ResourceHolder holder in GetDefinition().StorageCapacity)
         {
-            new ResourceStorage(this, ResourceType.Citizen, new Dictionary<int, double>()
+            BuildingStorage.Add(new ResourceStorage(this, holder.type, new Dictionary<int, double>()
             {
-                { 1, 5d }
-            }),
-            new ResourceStorage(this, ResourceType.Food, new Dictionary<int, double>()
-            {
-                { 1, 10d }
-            }),
-            new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
-            {
-                { 1, 10d }
-            }),
-            new ResourceStorage(this, ResourceType.Stone, new Dictionary<int, double>()
-            {
-                { 1, 10d }
-            }),
-            new ResourceStorage(this, ResourceType.Gold, new Dictionary<int, double>()
-            {
-                { 1, 10d }
-            }),
-            new ResourceStorage(this, ResourceType.Coin, new Dictionary<int, double>()
-            {
-                { 1, 10d }
-            }),
-        };
+                { 1, holder.Value }
+            }));
+        }
 
         if (owner != null && owner.isFirstPlace)
         {

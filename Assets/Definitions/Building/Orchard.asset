@@ -18,6 +18,16 @@ MonoBehaviour:
   placeable: 0000000002000000
   description: Produces food for citizens
   hasProductStorage: 0
+  ResourceCost:
+  - type: 0
+    Value: 1
+  IncreasePerBuy:
+  - type: 0
+    Value: 1
+  - type: 1
+    Value: 0.5
+  - type: 2
+    Value: 2
   isProducer: 1
   produceType: 1
   ProduceLevel:
