@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,14 @@ public class BuildingDefinition : ScriptableObject
     public Sprite[] spritesLevel;
     public List<TileType> placeable;
     public string description;
+
+    public List<ResourceHolder> ResourceCost;
+    public List<ResourceHolder> IncreasePerBuy;
+
+    #region Storage
     public bool hasProductStorage;
+    public List<ResourceHolder> StorageCapacity;
+    #endregion
 
     #region ProducerBuilding
     public bool isProducer;
@@ -41,6 +48,32 @@ public class BuildingDefinition : ScriptableObject
         foreach(EntityType type in canRecruit)
             list.Add(FindObjectOfType<DefinitionRegistry>().Find(type));
         return list;
+    }
+
+    public Dictionary<ResourceType, double> GetBuildingCost(int boughtCount)
+    {
+        Dictionary<ResourceType, double> cost = new Dictionary<ResourceType, double>();
+        foreach (ResourceHolder holder in ResourceCost)
+        {
+            if (!cost.ContainsKey(holder.type))
+            {
+                cost.Add(holder.type, holder.Value);
+            }
+            else cost[holder.type] += holder.Value;
+        }
+
+        if (boughtCount != 0)
+        {
+            foreach (ResourceHolder holder in IncreasePerBuy)
+            {
+                if (!cost.ContainsKey(holder.type))
+                {
+                    cost.Add(holder.type, holder.Value * boughtCount);
+                }
+                else cost[holder.type] += holder.Value * boughtCount;
+            }
+        }
+        return cost;
     }
 }
 

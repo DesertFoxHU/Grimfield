@@ -8,13 +8,14 @@ public class Forestry : AbstractBuilding, IResourceStorage
 {
     public Forestry(ServerPlayer owner, Vector3Int position) : base(owner, position) 
     {
-        BuildingStorage = new List<ResourceStorage>
+        BuildingStorage = new List<ResourceStorage>();
+        foreach (ResourceHolder holder in GetDefinition().StorageCapacity)
         {
-            new ResourceStorage(this, ResourceType.Wood, new Dictionary<int, double>()
+            BuildingStorage.Add(new ResourceStorage(this, holder.type, new Dictionary<int, double>()
             {
-                { 1, 5d }
-            })
-        };
+                { 1, holder.Value }
+            }));
+        }
     }
 
     public override BuildingType BuildingType => BuildingType.Forestry;

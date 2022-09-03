@@ -60,9 +60,10 @@ public class BuildMenuSegment : MonoBehaviour
 
     public void RenderCost(BuildMenuElement element, int boughtCount)
     {
+        BuildingDefinition definition = DefinitionRegistry.Instance.Find(element.BuildingType);
         foreach (Transform children in CostHolder.transform) Destroy(children.gameObject);
 
-        Dictionary<ResourceType, double> cost = element.GetBuildingCost(boughtCount);
+        Dictionary<ResourceType, double> cost = definition.GetBuildingCost(boughtCount);
 
         cost.RemoveAll(val => val <= 0);
         int count = 1;

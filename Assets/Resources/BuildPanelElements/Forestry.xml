@@ -3,20 +3,4 @@
   <Title>Forestry</Title>
   <Category>Factory</Category>
   <BuildingType>Forestry</BuildingType>
-  <ResourceCost>
-    <ResourceHolder>
-      <type>Citizen</type>
-      <Value>1</Value>
-    </ResourceHolder>
-  </ResourceCost>
-  <IncreasePerBuy>
-    <ResourceHolder>
-      <type>Citizen</type>
-      <Value>1</Value>
-    </ResourceHolder>
-    <ResourceHolder>
-      <type>Wood</type>
-      <Value>2</Value>
-    </ResourceHolder>
-  </IncreasePerBuy>
 </BuildMenuElement>

@@ -18,6 +18,22 @@ MonoBehaviour:
   placeable: 00000000
   description: Make coins from gold ingots
   hasProductStorage: 0
+  ResourceCost:
+  - type: 0
+    Value: 2
+  - type: 2
+    Value: 7
+  - type: 3
+    Value: 2
+  - type: 4
+    Value: 1
+  IncreasePerBuy:
+  - type: 0
+    Value: 2
+  - type: 2
+    Value: 2
+  - type: 5
+    Value: 1
   isProducer: 0
   produceType: 0
   ProduceLevel: []
@@ -32,3 +48,4 @@ MonoBehaviour:
   - level: 1
     type: 5
     amount: 3
+  canRecruit: 

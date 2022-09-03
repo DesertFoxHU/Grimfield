@@ -20,7 +20,8 @@ public class ResourceText : MonoBehaviour
         {
             if(text.type == type)
             {
-                text.textField.text = $"{amount} (+{perTurn})";
+                string prefix = perTurn >= 0 ? "+" : "";
+                text.textField.text = $"{amount} ({prefix}{perTurn})";
             }
         }
     }

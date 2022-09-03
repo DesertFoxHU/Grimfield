@@ -138,8 +138,7 @@ namespace ServerSide
 
             ServerPlayer player = NetworkManager.Find(clientID);
 
-            BuildMenuElement element = FindObjectOfType<BuildMenuElementRegistry>().Find(type);
-            Dictionary<ResourceType, double> cost = element.GetBuildingCost(player.BuildingBought.ContainsKey(type) ? player.BuildingBought[type] : 0);
+            Dictionary<ResourceType, double> cost = buildingDefinition.GetBuildingCost(player.BuildingBought.ContainsKey(type) ? player.BuildingBought[type] : 0);
             List<ResourceHolder> resources = player.GetAvaibleResources();
 
             if (cost.Count != 0 && !player.PayResources(cost))

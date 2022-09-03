@@ -18,6 +18,22 @@ MonoBehaviour:
   placeable: 00000000
   description: You can recruit units here. Requires coin to recruit units
   hasProductStorage: 0
+  ResourceCost:
+  - type: 0
+    Value: 5
+  - type: 2
+    Value: 8
+  - type: 3
+    Value: 6
+  IncreasePerBuy:
+  - type: 0
+    Value: 4
+  - type: 2
+    Value: 6
+  - type: 3
+    Value: 3
+  - type: 4
+    Value: 2
   isProducer: 0
   produceType: 0
   ProduceLevel: []
