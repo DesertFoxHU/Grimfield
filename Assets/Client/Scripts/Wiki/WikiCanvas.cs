@@ -29,6 +29,10 @@ public class WikiCanvas : MonoBehaviour
 
     private void Start()
     {
+        foreach(OptionalConnectedPage page in pages)
+        {
+            page.Init();
+        }
         LoadCurrent();
     }
 
@@ -51,6 +55,19 @@ public class WikiCanvas : MonoBehaviour
         current.GetValueOrDefault().SetActive(true);
     }
 
+    public void LoadById(string Id)
+    {
+        OptionalConnectedPage? page = pages.Find(x => x.Id == Id);
+        if(page == null)
+        {
+            Debug.LogError("No wiki page named: " + Id);
+            return;
+        }
+
+        pageIndex = pages.IndexOf(page.Value);
+        LoadCurrent();
+    }
+
     public void Previous()
     {
         pageIndex -= 1;
@@ -67,6 +84,7 @@ public class WikiCanvas : MonoBehaviour
 [System.Serializable]
 public struct OptionalConnectedPage
 {
+    public string Id;
     public WikiPage page1;
     public WikiPage page2;
 
@@ -74,5 +92,11 @@ public struct OptionalConnectedPage
     {
         if(page1 != null) page1.gameObject.SetActive(isActive);
         if(page2 != null) page2.gameObject.SetActive(isActive);
+    }
+
+    public void Init()
+    {
+        if (page1 != null) page1.Initialize();
+        if (page2 != null) page2.Initialize();
     }
 }

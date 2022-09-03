@@ -11,6 +11,9 @@ public class BuildingDefinition : ScriptableObject
     public string description;
     public bool hasProductStorage;
 
+    public List<ResourceHolder> ResourceCost;
+    public List<ResourceHolder> IncreasePerBuy;
+
     #region ProducerBuilding
     public bool isProducer;
     [Conditional("isProducer", true)] public ResourceType produceType;

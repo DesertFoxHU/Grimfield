@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class WikiPage : MonoBehaviour
 {
+    public virtual void Initialize() { }
 }
