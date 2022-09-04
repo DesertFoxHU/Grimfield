@@ -191,13 +191,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tiles:
-  - {fileID: 11400000, guid: 5f3c7d8c85e17d94d8cd22cb564fa0ba, type: 2}
+  - {fileID: 11400000, guid: a52317774a0e5464eafd8a2360addccd, type: 2}
+  - {fileID: 11400000, guid: b6132af783dfad74f8c49524700b698c, type: 2}
   - {fileID: 11400000, guid: a69e0e7abc3ef334bb9587cbc6376284, type: 2}
+  - {fileID: 11400000, guid: 5f3c7d8c85e17d94d8cd22cb564fa0ba, type: 2}
   - {fileID: 11400000, guid: 7d8ee7c339328bc47bc4938d5b953959, type: 2}
   - {fileID: 11400000, guid: bdd625656e71df54d934239c380f195d, type: 2}
   - {fileID: 11400000, guid: a71cc94130ab6f04bb81f78cd62d8483, type: 2}
-  - {fileID: 11400000, guid: a52317774a0e5464eafd8a2360addccd, type: 2}
-  - {fileID: 11400000, guid: b6132af783dfad74f8c49524700b698c, type: 2}
   Buildings:
   - {fileID: 11400000, guid: 51d58e35de5d60841bedc7b57d326f29, type: 2}
   - {fileID: 11400000, guid: fb91b7b06fc5cdd4d84dc37500d4584c, type: 2}
