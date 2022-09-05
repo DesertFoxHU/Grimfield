@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour
     {
         Tilemap map = FindObjectOfType<Tilemap>();
         Vector3Int position = map.ToVector3Int(this.transform.position);
-        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton);
+        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(initType);
         Initialize(position, definition, 0);
     }
 
@@ -125,6 +125,7 @@ public class Entity : MonoBehaviour
     #region Debug
     public bool isDebug;
     [Conditional("isDebug", true)] public Entity toAttack;
+    [Conditional("isDebug", true)] public EntityType initType = EntityType.Skeleton;
     [Conditional("isDebug", true)] public bool trigger;
     public void Update()
     {
@@ -151,7 +152,11 @@ public class Entity : MonoBehaviour
     public IEnumerator AttackAnimation(Entity victim, Vector3 original, GameObject objectToMove, Vector3 end, float seconds)
     {
         yield return MoveOverSeconds(objectToMove, end, seconds);
-        victim.GetComponent<Animator>().SetTrigger("Hurt");
+        if(victim != null)
+        {
+            victim.GetComponent<Animator>().SetTrigger("Hurt");
+            victim.RefreshHealthbar();
+        }
         yield return new WaitForSeconds(Definition.animatorValues.attackEndTime);
         yield return MoveOverSeconds(objectToMove, original, seconds);
     }

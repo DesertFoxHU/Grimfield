@@ -48,4 +48,4 @@ MonoBehaviour:
     Value2: 3
   animatorValues:
     attackStartTime: 1
-    attackEndTime: 1.34
+    attackEndTime: 0.56
