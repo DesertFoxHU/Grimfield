@@ -16,5 +16,5 @@ MonoBehaviour:
   tileName: Forest
   description: A huge forest. Useful for collecting woods
   sprites:
-  - {fileID: 21300000, guid: d11178170c0a1cc4f9002fd897adb6c1, type: 3}
-  - {fileID: 21300000, guid: 1926af76d736eec43801ac5bf2deba1e, type: 3}
+  - {fileID: -1159050212, guid: a69553930bb92e34c9392c7f4bbd35db, type: 3}
+  - {fileID: -344474929, guid: a69553930bb92e34c9392c7f4bbd35db, type: 3}
