@@ -27,6 +27,10 @@ public class EntityDefinition : ScriptableObject
     public List<ResourceHolder> Upkeep;
     [SerializeField] private List<ValuePair<TileType, double>> MovementCost;
 
+    #region Animation related
+    public AnimatorValues animatorValues;
+    #endregion
+
     public double GetMovementCost(TileType type)
     {
         foreach(ValuePair<TileType, double> cost in MovementCost)
@@ -67,4 +71,11 @@ public struct ValuePair<T1, T2>
 {
     public T1 Value1;
     public T2 Value2;
+}
+
+[System.Serializable]
+public class AnimatorValues
+{
+    [Tooltip("The length of time until the animation will show an attack frame. In seconds")] public float attackStartTime;
+    [Tooltip("End time of the attacking in seconds. Or when to start moving back to its original place")] public float attackEndTime;
 }

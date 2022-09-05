@@ -415,6 +415,9 @@ MonoBehaviour:
   healthBar: {fileID: 8595223254913485995}
   lastTurnWhenMoved: 0
   canClaimBuilding: 0
+  isDebug: 0
+  toAttack: {fileID: 0}
+  trigger: 0
 --- !u!114 &2281943383121872204
 MonoBehaviour:
   m_ObjectHideFlags: 0
