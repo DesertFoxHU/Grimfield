@@ -97,7 +97,7 @@ namespace InfoPanel
 
                 icon.sprite = entity.Definition.RecruitIcon;
                 title.text = entity.Definition.Name;
-                description.text = "";
+                description.text = entity.Definition.Description;
 
             }
 

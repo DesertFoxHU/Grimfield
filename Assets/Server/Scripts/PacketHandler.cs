@@ -242,10 +242,11 @@ namespace ServerSide
                 return;
             }
 
+            int entityId = message.GetInt();
             Vector3Int from = message.GetVector3Int();
             Vector3Int to = message.GetVector3Int();
 
-            Entity entity = FindObjectsOfType<Entity>().First(x => x.Position.x == from.x && x.Position.y == from.y);
+            Entity entity = FindObjectsOfType<Entity>().First(x => x.Id == entityId);
             if(entity == null)
             {
                 ServerSender.SendAlert(clientID, "Didn't find any entity on that position. Can this be desync related error?");
@@ -255,6 +256,21 @@ namespace ServerSide
             if(entity.OwnerId != clientID)
             {
                 ServerSender.SendAlert(clientID, "You are not owner of this unit!");
+                return;
+            }
+
+            if(entity.Position.x != from.x || entity.Position.y != from.y)
+            {
+                Debug.LogError($"Desync error happened with entity: {entityId}. Client's position for this entity is {from} meanwhile serverside is {entity.Position}");
+                Debug.Log("Trying to solve client's desync error...");
+                Message responseFix = Message.Create(MessageSendMode.reliable, ServerToClientPacket.MoveEntity);
+                responseFix.Add(entity.Id);
+                responseFix.Add(from);
+                responseFix.Add(entity.Position);
+                responseFix.Add(entity.lastTurnWhenMoved);
+                NetworkManager.Instance.Server.Send(message, clientID);
+                ServerSender.SendAlert(clientID, "Unit desync error happened, tried to fix the problem");
+                Debug.Log("Correction sent!");
                 return;
             }
 

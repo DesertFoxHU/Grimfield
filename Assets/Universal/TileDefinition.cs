@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Tile/TileDefinition", fileName = "TileDefinition")]
-public class TileDefinition : RuleTile
+public class TileDefinition : ScriptableObject
 {
     public TileType type;
     public string tileName;

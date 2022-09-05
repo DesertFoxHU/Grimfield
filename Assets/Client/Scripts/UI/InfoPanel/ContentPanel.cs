@@ -51,6 +51,12 @@ namespace InfoPanel
                     Y -= segment.height;
                 }
             }
+            else if(type == InfoWindow.ContentType.Entity)
+            {
+                Entity entity = (Entity)obj;
+
+
+            }
         }
 
         public void ClearChildren()
