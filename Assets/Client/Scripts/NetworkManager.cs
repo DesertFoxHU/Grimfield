@@ -87,9 +87,9 @@ public class NetworkManager : MonoBehaviour
 
     public void Disconnected(object sender, DisconnectedEventArgs e)
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("LobbyScene");
         SceneManager.UnloadSceneAsync("MainGame");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
     }
 
     public void DidConnect(object sender, EventArgs e)

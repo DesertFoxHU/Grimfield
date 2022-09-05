@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 internal class ChunkLoader
 {
-
     public static void LoadChunk(Tilemap map, Message message)
     {
         Task task = new(() =>

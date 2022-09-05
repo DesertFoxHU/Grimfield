@@ -115,7 +115,21 @@ namespace ServerSide
                 }
             }
 
+            for (int x = 7; x <= SizeX; x+=11)
+            {
+                for (int y = 7; y <= SizeY; y+=11)
+                {
+                    if (Utils.Roll(40))
+                    {
+                        GenerateTile(map, x, y, TileType.Flag);
+                        Vector3Int position = new Vector3Int(x, y, 0);
+                        ServerSide.TerritoryRenderer.Instance.territories.Add(new ServerTerritory(position, ushort.MaxValue, Color.black, map.GetTileRange(position, 4)));
+                    }
+                }
+            }
+
             map.RefreshAllTiles();
+            ServerSide.TerritoryRenderer.Instance.RenderAll();
             Debug.Log("Map is generated!");
         }
 

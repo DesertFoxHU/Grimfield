@@ -45,6 +45,15 @@ public class Entity : MonoBehaviour
         secondaryTexture = GetComponent<MaterialInstancing>();
     }
 
+    [ContextMenu("Initialize (DEBUG)")]
+    private void InitializeDebug()
+    {
+        Tilemap map = FindObjectOfType<Tilemap>();
+        Vector3Int position = map.ToVector3Int(this.transform.position);
+        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton);
+        Initialize(position, definition, 0);
+    }
+
     public void Initialize(Vector3Int Position, EntityDefinition definition, int Id)
     {
         Definition = definition;
@@ -53,9 +62,10 @@ public class Entity : MonoBehaviour
         damage = definition.Damage[0];
         speed = definition.Speed[0];
         this.Id = Id;
-        canMove = true;
+        canMove = false;
         RefreshHealthbar();
 
+        Debug.Log($"Initialized entity: Type:{Definition.Type} Pos:{Position} ID:{Id}");
         IsInitialized = true;
     }
 
@@ -206,6 +216,7 @@ public class Entity : MonoBehaviour
         }
 
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerPacket.MoveEntity);
+        message.Add(this.Id);
         message.Add(Position);
         message.Add(to);
         NetworkManager.Instance.Client.Send(message);

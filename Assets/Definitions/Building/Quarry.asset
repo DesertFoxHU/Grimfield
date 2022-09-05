@@ -17,19 +17,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 16a853a6e5e65be408697eada16b600c, type: 3}
   placeable: 01000000
   description: Produces stone
-  hasProductStorage: 0
   ResourceCost:
   - type: 0
-    Value: 4
+    Value: 2
   - type: 2
-    Value: 6
+    Value: 4
   IncreasePerBuy:
   - type: 0
     Value: 1
   - type: 2
     Value: 2
   - type: 3
-    Value: 2
+    Value: 1
+  hasProductStorage: 0
+  StorageCapacity: []
   isProducer: 1
   produceType: 3
   ProduceLevel:

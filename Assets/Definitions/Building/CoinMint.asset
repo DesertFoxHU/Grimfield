@@ -17,23 +17,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 96899873c5e92124395ab789c8a08774, type: 3}
   placeable: 00000000
   description: Make coins from gold ingots
-  hasProductStorage: 0
   ResourceCost:
   - type: 0
     Value: 2
   - type: 2
-    Value: 7
+    Value: 6
   - type: 3
     Value: 2
   - type: 4
     Value: 1
   IncreasePerBuy:
   - type: 0
-    Value: 2
+    Value: 1
   - type: 2
     Value: 2
   - type: 5
     Value: 1
+  hasProductStorage: 0
+  StorageCapacity: []
   isProducer: 0
   produceType: 0
   ProduceLevel: []

@@ -8,10 +8,12 @@ public class CursorAction : MonoBehaviour
 {
     private static Tilemap map;
     [HideInInspector] public Entity selectedEntity;
+    public GameObject selectedEntityMarker;
 
     void Start()
     {
         map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+        selectedEntityMarker.SetActive(false);
     }
 
     void Update()
@@ -29,6 +31,8 @@ public class CursorAction : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
         Vector3Int pos = map.ToVector3Int(worldPoint);
+        Vector3 worldPos = map.ToVector3(pos);
+        worldPos = new Vector3(worldPos.x + .5f, worldPos.y + .5f, -1.2f);
 
         if (!map.HasTile(pos)) return;
 
@@ -55,6 +59,7 @@ public class CursorAction : MonoBehaviour
                     selectedEntity.ClearDraw();
                     selectedEntity.ClearTargetables();
                     selectedEntity = null;
+                    selectedEntityMarker.SetActive(false);
                     return;
                 }
 
@@ -63,6 +68,9 @@ public class CursorAction : MonoBehaviour
                     entity.DrawNavigation();
                     entity.DrawTargetables();
                     selectedEntity = entity;
+                    selectedEntityMarker.SetActive(true);
+                    selectedEntityMarker.transform.localPosition = worldPos;
+                    FindObjectOfType<InfoWindow>().Load(entity);
                     return;
                 }
                 
@@ -77,6 +85,7 @@ public class CursorAction : MonoBehaviour
             selectedEntity.ClearDraw();
             selectedEntity.ClearTargetables();
             selectedEntity = null;
+            selectedEntityMarker.SetActive(false);
         }
 
         foreach (Transform child in map.transform)

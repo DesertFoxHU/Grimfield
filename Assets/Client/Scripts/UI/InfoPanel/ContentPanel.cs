@@ -51,6 +51,41 @@ namespace InfoPanel
                     Y -= segment.height;
                 }
             }
+            else if(type == InfoWindow.ContentType.Entity)
+            {
+                Entity entity = (Entity)obj;
+
+                List<ContentSegment> prefabs = FindObjectOfType<ContentSegmentHolder>().GetPrefabs(entity);
+                prefabs = prefabs.OrderBy(x => x.order).ToList();
+
+                foreach (ContentSegment segment in prefabs)
+                {
+                    GameObject newInstance = CreateNewInstance(segment.gameObject, Y);
+
+                    if (segment.ID == "ENTITY_STAT")
+                    {
+                        newInstance.GetChildrenByName("HealthText").GetComponent<TextMeshProUGUI>().text = $"Health: {entity.health}";
+                        newInstance.GetChildrenByName("DamageText").GetComponent<TextMeshProUGUI>().text = $"Damage: {entity.damage}";
+                        newInstance.GetChildrenByName("SpeedText").GetComponent<TextMeshProUGUI>().text = $"Speed: {entity.speed}";
+                    }
+                    else if(segment.ID == "ENTITY_OWNER")
+                    {
+                        string owner = "None";
+                        if(entity.OwnerId != null)
+                        {
+                            ClientPlayer player = NetworkManager.Instance.GetAllPlayer().Find(x => x.ClientID == entity.OwnerId);
+                            owner = player.Name;
+                        }
+                        newInstance.GetComponentInChildren<TextMeshProUGUI>().text = $"Owner: {owner}";
+                    }
+                    else if (segment.ID == "ENTITY_ID")
+                    {
+                        newInstance.GetComponentInChildren<TextMeshProUGUI>().text = $"EntityID: {entity.Id}";
+                    }
+
+                    Y -= segment.height;
+                }
+            }
         }
 
         public void ClearChildren()

@@ -23,5 +23,14 @@ namespace InfoPanel
             prefabs.Add(GetPrefab("STAT"));
             return prefabs;
         }
+
+        public List<ContentSegment> GetPrefabs(Entity entity)
+        {
+            List<ContentSegment> prefabs = new List<ContentSegment>();
+            prefabs.Add(GetPrefab("ENTITY_STAT"));
+            prefabs.Add(GetPrefab("ENTITY_OWNER"));
+            prefabs.Add(GetPrefab("ENTITY_ID"));
+            return prefabs;
+        }
     }
 }
