@@ -27,7 +27,7 @@ MonoBehaviour:
   MovementType: 1
   RecruitCost:
   - type: 5
-    Value: 24
+    Value: 22
   Upkeep:
   - type: 5
     Value: 1
