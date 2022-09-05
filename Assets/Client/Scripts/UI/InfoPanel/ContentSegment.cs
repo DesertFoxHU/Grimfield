@@ -20,6 +20,6 @@ namespace InfoPanel
     {
         public string ID;
         public float height;
-        [Tooltip("Order determines this segment priority to shown on top, higher value means higher priority")] public int order;
+        [Tooltip("Order determines this segment priority to shown on top, closer value to zero means higher to the top")] public int order;
     }
 }
