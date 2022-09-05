@@ -27,7 +27,7 @@ MonoBehaviour:
   MovementType: 1
   RecruitCost:
   - type: 5
-    Value: 24
+    Value: 22
   Upkeep:
   - type: 5
     Value: 1
@@ -44,3 +44,6 @@ MonoBehaviour:
     Value2: 1
   - Value1: 5
     Value2: 2
+  animatorValues:
+    attackStartTime: 0.88
+    attackEndTime: 0.13

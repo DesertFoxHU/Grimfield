@@ -316,7 +316,8 @@ public class PacketHandler : MonoBehaviour
         if (victim == null) return;
 
         victim.health = remainedHealth;
-        victim.RefreshHealthbar();
+        //victim.RefreshHealthbar(); Don't refresh entity's health until animation is done
+        attacker.Attack(victim);
         
         attacker.canMove = false;
     }

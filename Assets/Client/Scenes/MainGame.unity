@@ -13561,6 +13561,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7260041943254619126, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
+      propertyPath: isDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260041943254619126, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}
+      propertyPath: canClaimBuilding
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d657b00891e80d84cb2c3418d5b17918, type: 3}

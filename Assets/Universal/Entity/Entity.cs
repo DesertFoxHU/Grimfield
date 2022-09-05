@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour
     {
         Tilemap map = FindObjectOfType<Tilemap>();
         Vector3Int position = map.ToVector3Int(this.transform.position);
-        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(EntityType.Skeleton);
+        EntityDefinition definition = FindObjectOfType<DefinitionRegistry>().Find(initType);
         Initialize(position, definition, 0);
     }
 
@@ -120,6 +120,58 @@ public class Entity : MonoBehaviour
     public void RefreshHealthbar()
     {
         healthBar.fillAmount = HealthPercentage;
+    }
+
+    #region Debug
+    public bool isDebug;
+    [Conditional("isDebug", true)] public Entity toAttack;
+    [Conditional("isDebug", true)] public EntityType initType = EntityType.Skeleton;
+    [Conditional("isDebug", true)] public bool trigger;
+    public void Update()
+    {
+        if (!isDebug) return;
+
+        if(toAttack != null && trigger)
+        {
+            Attack(toAttack);
+            trigger = false;
+        }
+    }
+    #endregion
+
+    public void Attack(Entity victim)
+    {
+        Tilemap map = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>();
+        Vector3 original = this.transform.position;
+        Vector3 target = map.ToVector3Center(victim.Position);
+
+        this.GetComponent<Animator>().SetTrigger("Attack");
+        StartCoroutine(AttackAnimation(victim, original, this.gameObject, target, Definition.animatorValues.attackStartTime));
+    }
+
+    public IEnumerator AttackAnimation(Entity victim, Vector3 original, GameObject objectToMove, Vector3 end, float seconds)
+    {
+        yield return MoveOverSeconds(objectToMove, end, seconds);
+        if(victim != null)
+        {
+            victim.GetComponent<Animator>().SetTrigger("Hurt");
+            victim.RefreshHealthbar();
+        }
+        yield return new WaitForSeconds(Definition.animatorValues.attackEndTime);
+        yield return MoveOverSeconds(objectToMove, original, seconds);
+    }
+
+    public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        objectToMove.transform.position = end;
     }
 
     #region ServerSide Inner Events

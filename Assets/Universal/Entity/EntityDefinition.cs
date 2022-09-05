@@ -27,6 +27,10 @@ public class EntityDefinition : ScriptableObject
     public List<ResourceHolder> Upkeep;
     [SerializeField] private List<ValuePair<TileType, double>> MovementCost;
 
+    #region Animation related
+    public AnimatorValues animatorValues;
+    #endregion
+
     public double GetMovementCost(TileType type)
     {
         foreach(ValuePair<TileType, double> cost in MovementCost)
@@ -67,4 +71,17 @@ public struct ValuePair<T1, T2>
 {
     public T1 Value1;
     public T2 Value2;
+}
+
+/// <summary>
+/// If you read the values from the animator then consider their exchange values
+/// For example if you read 60 then thats mean 60 frame (or 1 seconds), so there is no problem with that
+/// But when you read 53 then it's a problem, you can't just put 0.53 there.
+/// So divide the value by 60 !
+/// </summary>
+[System.Serializable]
+public class AnimatorValues
+{
+    [Tooltip("The length of time until the animation will show an attack frame. In seconds")] public float attackStartTime;
+    [Tooltip("End time of the attacking in seconds. Or when to start moving back to its original place")] public float attackEndTime;
 }

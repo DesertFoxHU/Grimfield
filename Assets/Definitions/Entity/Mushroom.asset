@@ -18,7 +18,7 @@ MonoBehaviour:
   Name: Mushroom
   Description: A tanky unit on the ground
   Health:
-  - 40
+  - 37
   Damage:
   - 2
   Speed:
@@ -27,9 +27,9 @@ MonoBehaviour:
   MovementType: 0
   RecruitCost:
   - type: 2
-    Value: 10
+    Value: 6
   - type: 5
-    Value: 20
+    Value: 19
   Upkeep:
   - type: 5
     Value: 1
@@ -46,3 +46,6 @@ MonoBehaviour:
     Value2: 2
   - Value1: 5
     Value2: 3
+  animatorValues:
+    attackStartTime: 0.516
+    attackEndTime: 0.18
