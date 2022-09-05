@@ -36,7 +36,7 @@ This is a **turn-based multiplayer strategy game**.
 - Settings for fullscreen mode and overall volume
 - Unit disappearance if their upkeep have not been paid
 - Unit can destroy buildings if they stand on them for 2 turns
-- Unit can attack eachother (with hurt and attack animations)
+- Unit can attack eachother ~~(with hurt and attack animations)~~ (in the upcoming version)
 - Territory (or national border) shown for everybody (however the server never checks if you build inside them or not)
 - Unit have the same color in their texture as their owner
 
