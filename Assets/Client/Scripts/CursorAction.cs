@@ -81,6 +81,15 @@ public class CursorAction : MonoBehaviour
 
         if(selectedEntity != null)
         {
+            if(type == MouseClickType.RightClick)
+            {
+                selectedEntity.ClearDraw();
+                selectedEntity.ClearTargetables();
+                selectedEntity = null;
+                selectedEntityMarker.SetActive(false);
+                return;
+            }
+
             if(selectedEntity.OwnerId == NetworkManager.Instance.ClientPlayer.ClientID) selectedEntity.ClientMoveToRequest(pos);
             selectedEntity.ClearDraw();
             selectedEntity.ClearTargetables();

@@ -23,13 +23,61 @@ public class BuildPanel : MonoBehaviour
     public GameObject factoryCategory;
     public GameObject segmentPrefab;
 
-    [HideInInspector] public List<BuildMenuSegment> segments = new List<BuildMenuSegment>();
+    [Space]
+    public GameObject upwardButton;
+    public GameObject downwardButton;
+
+    [HideInInspector] public List<BuildMenuSegment> segments = new List<BuildMenuSegment>(); //Segments which are active in scene
     [HideInInspector] public Dictionary<BuildingType, int> BuildingBought = new Dictionary<BuildingType, int>();
+
+    [HideInInspector] public Dictionary<Category, int> pages = new Dictionary<Category, int>();
+    [HideInInspector] public Dictionary<Category, List<BuildMenuElement>> processedSegments = new Dictionary<Category, List<BuildMenuElement>>();
 
     public void Start()
     {
         Instance = this;
-        StartCoroutine(FirstLoad());
+        foreach(Category category in Enum.GetValues(typeof(Category)))
+        {
+            pages.Add(category, 0);
+            processedSegments.Add(category, new List<BuildMenuElement>());
+        }
+
+        foreach(BuildMenuElement element in BuildMenuElementRegistry.elements)
+        {
+            processedSegments[element.Category].Add(element);
+        }
+
+        Load(Category.Village);
+    }
+
+    public void PageUpwards()
+    {
+        int current = pages[category];
+        current--;
+
+        if (current < 0) current = 0;
+        else if (current >= processedSegments[category].Count)
+        {
+            current++;
+        }
+
+        pages[category] = current;
+        Load(category);
+    }
+
+    public void PageDownwards()
+    {
+        int current = pages[category];
+        current++;
+
+        if (current < 0) current = 0;
+        else if(current >= processedSegments[category].Count)
+        {
+            current--;
+        }
+
+        pages[category] = current;
+        Load(category);
     }
 
     public BuildMenuSegment GetSegment(BuildingType type)
@@ -37,40 +85,47 @@ public class BuildPanel : MonoBehaviour
         return segments.Find(x => x.Type == type);
     }
 
-    private IEnumerator LoadElements()
+    public void Load(Category category)
     {
-        foreach (BuildMenuElement element in BuildMenuElementRegistry.elements)
+        foreach(BuildMenuSegment segment in segments)
         {
-            int count = GetCategorysObject(element.Category).transform.childCount;
-            float Y = 0 + (-170 * count);
-
-            GameObject newSegment = Instantiate(segmentPrefab, new Vector3(0f, Y, 0f), Quaternion.identity);
-            newSegment.transform.SetParent(GetCategorysObject(element.Category).transform, false);
-            newSegment.GetComponent<BuildMenuSegment>().Load(element);
-            segments.Add(newSegment.GetComponent<BuildMenuSegment>());
+            Destroy(segment.gameObject);
         }
-        yield return null;
-    }
+        segments.Clear();
 
-    private IEnumerator FirstLoad()
-    {
-        yield return StartCoroutine(LoadElements());
-        LoadCategory(Category.Village);
-    }
-
-    public void LoadCategory(Category category)
-    {
         this.category = category;
         villageCategory.SetActive(false);
         towerCategory.SetActive(false);
         factoryCategory.SetActive(false);
 
-        GetCategorysObject(category).SetActive(true);
+        int pageIndex = pages[category];
+        GameObject parentHolder = GetCategorysObject(category);
+
+        int count = 0;
+        for(int index = pageIndex; index < pageIndex + 4; index++)
+        {
+            if (processedSegments[category].Count <= index)
+            {
+                break;
+            }
+
+            BuildMenuElement element = processedSegments[category][index];
+            float Y = 0 + (-180 * count);
+
+            GameObject newSegment = Instantiate(segmentPrefab, new Vector3(0f, Y, 0f), Quaternion.identity);
+            newSegment.transform.SetParent(GetCategorysObject(element.Category).transform, false);
+            newSegment.GetComponent<BuildMenuSegment>().Load(element);
+            segments.Add(newSegment.GetComponent<BuildMenuSegment>());
+
+            count++;
+        }
+
+        parentHolder.SetActive(true);
     }
 
     public void LoadCategory(string categoryRaw)
     {
-        LoadCategory((Category)Enum.Parse(typeof(Category), categoryRaw));
+        Load((Category)Enum.Parse(typeof(Category), categoryRaw));
     }
 
     public GameObject GetCategorysObject(Category category)
@@ -80,6 +135,7 @@ public class BuildPanel : MonoBehaviour
         else return factoryCategory;
     }
 
+    #region Close/Open related functions
     public void Trigger()
     {
         isOpen = !isOpen;
@@ -95,4 +151,5 @@ public class BuildPanel : MonoBehaviour
     {
         categoryButtonHolder.SetActive(true);
     }
+    #endregion
 }
