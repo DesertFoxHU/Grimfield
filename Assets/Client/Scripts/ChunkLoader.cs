@@ -24,7 +24,9 @@ internal class ChunkLoader
                 TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
                 int spriteIndex = int.Parse(split[3]);
 
-                map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[spriteIndex]);
+                GrimfieldTile tile = map.GetOrInit(pos, DefinitionRegistry.Instance.Find(tileType));
+                tile.spriteIndex = spriteIndex;
+
                 map.RefreshTile(pos);
             }
         });

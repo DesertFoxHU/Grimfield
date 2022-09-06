@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Script: {fileID: 11500000, guid: 54fb8510914368e47977b36b99dd912b, type: 3}
   m_Name: ShallowWater
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -965989552, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  m_Sprite: {fileID: 487846110, guid: 5fe30f52508c3c849b9da4f9a6e4dc98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,3 +34,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 0
   m_ColliderType: 1
+  isClaimed: 0
+  definition: {fileID: 11400000, guid: a71cc94130ab6f04bb81f78cd62d8483, type: 2}
+  spriteIndex: 0

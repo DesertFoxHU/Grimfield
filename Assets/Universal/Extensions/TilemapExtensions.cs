@@ -21,55 +21,41 @@ public static class TilemapExtensions
         return new Vector3(raw.x + 0.5f, raw.y + 0.5f, raw.z);
     }
 
-    public static void SetTileSprite(this Tilemap map, Vector3Int pos, Sprite sprite)
+    public static GrimfieldTile GetOrInit(this Tilemap map, Vector3Int pos, TileDefinition definition)
+    {
+        if (!map.HasTile(pos))
+        {
+            GrimfieldTile tile = ScriptableObject.CreateInstance<GrimfieldTile>();
+            tile.Init(definition);
+            map.SetTile(pos, tile);
+            return tile;
+        }
+        else return map.GetTile<GrimfieldTile>(pos);
+    }
+
+    public static void SetTileType(this Tilemap map, Vector3Int pos, TileDefinition definition)
     {
         GrimfieldTile tile;
         if (map.HasTile(pos))
         {
-            if (map.GetTile(pos) is not GrimfieldTile)
-            {
-                tile = TransformToGrimfieldTile(map, pos);
-            }
-            else tile = map.GetTile<GrimfieldTile>(pos);
+            tile = map.GetTile<GrimfieldTile>(pos);
+            tile.definition = definition;
         }
         else
         {
             tile = ScriptableObject.CreateInstance<GrimfieldTile>();
-            tile.name = sprite.name;
-            tile.flags = TileFlags.None;
+            tile.Init(definition);
+            map.SetTile(pos, tile);
         }
-        tile.sprite = sprite;
-        map.SetTile(pos, tile);
     }
 
-    public static GrimfieldTile TransformToGrimfieldTile(this Tilemap map, Vector3Int pos)
+    public static TileType? GetTileType(this Tilemap map, Vector3Int pos)
     {
-        if (!map.HasTile(pos))
+        if (map.HasTile(pos))
         {
-            return null;
+            return map.GetTile<GrimfieldTile>(pos).Type;
         }
-
-        Tile originalTile = map.GetTile<Tile>(pos);
-        GrimfieldTile newTile = ScriptableObject.CreateInstance<GrimfieldTile>();
-
-        newTile.sprite = originalTile.sprite;
-        newTile.name = originalTile.sprite.name;
-        newTile.flags = originalTile.flags;
-        newTile.hideFlags = originalTile.hideFlags;
-        newTile.colliderType = originalTile.colliderType;
-        newTile.color = originalTile.color;
-
-        map.SetTile(pos, newTile);
-        return newTile;
-    }
-
-    public static string GetTileName(this Tilemap map, Vector3Int pos)
-    {
-        if (!map.HasTile(pos)) return null;
-        else if(map.GetTile<GrimfieldTile>(pos) != null) return map.GetTile<GrimfieldTile>(pos).sprite.name;
-
-        GrimfieldTile transformed = TransformToGrimfieldTile(map, pos);
-        return transformed.sprite.name;
+        return null;
     }
 
     public static List<Vector3Int> GetNeighbour(this Tilemap map, Vector3Int pos)

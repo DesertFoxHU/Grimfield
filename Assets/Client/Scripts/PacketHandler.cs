@@ -91,7 +91,9 @@ public class PacketHandler : MonoBehaviour
             TileType tileType = (TileType)Enum.Parse(typeof(TileType), split[2]);
             int spriteIndex = int.Parse(split[3]);
 
-            map.SetTileSprite(pos, DefinitionRegistry.Instance.Find(tileType).sprites[spriteIndex]);
+            GrimfieldTile tile = map.GetOrInit(pos, DefinitionRegistry.Instance.Find(tileType));
+            Debug.Log($"SetTileIndx: {tile} {tile.definition} {spriteIndex}");
+            tile.spriteIndex = spriteIndex;
         }
         map.RefreshAllTiles();
     }

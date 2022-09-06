@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: grass_2
+  m_Script: {fileID: 11500000, guid: 54fb8510914368e47977b36b99dd912b, type: 3}
+  m_Name: DragonNest
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1607339204, guid: 5fe30f52508c3c849b9da4f9a6e4dc98, type: 3}
+  m_Sprite: {fileID: -1159050212, guid: a69553930bb92e34c9392c7f4bbd35db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,3 +34,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 0
   m_ColliderType: 1
+  isClaimed: 0
+  definition: {fileID: 11400000, guid: a52317774a0e5464eafd8a2360addccd, type: 2}
+  spriteIndex: 0
