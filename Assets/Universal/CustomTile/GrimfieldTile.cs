@@ -13,7 +13,7 @@ public class GrimfieldTile : Tile
     {
         get => definition.type;
     }
-    [HideInInspector] public int spriteIndex;
+    public int spriteIndex;
 
     public void Init(TileDefinition definition)
     {
@@ -31,6 +31,24 @@ public class GrimfieldTile : Tile
         {
             Debug.LogError($"Index was out of bounds, for: {definition} index: {spriteIndex}");
         }
+
+        if(definition.tilings.Count != 0)
+        {
+            Tilemap map = tilemap.GetComponent<Tilemap>();
+            Direction8D direction = map.GetNeighbourTiling(this, position);
+
+            Debug.Log($"Direction is {direction} for {position}");
+            foreach (NeighbourTiling tiling in definition.tilings)
+            {
+                Debug.Log($"Searching... {tiling.Directions}");
+                if(tiling.Directions == direction)
+                {
+                    Debug.Log("Found! Setting sprite...");
+                    tileData.sprite = tiling.sprite;
+                }
+            }
+        }
+
         name = definition.type.ToString();
     }
 }

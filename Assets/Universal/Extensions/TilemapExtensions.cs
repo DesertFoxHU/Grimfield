@@ -75,6 +75,34 @@ public static class TilemapExtensions
         return neigh;
     }
 
+    public static Direction8D GetNeighbourTiling(this Tilemap map, GrimfieldTile tile, Vector3Int pos)
+    {
+        Direction8D direction = Direction8D.None;
+
+        if (CheckTiling(map, new Vector3Int(pos.x, pos.y + 1, pos.z), tile.Type)) direction |= Direction8D.North;
+        //if (CheckTiling(map, new Vector3Int(pos.x + 1, pos.y + 1, pos.z), tile.Type)) direction |= Direction8D.NorthEast;
+        if (CheckTiling(map, new Vector3Int(pos.x + 1, pos.y, pos.z), tile.Type)) direction |= Direction8D.East;
+        //if (CheckTiling(map, new Vector3Int(pos.x + 1, pos.y - 1, pos.z), tile.Type)) direction |= Direction8D.SouthEast;
+        if (CheckTiling(map, new Vector3Int(pos.x, pos.y - 1, pos.z), tile.Type)) direction |= Direction8D.South;
+        //if (CheckTiling(map, new Vector3Int(pos.x - 1, pos.y - 1, pos.z), tile.Type)) direction |= Direction8D.SouthWest;
+        if (CheckTiling(map, new Vector3Int(pos.x - 1, pos.y, pos.z), tile.Type)) direction |= Direction8D.West;
+        //if (CheckTiling(map, new Vector3Int(pos.x - 1, pos.y + 1, pos.z), tile.Type)) direction |= Direction8D.NorthWest;
+
+        return direction;
+    }
+
+    private static bool CheckTiling(this Tilemap map, Vector3Int pos, TileType type)
+    {
+        if (!map.HasTile(pos))
+        {
+            return false;
+        }
+        GrimfieldTile tile = map.GetTile<GrimfieldTile>(pos);
+        if (tile == null) return false;
+        if (tile.Type != type) return false;
+        return true;
+    }
+
     public static List<Vector3Int> GetTileRange(this Tilemap map, Vector3Int start, int range)
     {
         List<Vector3Int> list = new List<Vector3Int>();

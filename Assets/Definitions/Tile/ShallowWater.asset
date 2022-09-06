@@ -17,3 +17,24 @@ MonoBehaviour:
   description: A shallow water
   sprites:
   - {fileID: -965989552, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  tilings:
+  - Directions: 6
+    sprite: {fileID: 1193844985, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 14
+    sprite: {fileID: -882344051, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 12
+    sprite: {fileID: 2023227796, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 11
+    sprite: {fileID: 1572793990, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 13
+    sprite: {fileID: 611767743, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 3
+    sprite: {fileID: 1629374385, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 11
+    sprite: {fileID: 327145432, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 9
+    sprite: {fileID: 1676833273, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: -1
+    sprite: {fileID: -965989552, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
+  - Directions: 0
+    sprite: {fileID: -965989552, guid: 56dc7b7995f1aa246a022f929b5a481a, type: 3}
