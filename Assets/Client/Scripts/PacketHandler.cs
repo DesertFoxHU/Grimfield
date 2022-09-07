@@ -158,6 +158,7 @@ public class PacketHandler : MonoBehaviour
         if(CurrentID == NetworkManager.Instance.ClientPlayer.ClientID)
         {
             NetworkManager.Instance.IsYourTurn = true;
+            SoundManager.PlaySound(Sound.YourTurn);
         }
         else NetworkManager.Instance.IsYourTurn = true;
 
