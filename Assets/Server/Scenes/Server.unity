@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 102330750}
   - component: {fileID: 102330752}
   - component: {fileID: 102330751}
+  - component: {fileID: 102330753}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: GameMap
@@ -2477,6 +2478,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &102330753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102330749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66eb29bf6d68ce4fab5e9751f4fac68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &271445672
 PrefabInstance:
   m_ObjectHideFlags: 0

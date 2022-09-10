@@ -70,8 +70,8 @@ public abstract class AbstractBuilding
             GrimfieldTile tile = map.GetTile<GrimfieldTile>(pos);
             if (tile == null)
             {
-                tile = map.TransformToGrimfieldTile(pos);
-                map.RefreshTile(pos);
+                Debug.LogError($"Tile was not a grimfieldTile: {pos}");
+                continue;
             }
 
             if (tile.isClaimed) continue;

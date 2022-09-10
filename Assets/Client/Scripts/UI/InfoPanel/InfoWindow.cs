@@ -76,8 +76,8 @@ namespace InfoPanel
                 Vector3Int pos = (Vector3Int)obj;
                 if (!map.HasTile(pos)) return;
 
-                Tile tile = map.GetTile<Tile>(pos);
-                TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+                GrimfieldTile tile = map.GetTile<GrimfieldTile>(pos);
+                TileDefinition definition = tile.definition;
 
                 icon.sprite = tile.sprite;
                 title.text = definition.tileName;

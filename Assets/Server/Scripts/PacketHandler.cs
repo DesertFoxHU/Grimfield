@@ -113,7 +113,7 @@ namespace ServerSide
             Vector3Int pos = GameObject.FindGameObjectWithTag("GameMap").GetComponent<Tilemap>().ToVector3Int(v3Pos);
             BuildingType type = (BuildingType) Enum.Parse(typeof(BuildingType), message.GetString());
 
-            TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            TileDefinition definition = map.GetTile<GrimfieldTile>(pos).definition;
             if (definition == null)
             {
                 Debug.LogError("Definition for this position wasn't loaded!");

@@ -9,6 +9,7 @@ public class TileDefinition : ScriptableObject
     public string tileName;
     public string description;
     public Sprite[] sprites;
+    public List<NeighbourTiling> tilings;
 
     public Sprite GetRandomSprite()
     {
@@ -19,7 +20,14 @@ public class TileDefinition : ScriptableObject
 
     public int GetRandomSpriteIndex()
     {
-        if (sprites.Length == 0) return 0;
+        if (sprites.Length == 0 || sprites.Length == 1) return 0;
         else return Random.Range(0, sprites.Length);
     }
+}
+
+[System.Serializable]
+public class NeighbourTiling
+{
+    [Tooltip("What directions should have the same type as this to meet this rule?")] public Direction8D Directions;
+    public Sprite sprite;
 }

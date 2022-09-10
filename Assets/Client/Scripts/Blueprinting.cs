@@ -71,10 +71,10 @@ public class Blueprinting : MonoBehaviour
             bool canBuild = true;
 
             Vector3Int pos = map.ToVector3Int(worldPoint);
-            TileDefinition definition = DefinitionRegistry.Instance.Find(map.GetTileName(pos));
+            TileDefinition definition = map.GetTile<GrimfieldTile>(pos).definition;
             if (definition == null)
             {
-                Debug.LogError($"Definition is null for: {map.GetTileName(pos)}, mapReference: {map}");
+                Debug.LogError($"Definition is null for: {pos}, mapReference: {map}");
                 return;
             }
 

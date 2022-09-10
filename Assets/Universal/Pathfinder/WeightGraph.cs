@@ -37,10 +37,10 @@ public class WeightGraph
 
         foreach (Vector3Int v3 in map.GetTileRange(start, 1))
         {
-            TileDefinition tile = DefinitionRegistry.Instance.Find(map.GetTileName(v3));
+            TileDefinition tile = map.GetTile<GrimfieldTile>(v3).definition;
             if (tile == null)
             {
-                Debug.LogError($"No tile definition for {map.GetTileName(v3)}");
+                Debug.LogError($"No tile definition for {v3}");
             }
 
             Vector3Int matrixIndex = GetOffsetPosition(OffsetPosition, v3);
@@ -83,10 +83,10 @@ public class WeightGraph
                         continue;
                     }
 
-                    TileDefinition tile = DefinitionRegistry.Instance.Find(map.GetTileName(neighbour));
+                    TileDefinition tile = map.GetTile<GrimfieldTile>(neighbour).definition;
                     if (tile == null)
                     {
-                        Debug.LogError($"No tile definition for {map.GetTileName(neighbour)}");
+                        Debug.LogError($"No tile definition for {neighbour}");
                     }
 
                     try

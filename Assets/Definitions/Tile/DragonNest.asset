@@ -18,3 +18,4 @@ MonoBehaviour:
     it
   sprites:
   - {fileID: 21300000, guid: 21d4b4d7797c0f74bba9ce5c114677c4, type: 3}
+  tilings: []

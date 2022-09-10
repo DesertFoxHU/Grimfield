@@ -147,8 +147,13 @@ namespace ServerSide
         {
             TileDefinition definition = DefinitionRegistry.Instance.Find(type);
             int spriteIndex = definition.GetRandomSpriteIndex();
-            map.SetTileSprite(new Vector3Int(x, y, 0), definition.sprites[spriteIndex]);
+            Debug.Log($"Generated spriteIndex {spriteIndex} for {type}");
+
+            GrimfieldTile tile = map.GetOrInit(new Vector3Int(x, y, 0), definition);
+            tile.spriteIndex = spriteIndex;
             chunkManager.SetTile(x, y, type, spriteIndex);
+
+            map.RefreshTile(new Vector3Int(x, y, 0));
         }
 
         public void SendMapToAll()
