@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
 
     public void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         Instance = this;
         source = GetComponent<AudioSource>();
         foreach(SoundSerialize sound in registerSounds)
@@ -41,6 +42,7 @@ public class SoundManager : MonoBehaviour
 public enum Sound
 {
     YourTurn,
+    UniversalButtonClick,
 }
 
 [System.Serializable]
